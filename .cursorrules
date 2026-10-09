@@ -1,0 +1,23 @@
+# Course and lab authoring rules
+
+When generating, outlining, editing, or validating **slide courses** in this repository, read and strictly follow:
+
+- [.agents/skills/course-generator/SKILL.md](.agents/skills/course-generator/SKILL.md)
+- [.agents/skills/course-generator/examples/layout-templates.md](.agents/skills/course-generator/examples/layout-templates.md)
+
+When polishing **course visuals** (layouts, SVG diagrams, generated images, screenshot placeholders) after a course is drafted, read and strictly follow:
+
+- [.agents/skills/course-graphics-designer/SKILL.md](.agents/skills/course-graphics-designer/SKILL.md)
+- [.agents/skills/course-graphics-designer/examples/visual-patterns.md](.agents/skills/course-graphics-designer/examples/visual-patterns.md)
+
+When **proofreading** slide (or lab) Markdown for spelling, grammar, and house-style typography, read and strictly follow:
+
+- [.agents/skills/course-editor/SKILL.md](.agents/skills/course-editor/SKILL.md)
+- [.agents/skills/course-editor/examples/editing-patterns.md](.agents/skills/course-editor/examples/editing-patterns.md)
+
+When generating, outlining, editing, or validating **labs**, read and strictly follow:
+
+- [.agents/skills/lab-generator/SKILL.md](.agents/skills/lab-generator/SKILL.md)
+- [.agents/skills/lab-generator/examples/lab-template.md](.agents/skills/lab-generator/examples/lab-template.md)
+
+Put slide chapters and shared images under `course/`. Put each lab under `labs/lab-NN-slug/` with `lab.md` and `images/`. Preview labs at https://labv.roitraining.com/ (lab folder URL). Course lab stubs include title and time only.
