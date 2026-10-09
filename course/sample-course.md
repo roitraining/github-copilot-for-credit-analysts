@@ -83,7 +83,7 @@
 <!-- layout: navigation -->
 # Agenda: Chapter 1
 
-- **Default Content**
+- Default Content
 - Auto-Split
 - Columns and Callouts
 
@@ -108,7 +108,7 @@ This slide demonstrates the default **content** layout. When no layout directive
 # Agenda: Chapter 1
 
 - Default Content
-- **Auto-Split**
+- Auto-Split
 - Columns and Callouts
 
 ---
@@ -129,8 +129,7 @@ This slide demonstrates the default **content** layout. When no layout directive
 
 - Default Content
 - Auto-Split
-- **Columns and Callouts**
-
+- Columns and Callouts
 ---
 
 <!-- layout: 2-column -->
@@ -283,7 +282,7 @@ This slide demonstrates the default **content** layout. When no layout directive
 <!-- layout: navigation -->
 # Agenda: Chapter 2
 
-- **Cards**
+- Cards
 - Panels and Large Media
 - Code and Reference
 
@@ -334,7 +333,7 @@ This slide demonstrates the default **content** layout. When no layout directive
 # Agenda: Chapter 2
 
 - Cards
-- **Panels and Large Media**
+- Panels and Large Media
 - Code and Reference
 
 ---
@@ -394,8 +393,7 @@ Use this for section openers such as Welcome and Who Should Attend. Agenda and P
 
 - Cards
 - Panels and Large Media
-- **Code and Reference**
-
+- Code and Reference
 ---
 
 # Code Blocks and Rich Callouts
