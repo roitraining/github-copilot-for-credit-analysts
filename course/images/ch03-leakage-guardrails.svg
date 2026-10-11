@@ -1,44 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Model leakage guardrails">
-  <defs>
-    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#f5f8fb"/>
-      <stop offset="100%" stop-color="#edf4f6"/>
-    </linearGradient>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2f3d56"/>
-    </marker>
-  </defs>
-  <rect width="1600" height="900" fill="url(#bg)"/>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="140" y="320" width="240" height="220" rx="24" fill="#224d9a"/>
-    <text x="260" y="390" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Data</text>
-    <text x="260" y="430" text-anchor="middle" fill="#dfe9ff" font-size="22">raw features</text>
-    <text x="260" y="470" text-anchor="middle" fill="#dfe9ff" font-size="22">time-aware split</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Time-based leakage wall for Copilot prompts">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <line x1="100" y1="220" x2="1500" y2="220" stroke="#334155" stroke-width="8"/>
+  <circle cx="260" cy="220" r="16" fill="#1f4b99"/>
+  <circle cx="800" cy="220" r="16" fill="#b91c1c"/>
+  <circle cx="1340" cy="220" r="16" fill="#d97742"/>
+  <text x="260" y="170" text-anchor="middle" fill="#1f4b99" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Observation window</text>
+  <text x="800" y="170" text-anchor="middle" fill="#b91c1c" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Decision time</text>
+  <text x="1340" y="170" text-anchor="middle" fill="#d97742" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Label / outcome</text>
 
-    <rect x="470" y="260" width="260" height="140" rx="20" fill="#3d78b5"/>
-    <text x="600" y="325" text-anchor="middle" fill="#ffffff" font-size="26" font-weight="700">Feature policy</text>
-    <text x="600" y="360" text-anchor="middle" fill="#dfeaff" font-size="20">approved inputs only</text>
+  <rect x="788" y="250" width="24" height="300" fill="#b91c1c"/>
+  <text x="800" y="590" text-anchor="middle" fill="#991b1b" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TIME WALL</text>
 
-    <rect x="470" y="500" width="260" height="140" rx="20" fill="#1d8a9e"/>
-    <text x="600" y="565" text-anchor="middle" fill="#ffffff" font-size="26" font-weight="700">Leakage checks</text>
-    <text x="600" y="600" text-anchor="middle" fill="#d9f6f8" font-size="20">no future signal</text>
+  <rect x="120" y="280" width="580" height="220" rx="18" fill="#e8f6f2" stroke="#2d7d6f" stroke-width="4"/>
+  <text x="410" y="360" text-anchor="middle" fill="#216358" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Allowed features</text>
+  <text x="410" y="420" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="22">Only fields known at or before decision</text>
+  <text x="410" y="465" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="22">Encode this in feature-policy.md</text>
 
-    <rect x="860" y="320" width="280" height="220" rx="24" fill="#d97742"/>
-    <text x="1000" y="390" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Model</text>
-    <text x="1000" y="430" text-anchor="middle" fill="#fbe7d9" font-size="22">baseline pipeline</text>
-    <text x="1000" y="470" text-anchor="middle" fill="#fbe7d9" font-size="22">score and calibrate</text>
+  <rect x="900" y="280" width="580" height="220" rx="18" fill="#fdecec" stroke="#b91c1c" stroke-width="4"/>
+  <text x="1190" y="360" text-anchor="middle" fill="#991b1b" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Leakage risk</text>
+  <text x="1190" y="420" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="22">Future delinquency, post-decision fields</text>
+  <text x="1190" y="465" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="22">Random splits that ignore time</text>
 
-    <rect x="1210" y="320" width="250" height="220" rx="24" fill="#2d7d6f"/>
-    <text x="1335" y="390" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Review</text>
-    <text x="1335" y="430" text-anchor="middle" fill="#dff5f0" font-size="22">risk + governance</text>
-    <text x="1335" y="470" text-anchor="middle" fill="#dff5f0" font-size="22">decision evidence</text>
-
-    <path d="M380 430 H470" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M730 330 H860" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M730 570 H860" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M1140 430 H1210" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-
-    <rect x="470" y="700" width="660" height="90" rx="18" fill="#ffffff" opacity="0.9"/>
-    <text x="800" y="758" text-anchor="middle" fill="#1f2937" font-size="34" font-weight="700">Good validation starts before training, not after.</text>
-  </g>
+  <rect x="140" y="660" width="1320" height="170" rx="18" fill="#1f4b99"/>
+  <text x="800" y="735" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Copilot will not invent this wall for you</text>
+  <text x="800" y="790" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">Require: time-based split + availability policy + split-integrity tests</text>
 </svg>

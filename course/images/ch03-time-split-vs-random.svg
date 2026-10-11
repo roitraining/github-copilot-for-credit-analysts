@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Time-based split versus random split">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+
+  <text x="80" y="120" fill="#216358" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Time-based split</text>
+  <rect x="80" y="160" width="620" height="200" rx="16" fill="#2d7d6f"/>
+  <text x="390" y="275" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Train: Jan-Apr</text>
+  <rect x="740" y="160" width="360" height="200" rx="16" fill="#3a7ea1"/>
+  <text x="920" y="275" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Validate: May-Jun</text>
+  <rect x="1140" y="160" width="380" height="200" rx="16" fill="#d97742"/>
+  <text x="1330" y="275" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Holdout: Jul-Aug</text>
+  <text x="800" y="420" text-anchor="middle" fill="#216358" font-family="Arial, Helvetica, sans-serif" font-size="24">Later months never enter training</text>
+
+  <text x="80" y="520" fill="#991b1b" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Random split</text>
+  <rect x="80" y="560" width="200" height="140" rx="12" fill="#d97742"/>
+  <rect x="300" y="560" width="200" height="140" rx="12" fill="#2d7d6f"/>
+  <rect x="520" y="560" width="200" height="140" rx="12" fill="#3a7ea1"/>
+  <rect x="740" y="560" width="200" height="140" rx="12" fill="#2d7d6f"/>
+  <rect x="960" y="560" width="200" height="140" rx="12" fill="#d97742"/>
+  <rect x="1180" y="560" width="200" height="140" rx="12" fill="#3a7ea1"/>
+  <rect x="1400" y="560" width="120" height="140" rx="12" fill="#2d7d6f"/>
+  <text x="180" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Jul</text>
+  <text x="400" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Feb</text>
+  <text x="620" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">May</text>
+  <text x="840" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Jan</text>
+  <text x="1060" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Aug</text>
+  <text x="1280" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Jun</text>
+  <text x="1460" y="640" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Mar</text>
+
+  <text x="800" y="780" text-anchor="middle" fill="#991b1b" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">A July default can land in the training fold</text>
+  <text x="800" y="840" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="22">Green = train, blue = validate, orange = holdout. Random assignment ignores time.</text>
+</svg>

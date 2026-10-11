@@ -12,475 +12,254 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 4: Objectives
 
-- Configure Copilot workflows for plan-first, approval-driven execution in analytics repositories
-- Use agentic task patterns to refactor, test, and document code with bounded risk
-- Produce governance evidence that ties prompts, changes, tests, and reviewer decisions together
-- Operationalize reusable skills and instruction files for consistent team-level quality
+- Run a plan-only prompt and approve one refactor step at a time
+- Ask for pytest and assertions that protect grain and denominators
+- Package the prompt, the diff, the tests, and the decision for model-risk review
+- Draft model cards and docstrings from code, and leave unknown numbers as TODO
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 4
 
-- Agentic Workflows and Task Decomposition
-- Refactoring and Test Generation at Scale
-- Governance Evidence and Traceability
-- Documentation Automation and Handoff
+- **Plan-First Execution**
+- Tests and Assertions
+- Evidence and Documentation
 
 ---
 
-<!-- layout: stacked -->
-# Agentic Workflow Core Principle
+<!-- layout: title-image -->
+# Agentic Work Is a Gated Loop
 
-- Agentic workflows should be constrained systems, not open-ended automation
-- Every task starts with plan, scope, and acceptance criteria
-- Every execution step ends with test evidence and approval checkpoint
-
-![Governance traceability loop](images/ch04-governance-traceability.svg)
+![Plan, approve, and test loop](images/ch04-plan-approve-loop.svg)
 
 ---
 
-<!-- layout: 2-column -->
-# Plan-First Prompt Pattern
+# The Only Prompt That Starts a Multi-Step Change
 
-### Prompt
 ```text
-Plan only.
-Do not edit files yet.
+Plan only. Do not edit files yet.
 Return:
-1) step-by-step approach
-2) files to change
-3) tests to run
-4) risk notes
+- ordered steps
+- files each step may touch
+- tests to run before the next step
+- risks and assumptions
+
+Stop. Wait for approval of step 1.
 ```
-
-### Why It Works
-- Creates shared expectations
-- Surfaces risky assumptions early
-- Makes approval explicit
-
----
-
-# Approval-Driven Execution Prompt
 
 ```text
-Approved: execute Step 1 only.
-Constraints:
-- Edit only listed files.
-- Preserve business logic.
-- Run targeted tests.
-- Return diff summary and test results.
-Stop and wait for approval.
+Approved: execute step 1 only.
+Edit the listed files, preserve metric definitions, run the targeted tests, stop.
 ```
 
----
-
-<!-- layout: 3-column -->
-# Task Decomposition by Change Type
-
-### Bug Fix
-- Reproduce
-- Isolate root cause
-- Add regression test
-
-### Refactor
-- Plan extraction steps
-- Preserve behavior
-- Verify parity
-
-### Enhancement
-- Define acceptance criteria
-- Implement incrementally
-- Validate against baseline
+> [!WARNING]
+> “Improve the monitoring package” is not a plan. If the reply has no file list, do not approve it.
 
 ---
 
 <!-- layout: 2-column -->
-# Good vs Weak Agentic Tasks
+# Approve the Task or Send It Back
 
-### Good
+### Approve
 - Named files
-- Explicit quality gates
-- Bounded scope
-- Clear stop points
+- A behavior you can test, such as “output grain stays month by risk_band”
+- A stop after this batch
 
-### Weak
-- “Improve everything”
-- No acceptance criteria
-- No test requirements
-- No approval checkpoints
+### Send back
+- “Clean up everything”
+- No acceptance test
+- Extra files you did not list
+- A style rewrite bundled with a formula change
+
+---
+
+# What “Preserve the Metric” Means
+
+```python
+# Before and after the refactor, this contract stays true:
+# grain = perf_month x risk_band
+# denominator = accounts where status != "charged_off"
+# rate is in [0, 1]
+def rollup_delinquency(frame):
+    ...
+```
+
+- A refactor may move helpers. It may not change who is in the denominator
+- Ask for a test that locks the grain and the exclusion before you approve the next batch
+
+---
+
+# Read This Before You Approve Step 2
+
+- The diff touches only the files in step 1
+- Targeted pytest output is in the reply, not a promise to run tests later
+- Metric definitions are listed as unchanged
+- New risks are explicit. “No issues” with no evidence is a fail
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 4
 
-- Agentic Workflows and Task Decomposition
-- Refactoring and Test Generation at Scale
-- Governance Evidence and Traceability
-- Documentation Automation and Handoff
-
----
-
-# Refactoring at Scale with Copilot
-
-- Scale comes from repeatable prompts and guardrails, not larger one-shot prompts
-- Use the same plan and approval templates across teams
-- Keep refactor batches small enough to review quickly
-
----
-
-<!-- layout: 2-column -->
-# Refactor Batch Template
-
-### Scope Block
-- Target files
-- Preserved behaviors
-- Excluded areas
-
-### Verification Block
-- Tests to run
-- Benchmarks to compare
-- Regression criteria
-
----
-
-# Refactor Prompt Example
-
-```text
-Refactor batch 2 of 4.
-Scope:
-- src/monitoring/risk_rollup.py
-- src/monitoring/shared_utils.py
-Preserve:
-- output schema and metric definitions
-
-Actions:
-- Extract duplicated logic into helper functions.
-- Add unit tests for helper edge cases.
-- Keep API signatures unchanged.
-
-Return:
-- File-by-file summary
-- Test outcomes
-- Remaining risks
-```
+- Plan-First Execution
+- **Tests and Assertions**
+- Evidence and Documentation
 
 ---
 
 <!-- layout: 3-column -->
-# Test Generation Prompt Families
+# Tests Worth Asking For
 
-### Unit Tests
-- Core function behavior
-- Null and boundary handling
-- Error-path checks
+### Unit
+- Empty frame, duplicate keys, null `exposure_amount`
+- Charged-off accounts out of the denominator
+- Fixtures are synthetic. No warehouse extract in the test file
 
-### Regression Tests
-- Known bug reproductions
-- Fix verification
-- Non-regression assertions
+### Regression
+- A past bug, written as a test that failed before the fix
+- The fix stays narrow enough that this test still names the bug
 
-### Contract Tests
-- Input schema compliance
-- Output schema stability
-- Backward compatibility
+### Contract
+- Required input columns
+- Output grain and column names
+- A rate outside `[0, 1]` fails loudly
 
 ---
 
 <!-- layout: 2-column -->
-# Test Coverage Upgrade Prompt
+# Fixtures You Can Read
 
-### Prompt
-```text
-Analyze existing tests and add missing coverage for:
-- denominator edge cases
-- segment sparsity behavior
-- invalid date-window inputs
-Do not rewrite existing passing tests.
-```
+### Use
+- A handful of synthetic rows
+- One charged-off account, one null exposure, one duplicate key
+- Values small enough to compute the expected rate by hand
 
-### Review Questions
-- Are new tests meaningful?
-- Do tests fail before fix and pass after?
-- Are brittle assertions avoided?
+### Do not use
+- A production extract pasted into the test
+- A mock that skips the denominator so the test cannot fail
+- Random rows with no expected value
 
 ---
 
-# Assertion Injection Prompt
-
-- Use Copilot to add defensive assertions for analytics-critical invariants
-- Assertions should fail loudly and explain clearly
+# Pytest Prompt
 
 ```text
-Add assertions to verify:
-- required columns exist
-- no negative exposure values
-- unique keys at output grain
-Raise informative errors with actionable messages.
+Create tests/test_risk_rollup.py with pytest and synthetic fixtures.
+Cover:
+- month by risk_band grain
+- empty frame
+- duplicate keys at the output grain
+- null exposure_amount
+- charged-off accounts excluded from the denominator
+No network calls.
+If a test shows a production bug, stop and describe it. Do not patch production in this turn.
 ```
+
+---
+
+<!-- layout: 2-column -->
+# Put the Assertion Next to the Rate
+
+### Unguarded
+```python
+return frame["dlq_30"].mean()
+```
+- Charged-off rows stay in the denominator
+- An empty slice returns NaN and keeps going
+
+### Guarded
+```python
+active = frame.loc[frame["status"] != "charged_off"]
+if active.empty:
+    raise ValueError("denominator is empty")
+rate = float(active["dlq_30"].mean())
+if not 0.0 <= rate <= 1.0:
+    raise ValueError(f"rate out of range: {rate}")
+```
+- Ask Copilot to place each check beside the calculation
+- A sentence in a docstring does not protect the metric
+
+---
+
+# A Red Test Stops the Agent
+
+- Read the failure. Decide if the test or the code is wrong
+- If the code is wrong, approve a minimal fix in a new step
+- Do not let the same turn “make the tests pass” by weakening the assertion
+- Chapter 1’s `/fix` habit still applies: paste the failure, demand a small diff
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 4
 
-- Agentic Workflows and Task Decomposition
-- Refactoring and Test Generation at Scale
-- Governance Evidence and Traceability
-- Documentation Automation and Handoff
+- Plan-First Execution
+- Tests and Assertions
+- **Evidence and Documentation**
 
 ---
 
-# Governance Evidence: Required Artifacts
+<!-- layout: title-image -->
+# What Model Risk Needs to See
 
-- Approval decisions must be backed by reproducible evidence
-- Prompt used
-- Context files referenced
-- Code diff summary
-- Test and benchmark outcomes
-- Reviewer decision and rationale
+![Prompt, diff, tests, and decision](images/ch04-mrm-evidence-chain.svg)
+
+---
+
+# A Package, Not a Longer Pull Request
+
+| Piece | Example a reviewer can check |
+| :--- | :--- |
+| Prompt | 2026-04-02 plan prompt, files named, “do not edit yet” |
+| Diff | `risk_rollup.py` and `test_risk_rollup.py` only |
+| Tests | `pytest tests/test_risk_rollup.py` → 5 passed |
+| Decision | Grain unchanged. Residual risk: prior-quarter stability not rerun. Not approved for cutoff use |
+
+- If any cell is “see chat,” the package is incomplete
+- The decision states what was not done. It does not say “validated” by default
 
 ---
 
 <!-- layout: 2-column -->
-# Governance Mapping: Website and Repository
+# Model Card: Cite or Mark TODO
 
-### GitHub Surface
-- Organization and enterprise enablement decisions
-- Policy and access context for Copilot usage
-- Central governance communication to teams
+### Cite from code or test output
+- Intended use, in your words, matched to the label in code
+- Feature list actually read by the pipeline
+- Metrics printed by the validation tests
+- Links to those tests
 
-### Repository Surface
-- `.github/copilot-instructions.md` rules
-- `AGENTS.md` operating constraints
-- Pull request evidence and approval records
+### Mark TODO
+- Any AUC, KS, or cutoff you did not run
+- Limitations you have not reviewed
+- Population differences the code does not show
+
+> [!IMPORTANT]
+> Unknown is a TODO. A fluent number with no run behind it is a finding, not a documentation win.
 
 ---
 
-# What to Verify Before Team Rollout
-
-- Confirm policy and workflow alignment before scaling usage
-- Team can explain where policy is defined and where implementation is enforced
-- Reviewers can trace generated changes back to prompt intent and approval outcomes
+# Docstrings Without a Behavior Change
 
 ```text
-Rollout gate:
-1) Access and policy confirmed
-2) Repository instructions active
-3) Approval checklist adopted
-4) Evidence template in use
+Add docstrings to #file src/monitoring/risk_rollup.py.
+Cover grain, denominator rules, and failure modes.
+Do not change runtime behavior.
+List anything you could not resolve from the code.
 ```
 
----
-
-<!-- layout: 2-column -->
-# Evidence Capture Template
-
-### Development Evidence
-- Prompt version identifier
-- Planned scope versus actual scope
-- Assumptions and open questions
-
-### Validation Evidence
-- Test command and results
-- Coverage delta
-- Benchmark reconciliation summary
+- If the reply edits a formula, reject it and resend with “docstrings only”
+- Ambiguities belong in the list, not in a guessed sentence
 
 ---
 
-<!-- layout: 3-column -->
-# Traceability by Audience
+# The Card Drifts When the Code Moves
 
-### Engineer
-- What changed
-- Why it changed
-- How it was tested
-
-### Reviewer
-- Risk summary
-- Unresolved assumptions
-- Approval recommendation
-
-### Auditor
-- Evidence chain completeness
-- Reproducibility status
-- Governance sign-offs
-
----
-
-# Pull Request Governance Prompt
-
-```text
-Draft a pull request governance summary with:
-- scope of change
-- assumptions made
-- test evidence
-- benchmark comparison
-- residual risks
-- approval recommendation
-```
-
----
-
-<!-- layout: 2-column -->
-# Risk-Rating Prompt for Review
-
-### Prompt
-```text
-Review this change and classify risk as low, medium, or high.
-Use:
-- business logic impact
-- test coverage quality
-- scope breadth
-- rollback complexity
-Provide rationale in 5 bullets.
-```
-
-### Use Case
-- Standardizes reviewer language
-- Speeds triage for busy leads
-- Improves consistency across teams
-
----
-
-<!-- layout: navigation -->
-# Chapter 4
-
-- Agentic Workflows and Task Decomposition
-- Refactoring and Test Generation at Scale
-- Governance Evidence and Traceability
-- Documentation Automation and Handoff
----
-
-# Documentation Automation: Practical Pattern
-
-- Copilot drafts first versions, humans own final accuracy
-- Use structured templates for predictable documentation outputs
-- Link narrative statements to code and validation artifacts
-
----
-
-<!-- layout: 2-column -->
-# Documentation Prompt Template
-
-### Request
-```text
-Generate a technical summary document with:
-- purpose
-- inputs and outputs
-- key assumptions
-- validation results
-- limitations and follow-up actions
-```
-
-### Constraints
-- Cite source files
-- Reference metric tables
-- Avoid claims not supported by evidence
-
----
-
-<!-- layout: card-layout -->
-# Documentation Pack for Handoff
-
-### Technical Summary
-- Architecture, dependencies, interfaces, and operational behavior.
-
-### Validation Summary
-- Metrics, thresholds, outcomes, and caveats.
-
-### Governance Summary
-- Prompt lineage, review decisions, and residual risk notes.
-
-### Runbook Notes
-- Execution steps, monitoring points, and recovery actions.
-
----
-
-# Skill-Driven Standardization
-
-- Skills operationalize proven workflows into reusable assets
-- Capture successful plan and approval patterns as skills
-- Train teams to invoke skills before ad-hoc prompting
-
----
-
-<!-- layout: 2-column -->
-# Build a Team Skill in This Repository
-
-### Folder Structure
-```text
-.agents/skills/model-review-gate/
-  SKILL.md
-  examples/
-    approval-prompt.md
-```
-
-### SKILL.md Should Define
-- When to use
-- Required inputs
-- Output format
-- Quality gates and failure modes
-
----
-
-<!-- layout: 3-column -->
-# Skill Lifecycle Management
-
-### Create
-- Start from one recurring workflow
-- Define measurable outputs
-- Pilot with one team
-
-### Evaluate
-- Track rework reduction
-- Collect reviewer feedback
-- Score output reliability
-
-### Evolve
-- Version updates in git
-- Retire weak patterns
-- Publish release notes
-
----
-
-# Configuration Files That Shape Behavior
-
-- Copilot behavior becomes predictable when repository guidance is explicit
-- `.github/copilot-instructions.md`: coding and review expectations
-- `AGENTS.md`: cross-agent operating guidance in the repository
-- `.agents/skills/*`: reusable skill playbooks and templates
-
----
-
-<!-- layout: 2-column -->
-# Specialized Agents and MCP in Governance
-
-### Specialized Agents
-- Model review agents validate assumptions and governance checks
-- Refactor agents handle narrow implementation tasks
-- Documentation agents package evidence for handoff and review
-
-### MCP and External Context
-- MCP enables tool-based access to repo context, data checks, and supporting systems
-- Keep each agent scoped to the task, not to the entire engineering org
-- Pair tool access with explicit review gates and approval requirements
-
----
-
-<!-- layout: 2-column -->
-# Team Rollout Sequence
-
-### Week 1 to 2
-- Standardize instruction files
-- Launch two high-value skills
-- Train reviewers on approval prompts
-
-### Week 3 to 6
-- Scale to additional squads
-- Monitor quality metrics
-- Tune prompts and skills from findings
+- Regenerate the card from the current files after a metric or feature change
+- Diff the card the way you diff the code
+- A card that still describes last quarter’s features is worse than a short TODO
+- Tests stay the source for numbers. The card only quotes them
 
 ---
 
@@ -493,67 +272,56 @@ Generate a technical summary document with:
 
 # What You Learned
 
-- Configured Copilot workflows for plan-first, approval-driven execution in analytics repositories
-- Used agentic task patterns to refactor, test, and document code with bounded risk
-- Produced governance evidence that ties prompts, changes, tests, and reviewer decisions together
-- Operationalized reusable skills and instruction files for consistent team-level quality
-
----
-
-<!-- layout: navigation -->
-# Chapter 4 Knowledge Check
-
-- Quiz 1
-- Quiz 2
-- Quiz 3 Discussion
+- Ran a plan-only prompt and approved one refactor step at a time
+- Asked for pytest and assertions that protect grain and denominators
+- Packaged the prompt, the diff, the tests, and the decision for model-risk review
+- Drafted model cards and docstrings from code, and left unknown numbers as TODO
 
 ---
 
 # Quiz 1 of 3
 
-Which practice best controls risk in agentic Copilot workflows?
+**Which practice actually controls risk when Copilot is editing multiple files?**
 
-- A. Run one broad prompt and review afterward
-- B. Use plan-only prompt, stepwise approvals, and test gates between steps
-- C. Skip tests if changes look small
-- D. Approve based on cleaner code style
+- A. One broad prompt, then a careful read at the end
+- B. A plan with no edits, approval of one step, and tests before the next step
+- C. Skip tests when the change “looks small”
+- D. Approve because the new names are clearer
 
 ---
 
 # Quiz 1: Answer
 
-Which practice best controls risk in agentic Copilot workflows?
+**Which practice actually controls risk when Copilot is editing multiple files?**
 
-**Correct: B.** Plan-first and approval gates make automation reviewable and safer.
+**Correct: B.** The gate is the plan, the single-step approval, and the test evidence.
 
-- Scope stays bounded
-- Risks are surfaced early
-- Evidence is captured at each step
+- Reviewing a wide diff at the end is how metric changes hide inside renames
+- Small-looking edits are how denominators move
+- Clearer names are not an acceptance test
 
 ---
 
 # Quiz 2 of 3
 
-What is the most important purpose of a governance evidence package?
+**What is an MRM evidence package for AI-assisted code for?**
 
-- A. Make pull requests longer
-- B. Replace all human code review
-- C. Connect prompt intent, code change, validation results, and approval decision
-- D. Hide implementation details from auditors
+- A. A longer pull request description
+- B. A replacement for human review
+- C. A trace from the prompt, to the diff, to the test result, to an explicit decision
+- D. A way to keep implementation detail out of the review
 
 ---
 
-<!-- layout: 2-column -->
 # Quiz 2: Answer
 
-### Correct Choice
-- **C.** Connect prompt intent, code change, validation results, and approval decision.
-- This creates a complete traceable record.
+**What is an MRM evidence package for AI-assisted code for?**
 
-### Why It Works
-- Supports reviewer confidence
-- Supports audit readiness
-- Improves reproducibility of outcomes
+**Correct: C.** The package lets a reviewer see intent, change, proof, and what is still open.
+
+- Length does not create traceability
+- The package supports human review. It does not replace it
+- Hiding the diff is the opposite of the point
 
 ---
 
@@ -561,29 +329,30 @@ What is the most important purpose of a governance evidence package?
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-- Your team has solid prompt templates but inconsistent approval quality.
-- What process changes would you implement first?
+Copilot drafted a model card and a pytest suite. The metrics section is still TODO, and one docstring mentions an AUC that is not in the test output.
 
 ### Discuss
-- Which approval checklist items are mandatory?
-- How should reviewer decisions be documented?
-- Which metrics indicate approval quality improvement?
+- What does a human have to finish before this goes to model risk?
+- Which tests need to be green first?
+- How do you keep the card from drifting away from the code?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
+**Copilot drafted a model card and a pytest suite. The metrics section is still TODO, and one docstring mentions an AUC that is not in the test output.**
+
 ### Strong Answers Mention
-- Standard approval checklist and evidence template
-- Required test and benchmark summaries
-- Explicit residual-risk statement in pull request
-- Reviewer calibration sessions across teams
+- Humans fill intended use, limitations, and any real metrics from a run
+- Split, denominator, and schema tests green before handoff
+- Delete the invented AUC. TODO is acceptable. A fake number is not
+- Regenerate or diff the card when features or metrics change
 
 ### Watch For
-- Approval based on style or speed only
-- Missing linkage between prompts and outcomes
-- No owner for skills and instruction updates
+- Shipping TODOs as if they were results
+- Leaving an unsourced AUC in a docstring because it “reads well”
+- A card with no link to the tests
 
 ---
 

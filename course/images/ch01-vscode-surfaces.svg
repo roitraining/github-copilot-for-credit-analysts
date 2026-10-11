@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="VS Code Copilot surfaces Inline Chat Agent">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="60" y="60" width="460" height="780" rx="24" fill="#1f4b99"/>
+  <text x="290" y="150" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Inline</text>
+  <text x="290" y="210" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">Ghost text in the editor</text>
+  <rect x="100" y="270" width="380" height="200" rx="16" fill="#163a78"/>
+  <text x="290" y="340" text-anchor="middle" fill="#9ec0ff" font-family="Arial, Helvetica, sans-serif" font-size="22">Best for</text>
+  <text x="290" y="390" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26">local boilerplate</text>
+  <text x="290" y="435" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26">small known edits</text>
+  <text x="290" y="560" text-anchor="middle" fill="#b8c9ef" font-family="Arial, Helvetica, sans-serif" font-size="24">Accept line by line</text>
+  <text x="290" y="620" text-anchor="middle" fill="#b8c9ef" font-family="Arial, Helvetica, sans-serif" font-size="24">Reject when unsure</text>
+  <text x="290" y="740" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Low blast radius</text>
+
+  <rect x="570" y="60" width="460" height="780" rx="24" fill="#3a7ea1"/>
+  <text x="800" y="150" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Chat</text>
+  <text x="800" y="210" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="24">Questions, slash cmds, #file</text>
+  <rect x="610" y="270" width="380" height="200" rx="16" fill="#2b6280"/>
+  <text x="800" y="340" text-anchor="middle" fill="#9fd8f0" font-family="Arial, Helvetica, sans-serif" font-size="22">Best for</text>
+  <text x="800" y="390" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26">structured generation</text>
+  <text x="800" y="435" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26">/explain /tests /fix</text>
+  <text x="800" y="560" text-anchor="middle" fill="#c5e8f5" font-family="Arial, Helvetica, sans-serif" font-size="24">Attach exact context</text>
+  <text x="800" y="620" text-anchor="middle" fill="#c5e8f5" font-family="Arial, Helvetica, sans-serif" font-size="24">Iterate surgically</text>
+  <text x="800" y="740" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Daily workhorse</text>
+
+  <rect x="1080" y="60" width="460" height="780" rx="24" fill="#2d7d6f"/>
+  <text x="1310" y="150" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Agent</text>
+  <text x="1310" y="210" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="24">Multi-step with gates</text>
+  <rect x="1120" y="270" width="380" height="200" rx="16" fill="#216358"/>
+  <text x="1310" y="340" text-anchor="middle" fill="#9ee0d2" font-family="Arial, Helvetica, sans-serif" font-size="22">Best for</text>
+  <text x="1310" y="390" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26">bounded refactors</text>
+  <text x="1310" y="435" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26">plan then execute</text>
+  <text x="1310" y="560" text-anchor="middle" fill="#b7e4db" font-family="Arial, Helvetica, sans-serif" font-size="24">Approve each batch</text>
+  <text x="1310" y="620" text-anchor="middle" fill="#b7e4db" font-family="Arial, Helvetica, sans-serif" font-size="24">Require test evidence</text>
+  <text x="1310" y="740" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Higher control needed</text>
+</svg>

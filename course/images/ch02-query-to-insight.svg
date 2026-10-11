@@ -1,36 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="From query to insight">
-  <defs>
-    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#f6f9fd"/>
-      <stop offset="100%" stop-color="#edf4f7"/>
-    </linearGradient>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2f3d56"/>
-    </marker>
-  </defs>
-  <rect width="1600" height="900" fill="url(#bg)"/>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="120" y="360" width="220" height="160" rx="22" fill="#224d9a"/>
-    <text x="230" y="420" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="700">Question</text>
-    <text x="230" y="465" text-anchor="middle" fill="#dfe9ff" font-size="20">portfolio problem</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="From business question to chart insight">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="60" y="100" width="350" height="600" rx="20" fill="#1f4b99"/>
+  <text x="235" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Question</text>
+  <text x="235" y="330" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">Which risk bands</text>
+  <text x="235" y="380" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">drove the rise in</text>
+  <text x="235" y="430" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">30-day delinquency?</text>
+  <text x="235" y="560" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Decision-shaped</text>
 
-    <rect x="430" y="360" width="220" height="160" rx="22" fill="#3d78b5"/>
-    <text x="540" y="420" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="700">Context</text>
-    <text x="540" y="465" text-anchor="middle" fill="#dfeaff" font-size="20">schema + metric rules</text>
+  <rect x="450" y="100" width="350" height="600" rx="20" fill="#3a7ea1"/>
+  <text x="625" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Contract</text>
+  <text x="625" y="330" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">grain = month x band</text>
+  <text x="625" y="380" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">denominator rules</text>
+  <text x="625" y="430" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">metric definition file</text>
+  <text x="625" y="560" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Bind before plotting</text>
 
-    <rect x="740" y="360" width="220" height="160" rx="22" fill="#1d8a9e"/>
-    <text x="850" y="420" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="700">Analysis</text>
-    <text x="850" y="465" text-anchor="middle" fill="#d9f6f8" font-size="20">SQL + Python</text>
+  <rect x="840" y="100" width="350" height="600" rx="20" fill="#d97742"/>
+  <text x="1015" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Plot prompt</text>
+  <text x="1015" y="330" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">matplotlib / seaborn</text>
+  <text x="1015" y="380" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">axis + legend rules</text>
+  <text x="1015" y="430" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">interpretation bullets</text>
+  <text x="1015" y="560" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Then visual QA</text>
 
-    <rect x="1050" y="360" width="220" height="160" rx="22" fill="#d97742"/>
-    <text x="1160" y="420" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="700">Insight</text>
-    <text x="1160" y="465" text-anchor="middle" fill="#fbe7d9" font-size="20">chart + explanation</text>
+  <rect x="1230" y="100" width="310" height="600" rx="20" fill="#2d7d6f"/>
+  <text x="1385" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Insight</text>
+  <text x="1385" y="330" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">defensible claim</text>
+  <text x="1385" y="380" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">hypotheses next</text>
+  <text x="1385" y="430" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">checks to run</text>
+  <text x="1385" y="560" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Not decoration</text>
 
-    <path d="M340 440 H430" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M650 440 H740" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M960 440 H1050" stroke="#2f3d56" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-
-    <rect x="410" y="620" width="780" height="120" rx="20" fill="#ffffff" opacity="0.9"/>
-    <text x="800" y="676" text-anchor="middle" fill="#1f2937" font-size="34" font-weight="700">The best analytics prompt is specific enough to validate.</text>
-  </g>
+  <text x="800" y="820" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">If the question is fuzzy, Copilot will draw a confident wrong chart</text>
 </svg>

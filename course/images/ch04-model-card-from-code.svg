@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Model card generated from code and tests">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="80" y="80" width="540" height="640" rx="20" fill="#1f4b99"/>
+  <text x="350" y="180" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Source inputs</text>
+  <text x="350" y="300" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">baseline_pipeline.py</text>
+  <text x="350" y="370" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">test_validation.py</text>
+  <text x="350" y="440" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">model-objective.md</text>
+  <text x="350" y="540" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22">Attach with #file</text>
+  <text x="350" y="620" text-anchor="middle" fill="#b8c9ef" font-family="Arial, Helvetica, sans-serif" font-size="20">Known facts only</text>
+
+  <path d="M640 400 H760" stroke="#334155" stroke-width="12" fill="none"/>
+  <polygon points="780,400 750,375 750,425" fill="#334155"/>
+  <text x="710" y="360" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="18">Copilot draft</text>
+
+  <rect x="800" y="80" width="720" height="640" rx="20" fill="#ffffff" stroke="#2d7d6f" stroke-width="5"/>
+  <text x="1160" y="180" text-anchor="middle" fill="#216358" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Model card sections</text>
+  <text x="1160" y="290" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24">intended use</text>
+  <text x="1160" y="360" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24">data and features</text>
+  <text x="1160" y="430" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24">metrics and evaluation</text>
+  <text x="1160" y="500" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24">limitations and residual risk</text>
+  <text x="1160" y="570" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24">links to tests</text>
+  <text x="1160" y="660" text-anchor="middle" fill="#b91c1c" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Mark unknowns as TODO for humans</text>
+</svg>

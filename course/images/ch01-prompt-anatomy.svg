@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-label="Prompt anatomy five parts">
+  <rect width="900" height="900" fill="#f5f7fb"/>
+  <circle cx="450" cy="420" r="340" fill="#dbe7f8"/>
+  <circle cx="450" cy="420" r="270" fill="#c5d8f2"/>
+  <circle cx="450" cy="420" r="200" fill="#9bb8e3"/>
+  <circle cx="450" cy="420" r="130" fill="#5a86c7"/>
+  <circle cx="450" cy="420" r="65" fill="#1f4b99"/>
+  <text x="450" y="430" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Intent</text>
+  <text x="450" y="310" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Context</text>
+  <text x="450" y="240" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Constraints</text>
+  <text x="450" y="165" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Output</text>
+  <text x="450" y="100" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Checks</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#334155">
+    <text x="60" y="800">Intent: business job</text>
+    <text x="60" y="835">Context: #file / schema</text>
+    <text x="320" y="800">Constraints: policy and scope</text>
+    <text x="320" y="835">Output: where code lands</text>
+    <text x="620" y="800">Checks: tests and</text>
+    <text x="620" y="835">acceptance criteria</text>
+  </g>
+</svg>

@@ -12,453 +12,292 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 2: Objectives
 
-- Use Copilot to generate profiling, SQL, and visualization workflows from explicit business requirements
-- Apply file-scoped prompting patterns that produce reliable analytics outputs with less rework
-- Translate natural language credit questions into validated SQL and Python analysis artifacts
-- Build a repeatable verification and approval workflow for AI-generated analytics code
+- Prompt Copilot for portfolio profiling and revise only the logic that failed
+- Ask for charts and hypothesis rows that name a signal and a check
+- Require a SQL validation query beside every metric query
+- Translate SAS one block at a time, and block features that are not known at decision time
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 2
 
-- Data Profiling Prompts and Workflows
-- Visual Analytics and Hypothesis Development
-- SQL and Legacy Script Translation
-- Quality Checks for Generated Analytics Code
+- **Profiling and Charts**
+- SQL and SAS Translation
+- Features and Quality Checks
 
 ---
 
-# What “In Depth” Means in This Chapter
+# One Question for This Chapter
 
-- You will run concrete Copilot workflows, not generic prompting theory
-- Each workflow includes file scope, prompt template, validation steps, and approval gates
-- Every generated artifact is treated as draft code until checks pass
+- Which risk bands drove the quarter’s rise in 30-day delinquency?
+- Grain is account-month, rolled to month by `risk_band`
+- Denominator excludes charged-off accounts
+- Copilot may draft the code. You still own the grain and the denominator
 
----
-
-<!-- layout: stacked -->
-# Data Profiling Workflow: Standard Operating Procedure
-
-- Use this 6-step sequence every time you profile a new portfolio dataset
-- Step 1: Clarify business questions and required segmentation
-- Step 2: Prepare schema context files and metric definitions
-- Step 3: Prompt Copilot for profiling module and tests
-- Step 4: Execute and inspect profiling outputs
-- Step 5: Prompt targeted refinements
-- Step 6: Approve and package reusable functions
-
-![Profiling workflow](images/ch02-analytics-loop.svg)
+> [!NOTE]
+> Use the Chapter 1 prompt shape: named files, constraints, tests, and a stop. This chapter changes the analytics task, not the habit.
 
 ---
 
-<!-- layout: 2-column -->
-# File-Scoped Profiling Prompt Pattern
+<!-- layout: 3-column -->
+# Profile These Before You Chart
 
-### Context Files to Include
-- `#file docs/schema-dictionary.md`
-- `#file docs/metric-definitions.md`
-- `#file src/eda/portfolio_profile.py`
-- `#file tests/test_portfolio_profile.py`
+### Nulls
+- Null rate by column and by `risk_band`
+- A band that is suddenly half-null is not a risk story
 
-### Required Output Controls
-- Edit only named files
-- Return summary of assumptions
-- Add tests for null-heavy segments
-- Stop and wait for approval
+### Shape
+- Percentiles for utilization and balance
+- `delinquency_days` above 365 is a data defect until proven otherwise
+
+### Grain
+- Duplicate account-month keys
+- Row counts by month before any rate
 
 ---
 
-# Production-Grade Profiling Prompt
+# Profiling Prompt
 
 ```text
-Task: Build a profiling module for monthly credit portfolio monitoring.
+Task: Build profiling helpers for a monthly portfolio DataFrame.
 Use:
-- #file docs/schema-dictionary.md
-- #file docs/metric-definitions.md
 - #file src/eda/portfolio_profile.py
 - #file tests/test_portfolio_profile.py
-
-Requirements:
-- Null-rate by column and by segment.
-- Percentile summary for utilization and balance.
-- Outlier detection for delinquency_days and exposure_amount.
-- Data quality flags table with severity levels.
-- Add pytest tests for empty DataFrame and missing required columns.
-
-Constraints:
-- Use vectorized pandas operations.
-- Keep function signatures stable.
-- Edit only the two target files.
+Require:
+- Null rate by column and by risk_band
+- Percentiles for utilization and balance
+- A flag when delinquency_days is above 365
+- pytest for an empty frame and a missing risk_band
+Edit only those two files.
+If a column meaning is unclear, list assumptions and do not invent columns.
 ```
-
----
-
-<!-- layout: 3-column -->
-# Prompt Inputs That Improve Quality
-
-### Business Context
-- Portfolio definition
-- Time window rules
-- Segment hierarchy
-
-### Technical Context
-- Data types
-- Null semantics
-- Expected output grain
-
-### Validation Context
-- Required tests
-- Baseline benchmarks
-- Acceptance thresholds
 
 ---
 
 <!-- layout: 2-column -->
-# First-Pass Output Review Checklist
+# First Draft vs the Revision You Send Back
 
-### Code Review
-- Function boundaries are clear
-- No hidden type coercion
-- Null logic is explicit
-- Output columns match contract
+### What the draft often gets wrong
+- `utilization` nulls in `new_to_credit` become zeros
+- `delinquency_days` of 9999 stays in the percentile table
+- Tests cover only a clean frame
 
-### Business Review
-- Definitions match metric guide
-- Segment logic is complete
-- Outlier rules are explainable
-- Severity labels are actionable
+### Revision prompt
+- “Keep the functions that already match the tests.”
+- “Treat `new_to_credit` utilization nulls as missing, not zero.”
+- “Cap the outlier flag at 365 days and add one mixed-null test.”
+- “Do not rewrite unaffected functions.”
 
 ---
 
-# Iteration Prompt: Fix Only What Failed
+<!-- layout: 3-column -->
+# A Chart Answers One Question
 
-- When output is partially correct, request surgical revisions
-- Preserve correct logic and target only failing behaviors
+### Rate chart
+- Level of 30-day delinquency by band this month
+- Does not show what moved
 
-```text
-Revise only these issues:
-1) Null handling in utilization percentiles for segment="new_to_credit".
-2) Outlier threshold for delinquency_days should cap at 365.
-3) Add one test for mixed missing and non-missing rows.
-Do not rewrite unaffected functions.
-```
+### Change chart
+- Month-over-month basis-point change by band
+- Does not show whether the level is high
+
+### Still not a cause
+- Neither chart explains why a band moved
+- Volume has to sit beside the rate or mix shift will fool you
+
+---
+
+# Hypothesis Row You Can Defend
+
+| Hypothesis | Signal you have | Check before you believe it | Priority |
+| :--- | :--- | :--- | :--- |
+| Near-prime drove the rise | Rate up about 40 bp, volume stable | Duplicate keys and null `risk_band` | High |
+| Mix shift, not worse risk | More accounts in worse bands | Recompute the rate holding mix fixed | Medium |
+
+- Reject a row whose “signal” is a story (“the economy”) and whose check is “review later”
+- Cap the table at five rows. Copilot will pad a longer list with guesses
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 2
 
-- Data Profiling Prompts and Workflows
-- Visual Analytics and Hypothesis Development
-- SQL and Legacy Script Translation
-- Quality Checks for Generated Analytics Code
+- Profiling and Charts
+- **SQL and SAS Translation**
+- Features and Quality Checks
 
 ---
 
-# Visual Analytics Workflow with Copilot
+<!-- layout: title-image -->
+# Every Metric Query Needs a Twin
 
-- Prompt for decision-support charts, not decorative plots
-- Define the business claim each chart should test
-- Require axis, denominator, and segment ordering clarity
-
----
-
-<!-- layout: stacked -->
-# From Question to Insight
-
-- Start with a clear decision question
-- Bind the analysis to schema and metric rules
-- Turn the output into a defensible business insight
-
-![Query to insight loop](images/ch02-query-to-insight.svg)
+![Main query plus validation query](images/ch02-sql-validation-pair.svg)
 
 ---
 
-<!-- layout: 2-column -->
-# Chart Request Template
+# The Bug the Twin Is There to Catch
 
-### Ask for
-- Chart question and expected signal
-- Exact measures and dimensions
-- Formatting standards
-- “How to interpret” notes
-
-### Prevent
-- Implicit denominator changes
-- Mixed units on one axis
-- Inconsistent segment ordering
-- Unlabeled filters
-
----
-
-# Example: Trend Analysis Prompt
-
-```text
-Create two matplotlib charts for delinquency monitoring.
-Chart 1:
-- Monthly 30-day delinquency rate by risk_band.
-- Percent y-axis, common scale, ordered legend.
-Chart 2:
-- Month-over-month basis-point change by risk_band.
-
-Add chart annotations for major inflection points.
-Include a 4-bullet interpretation summary.
+```sql
+-- Looks finished. Charged-off accounts are still in the denominator.
+select risk_band,
+       avg(case when dpd >= 30 then 1.0 else 0.0 end) as dlq_30_rate
+from perf
+group by risk_band;
 ```
 
----
-
-<!-- layout: 2-column -->
-# Visual QA Prompt for Copilot
-
-### Validation Prompt
-```text
-Review this plotting code for analytical risks:
-- denominator mismatch
-- missing segment filters
-- misleading axis scaling
-- unstable color mapping
-Propose minimal fixes only.
+```sql
+-- Companion: one row per account-month, or the rate is not a rate.
+select acct_id, perf_month, count(*) as n
+from perf
+group by acct_id, perf_month
+having count(*) > 1;
 ```
 
-### Expected Value
-- Finds interpretation risks early
-- Creates reviewer-friendly critique
-- Improves chart consistency standards
+> [!WARNING]
+> Copilot will return the first query alone unless you require the second.
 
 ---
 
-<!-- layout: 3-column -->
-# Hypothesis Generation Prompt Pattern
-
-### Observation
-- “Delinquency rose in two bands.”
-- “Utilization variance widened.”
-
-### Ask Copilot For
-- 3 plausible explanations
-- Data checks per explanation
-- Priority order for testing
-
-### Output Shape
-- Hypothesis table
-- Required data fields
-- Suggested SQL checks
-
----
-
-# Example: Hypothesis Table Prompt
-
-```text
-From these chart summaries, generate a hypothesis table with columns:
-- hypothesis
-- expected supporting signal
-- expected contradicting signal
-- validation query outline
-- priority (high, medium, low)
-Limit to 5 hypotheses.
-```
-
----
-
-<!-- layout: navigation -->
-# Chapter 2
-
-- Data Profiling Prompts and Workflows
-- Visual Analytics and Hypothesis Development
-- SQL and Legacy Script Translation
-- Quality Checks for Generated Analytics Code
-
----
-
-# Natural Language to SQL: Reliable Pattern
-
-- Copilot SQL quality depends on grain, joins, and denominator clarity
-- Start with business question, then define output contract
-- Ask for query plus validation query pair every time
-
----
-
-<!-- layout: 2-column -->
-# SQL Prompt Contract
-
-### Must Include
-- Source tables and aliases
-- Join keys and join type
-- Output grain
-- Denominator rules
-- Date logic
-
-### Must Return
-- Main query
-- Validation query
-- Assumption list
-- Known edge cases
-
----
-
-# SQL Generation Prompt Example
+# SQL Prompt for the Chapter Question
 
 ```text
 Business question:
-Which segments drove the quarter-over-quarter increase in 30-day delinquency?
+Which segments drove the quarter-over-quarter rise in 30-day delinquency?
 
-Generate SQL with:
-- Quarterly delinquency rate by segment and product.
-- Explicit denominator excluding charged-off accounts.
-- Volume columns for reliability checks.
-- Validation query for duplicate output grain and null rates.
+Return both:
+- Quarterly delinquency rate by segment and product
+- Denominator excludes charged-off accounts
+- Account volume beside the rate
+- A validation query for duplicate grain and null segment
 
-Explain assumptions in 5 bullets.
+Explain assumptions in five bullets. Do not invent columns.
 ```
 
 ---
 
-<!-- layout: 2-column -->
-# SQL Validation Query Example
+<!-- layout: title-image -->
+# SAS: Interpret, Then One Block
 
-### Main-Query Checks
-- Row counts by quarter and segment
-- Duplicate keys at output grain
-- Null rates for derived metrics
-
-### Reconciliation Checks
-- Compare totals to benchmark report
-- Segment sum equals portfolio total
-- Time-window filter matches specification
+![SAS migration stages](images/ch02-sas-migration-stages.svg)
 
 ---
 
-# Legacy SAS to Python or SQL Translation Workflow
+# Make Copilot Name the Ambiguity First
 
-- Do not request direct full-file conversion as a single step
-- First ask Copilot to explain legacy logic blocks
-- Translate one logical block at a time
-- Validate each translated block with reconciliation tests
+```sas
+data roll;
+  set perf;
+  if dpd > 30 then bucket = "30plus";
+  where dpd > 0;
+run;
+```
+
+- `WHERE` filters rows as they are read. `IF` assigns after the read
+- A translation that swaps them changes who is in the metric
+- Ask for inputs, grain, and this kind of ambiguity before any SQL or Python
+
+> [!IMPORTANT]
+> “Do not generate code yet” is the control. Skip it and you review a fluent wrong port.
 
 ---
 
 <!-- layout: 2-column -->
-# SAS Migration Prompt Pattern
+# Then Translate One Block
 
 ### Step 1: Interpret
 ```text
 Read #file legacy/roll_rate.sas.
-Summarize:
-- input assumptions
-- transformation steps
-- output grain
-- potential ambiguity
+Summarize inputs, transforms, grain, and ambiguity.
 Do not generate code yet.
 ```
 
 ### Step 2: Translate
 ```text
-Translate block 1 only into SQL.
-Keep output column names unchanged.
-Return validation query for record-count parity.
+Translate the first DATA step only into SQL.
+Keep output column names.
+Return a record-count parity query against the SAS row count.
 ```
-
----
-
-# Translation Approval Gates
-
-- Approve each migration stage only after parity checks pass
-- Gate 1: Structural parity at output grain
-- Gate 2: Metric parity within tolerance bands
-- Gate 3: Reviewer sign-off on business semantics
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 2
 
-- Data Profiling Prompts and Workflows
-- Visual Analytics and Hypothesis Development
-- SQL and Legacy Script Translation
-- Quality Checks for Generated Analytics Code
----
-
-# Verification Pipeline for Generated Analytics Code
-
-- Use a fixed validation pipeline so quality does not depend on individual reviewer habits
-- Static checks
-- Unit tests
-- Data-level assertions
-- Benchmark reconciliation
-- Approval summary
+- Profiling and Charts
+- SQL and SAS Translation
+- **Features and Quality Checks**
 
 ---
 
-<!-- layout: 3-column -->
-# Quality Gates by Stage
+<!-- layout: title-image -->
+# Features Stop at Decision Time
 
-### Stage 1: Static
-- Lint and style checks
-- Type and import checks
-- Obvious anti-pattern detection
-
-### Stage 2: Logic
-- Unit tests for core functions
-- Edge-case tests
-- Deterministic output checks
-
-### Stage 3: Business
-- Benchmark reconciliation
-- Segment-level reasonableness
-- Reviewer sign-off notes
+![Decision-time feature availability](images/ch02-feature-decision-time.svg)
 
 ---
 
 <!-- layout: 2-column -->
-# Approval Prompt for Analytics Changes
+# Name the Columns Out Loud
 
-### Reviewer Prompt
-```text
-Summarize this change for approval:
-- what changed
-- what did not change
-- test outcomes
-- unresolved risks
-- rollback plan
-```
+### Allowed in this exercise
+- `open_date` and `application_date` for tenure
+- Balance and limit known on `application_date` for utilization
+- A flag when raw utilization exceeds 1.0, stored before any cap
 
-### Accept Criteria
-- Scope matches approved plan
-- Test suite passes
-- Benchmark reconciliation clean
-- Risk notes complete
+### Not allowed
+- `delinquency_days` measured after the decision
+- Recovery amounts, cure flags, or “ever 60 DPD” built from the outcome window
+- Any column Copilot proposes that you did not name
 
 ---
 
-# Analytics Pull Request Evidence Template
+# Feature Helper Prompt
 
 ```text
-PR evidence checklist:
-- Prompt used (version and date)
-- Context files referenced
-- Main outputs generated
-- Tests executed and result summary
-- Benchmark comparison snapshot
-- Reviewer approval decision
+Task: Draft helpers for utilization_ratio and tenure_months.
+Use:
+- #file src/features/credit_features.py
+- #file tests/test_credit_features.py
+Rules:
+- Only columns available on application_date.
+- Cap utilization_ratio at 1.0 and keep a flag for values above 1.0 before the cap.
+- pytest for nulls, inverted dates, and utilization above 1.
+- Do not add features I did not name.
 ```
+
+---
+
+<!-- layout: title-image -->
+# Three Gates Before You Trust the Draft
+
+![Static, logic, and business gates](images/ch02-quality-gates.svg)
+
+---
+
+# Tests Can Pass While the Story Is Wrong
+
+- Pytest confirms the function returns a rate between 0 and 1
+- The chart still shows a 40 bp rise that is a volume collapse in one band
+- Gate 3 asks whether the population changed or the risk changed
+- Copilot can add the volume column. You decide whether the movement is real
 
 ---
 
 <!-- layout: card-layout -->
-# Failure Modes and Fast Recovery
+# When the Output Is Wrong, Change the Prompt, Not the Whole File
 
-### Wrong Grain
-- Re-specify output keys and require duplicate checks.
+### Wrong grain
+- Restate the output keys and require a duplicate-key check before any rewrite.
 
-### Join Inflation
-- Ask for join-cardinality diagnostics before rewriting logic.
+### Join inflation
+- Ask for a join-cardinality count, then a minimal fix.
 
-### Silent Null Drift
-- Add explicit null-rate reports at each major step.
+### Silent null drift
+- Require a null-rate report after each major step.
 
-### Overbroad Refactor
-- Re-run with strict file scope and “minimal diff” constraint.
+### Overbroad rewrite
+- Resend with the file list and the words “minimal diff.”
 
 ---
 
@@ -471,67 +310,56 @@ PR evidence checklist:
 
 # What You Learned
 
-- Used Copilot to generate profiling, SQL, and visualization workflows from explicit business requirements
-- Applied file-scoped prompting patterns that produce reliable analytics outputs with less rework
-- Translated natural language credit questions into validated SQL and Python analysis artifacts
-- Built a repeatable verification and approval workflow for AI-generated analytics code
-
----
-
-<!-- layout: navigation -->
-# Chapter 2 Knowledge Check
-
-- Quiz 1
-- Quiz 2
-- Quiz 3 Discussion
+- Prompted Copilot for portfolio profiling and revised only the logic that failed
+- Asked for charts and hypothesis rows that name a signal and a check
+- Required a SQL validation query beside every metric query
+- Translated SAS one block at a time, and blocked features that are not known at decision time
 
 ---
 
 # Quiz 1 of 3
 
-Which prompt structure most reliably improves SQL output quality from Copilot?
+**Which SQL prompt is the one you should send?**
 
-- A. Ask for the fastest query with no additional constraints
-- B. Provide source tables, output grain, denominator rules, and require a validation query
-- C. Ask for a generic SQL template and fill details later
-- D. Provide only the business question and trust defaults
+- A. “Write the fastest delinquency query you can.”
+- B. “Quarterly 30-day rate by segment, charged-off accounts out of the denominator, plus a duplicate-grain check.”
+- C. “Give me a SQL template. I will fill in the business rules later.”
+- D. “Why did delinquency rise last quarter?”
 
 ---
 
 # Quiz 1: Answer
 
-Which prompt structure most reliably improves SQL output quality from Copilot?
+**Which SQL prompt is the one you should send?**
 
-**Correct: B.** It defines structural and business constraints before generation.
+**Correct: B.** Grain, denominator, and a validation query are the contract.
 
-- Query structure is anchored to output contract
-- Validation query catches hidden defects
-- Reviewer confidence improves with explicit assumptions
+- Speed and a vague business question leave the denominator up to the model
+- A template you “fill in later” is how the wrong denominator ships
+- The companion query is what catches a join that duplicated account-months
 
 ---
 
 # Quiz 2 of 3
 
-What is the best first response when Copilot-generated profiling output is mostly correct but has two logic errors?
+**Copilot’s profiling module passes most tests and still zeros out `new_to_credit` utilization nulls. What do you send next?**
 
-- A. Regenerate the entire module from scratch
-- B. Accept and patch errors manually later
-- C. Submit a surgical revision prompt targeting only failed logic and tests
-- D. Switch to charting before fixing logic
+- A. “Regenerate the module from scratch.”
+- B. “Looks close enough. We will patch it in the pull request.”
+- C. “Keep passing functions. Treat those nulls as missing, and add one mixed-null test.”
+- D. “Stop profiling and build the chart.”
 
 ---
 
-<!-- layout: 2-column -->
 # Quiz 2: Answer
 
-### Correct Choice
-- **C.** Submit a surgical revision prompt targeting only failed logic and tests.
-- This preserves validated code while fixing defects.
+**Copilot’s profiling module passes most tests and still zeros out `new_to_credit` utilization nulls. What do you send next?**
 
-### Why It Works
-- Limits unnecessary churn
-- Keeps review scope manageable
-- Improves iteration speed with control
+**Correct: C.** A surgical revision keeps the code you already checked.
+
+- A full regenerate throws away passing tests and hides a new diff
+- Patching later means the chat record and the code diverge
+- Charting on zero-filled nulls will invent a utilization story
 
 ---
 
@@ -539,29 +367,29 @@ What is the best first response when Copilot-generated profiling output is mostl
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-- Your team migrated a SAS metric to SQL with Copilot.
-- Performance improved, but totals differ from legacy reports.
+A SAS roll-rate was translated with Copilot. It runs faster, and the portfolio total does not match the legacy job.
 
 ### Discuss
-- Which reconciliation checks happen first?
-- What parity thresholds are acceptable?
-- How should approval be documented?
+- Which checks do you run before you touch the SQL again?
+- What parity gap would you accept, and who signs that?
+- What has to be in the pull request besides “tests passed”?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
+**A SAS roll-rate was translated with Copilot. It runs faster, and the portfolio total does not match the legacy job.**
+
 ### Strong Answers Mention
-- Output-grain and duplicate-key checks
-- Segment-level and portfolio-level reconciliation
-- Explicit tolerance band agreement
-- Clear sign-off evidence in pull request
+- Grain, duplicate keys, and `WHERE` versus `IF` behavior
+- Segment totals, not only the portfolio total
+- An explicit tolerance and a named sign-off
+- The parity query in the pull request
 
 ### Watch For
-- Approving based on runtime speed alone
-- No denominator comparison
-- No audit trail for approval decision
+- Approving because the new job is faster
+- Comparing totals that use different denominators
 
 ---
 

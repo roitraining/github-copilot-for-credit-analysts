@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Screenshot placeholder">
+  <rect width="1600" height="900" fill="#e5e7eb"/>
+  <rect x="80" y="80" width="1440" height="740" rx="16" fill="#f8fafc" stroke="#64748b" stroke-width="4" stroke-dasharray="18 12"/>
+  <text x="800" y="320" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">SCREENSHOT NEEDED</text>
+  <text x="800" y="400" text-anchor="middle" fill="#1f4b99" font-family="Arial, Helvetica, sans-serif" font-size="32">VS Code slash command menu</text>
+  <text x="800" y="480" text-anchor="middle" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="24">Show /explain /tests /fix visible in Copilot Chat</text>
+  <text x="800" y="560" text-anchor="middle" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="20">Replace this file with a real capture (same filename or update Markdown)</text>
+</svg>

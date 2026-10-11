@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Prompt data boundary safe versus keep out">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="80" y="80" width="680" height="680" rx="28" fill="#e8f6f2" stroke="#2d7d6f" stroke-width="8"/>
+  <text x="420" y="180" text-anchor="middle" fill="#216358" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">SAFE ZONE</text>
+  <text x="420" y="300" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Sanitized schemas</text>
+  <text x="420" y="370" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Synthetic sample rows</text>
+  <text x="420" y="440" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Metric dictionaries</text>
+  <text x="420" y="510" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Non-sensitive scaffolds</text>
+  <text x="420" y="640" text-anchor="middle" fill="#2d7d6f" font-family="Arial, Helvetica, sans-serif" font-size="24">Prefer these every time</text>
+
+  <rect x="840" y="80" width="680" height="680" rx="28" fill="#fdecec" stroke="#b91c1c" stroke-width="8"/>
+  <text x="1180" y="180" text-anchor="middle" fill="#991b1b" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">KEEP OUT</text>
+  <text x="1180" y="300" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Customer identifiers</text>
+  <text x="1180" y="370" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Full account extracts</text>
+  <text x="1180" y="440" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Proprietary cutoffs</text>
+  <text x="1180" y="510" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28">Sensitive review notes</text>
+  <text x="1180" y="640" text-anchor="middle" fill="#991b1b" font-family="Arial, Helvetica, sans-serif" font-size="24">Exclude paths in org policy</text>
+
+  <rect x="320" y="800" width="960" height="60" rx="12" fill="#1f4b99"/>
+  <text x="800" y="840" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="22">Public code matching is a review flag, not a free pass</text>
+</svg>

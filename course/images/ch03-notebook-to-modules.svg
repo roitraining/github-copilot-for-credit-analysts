@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Notebook refactor into modules">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="60" y="80" width="380" height="640" rx="20" fill="#64748b"/>
+  <text x="250" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">notebook.ipynb</text>
+  <rect x="100" y="220" width="300" height="55" rx="8" fill="#94a3b8"/>
+  <rect x="100" y="300" width="300" height="55" rx="8" fill="#94a3b8"/>
+  <rect x="100" y="380" width="300" height="55" rx="8" fill="#94a3b8"/>
+  <rect x="100" y="460" width="300" height="55" rx="8" fill="#94a3b8"/>
+  <rect x="100" y="540" width="300" height="55" rx="8" fill="#94a3b8"/>
+  <text x="250" y="660" text-anchor="middle" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="20">mixed cells, hard to test</text>
+
+  <path d="M470 400 H560" stroke="#334155" stroke-width="12" fill="none"/>
+  <polygon points="580,400 550,375 550,425" fill="#334155"/>
+  <text x="525" y="360" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="18">plan + approve</text>
+
+  <rect x="600" y="100" width="300" height="140" rx="16" fill="#1f4b99"/>
+  <text x="750" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">features.py</text>
+  <text x="750" y="205" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="18">step 1 + tests</text>
+
+  <rect x="600" y="290" width="300" height="140" rx="16" fill="#3a7ea1"/>
+  <text x="750" y="350" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">pipeline.py</text>
+  <text x="750" y="395" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="18">step 2 + tests</text>
+
+  <rect x="600" y="480" width="300" height="140" rx="16" fill="#2d7d6f"/>
+  <text x="750" y="540" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">validation.py</text>
+  <text x="750" y="585" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="18">step 3 + tests</text>
+
+  <path d="M920 400 H1010" stroke="#334155" stroke-width="12" fill="none"/>
+  <polygon points="1030,400 1000,375 1000,425" fill="#334155"/>
+
+  <rect x="1050" y="160" width="480" height="460" rx="20" fill="#ffffff" stroke="#1f4b99" stroke-width="5"/>
+  <text x="1290" y="250" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Each step returns</text>
+  <text x="1290" y="340" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="24">diff summary</text>
+  <text x="1290" y="410" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="24">pytest results</text>
+  <text x="1290" y="480" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="24">parity checks</text>
+  <text x="1290" y="560" text-anchor="middle" fill="#2d7d6f" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">then STOP for approval</text>
+</svg>

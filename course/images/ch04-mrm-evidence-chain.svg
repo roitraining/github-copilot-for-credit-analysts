@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="MRM evidence chain">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="40" y="120" width="280" height="400" rx="18" fill="#1f4b99"/>
+  <text x="180" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">1. Prompt</text>
+  <text x="180" y="300" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="20">version / date</text>
+  <text x="180" y="350" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="20">context files</text>
+  <text x="180" y="430" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Intent</text>
+
+  <rect x="360" y="120" width="280" height="400" rx="18" fill="#3a7ea1"/>
+  <text x="500" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2. Diff</text>
+  <text x="500" y="300" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="20">files changed</text>
+  <text x="500" y="350" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="20">scope vs plan</text>
+  <text x="500" y="430" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Change</text>
+
+  <rect x="680" y="120" width="280" height="400" rx="18" fill="#d97742"/>
+  <text x="820" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">3. Tests</text>
+  <text x="820" y="300" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="20">pytest command</text>
+  <text x="820" y="350" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="20">benchmarks</text>
+  <text x="820" y="430" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Proof</text>
+
+  <rect x="1000" y="120" width="280" height="400" rx="18" fill="#2d7d6f"/>
+  <text x="1140" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">4. Decision</text>
+  <text x="1140" y="300" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="20">risk rating</text>
+  <text x="1140" y="350" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="20">residual risks</text>
+  <text x="1140" y="430" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Go / no-go</text>
+
+  <rect x="1320" y="120" width="220" height="400" rx="18" fill="#334155"/>
+  <text x="1430" y="280" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Model</text>
+  <text x="1430" y="330" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">card</text>
+  <text x="1430" y="430" text-anchor="middle" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="20">packaged</text>
+
+  <path d="M320 320 H360" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M640 320 H680" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M960 320 H1000" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M1280 320 H1320" stroke="#334155" stroke-width="8" fill="none"/>
+
+  <rect x="160" y="600" width="1280" height="220" rx="18" fill="#ffffff" stroke="#1f4b99" stroke-width="4"/>
+  <text x="800" y="690" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Break any link and auditors cannot reconstruct what happened</text>
+  <text x="800" y="760" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="22">Copilot can draft the package - humans must verify the numbers</text>
+</svg>

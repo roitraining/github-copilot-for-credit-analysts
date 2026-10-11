@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Demo path web to VS Code">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+
+  <rect x="40" y="80" width="350" height="520" rx="22" fill="#1f4b99"/>
+  <text x="215" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">1. Web</text>
+  <text x="215" y="280" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">Ask about Chat</text>
+  <text x="215" y="330" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">vs inline</text>
+  <text x="215" y="450" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Orientation only</text>
+
+  <path d="M405 340 H445" stroke="#334155" stroke-width="8" fill="none"/>
+  <polygon points="465,340 440,322 440,358" fill="#334155"/>
+
+  <rect x="480" y="80" width="350" height="520" rx="22" fill="#3a7ea1"/>
+  <text x="655" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2. VS Code Chat</text>
+  <text x="655" y="280" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">Ask the same</text>
+  <text x="655" y="330" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">question again</text>
+  <text x="655" y="450" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Compare answers</text>
+
+  <path d="M845 340 H885" stroke="#334155" stroke-width="8" fill="none"/>
+  <polygon points="905,340 880,322 880,358" fill="#334155"/>
+
+  <rect x="920" y="80" width="350" height="520" rx="22" fill="#d97742"/>
+  <text x="1095" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">3. Inline</text>
+  <text x="1095" y="280" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">Type def add(a, b):</text>
+  <text x="1095" y="330" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">and pause</text>
+  <text x="1095" y="450" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Ghost text appears</text>
+
+  <path d="M1285 340 H1325" stroke="#334155" stroke-width="8" fill="none"/>
+  <polygon points="1345,340 1320,322 1320,358" fill="#334155"/>
+
+  <rect x="1360" y="80" width="200" height="520" rx="22" fill="#2d7d6f"/>
+  <text x="1460" y="200" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">4. Decide</text>
+  <text x="1460" y="320" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="20">Accept</text>
+  <text x="1460" y="370" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="20">or</text>
+  <text x="1460" y="420" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="20">reject</text>
+  <text x="1460" y="520" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="18">You stay in control</text>
+
+  <rect x="140" y="660" width="1320" height="160" rx="20" fill="#ffffff" stroke="#1f4b99" stroke-width="4"/>
+  <text x="800" y="730" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Same question, two surfaces</text>
+  <text x="800" y="785" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="22">Web orients you. VS Code is where you accept, reject, and edit code.</text>
+</svg>

@@ -27,11 +27,11 @@
 
 # Course Objectives
 
-- Use GitHub Copilot in VS Code to deliver faster, safer credit analytics code with strong human review
-- Apply Copilot prompting and context controls for secure, high-quality code generation
-- Accelerate data exploration and SQL or Python analytics workflows with repeatable prompt patterns
-- Generate and validate baseline modeling and strategy-testing code with measurable checks
-- Govern AI-assisted code through testing, traceability, and documentation for model risk workflows
+- Use GitHub Copilot in VS Code to draft, check, and document credit analytics and model code under human review
+- Choose a Copilot surface, constrain the prompt, and set repository instructions without putting sensitive data in chat
+- Drive profiling, charts, SQL, and SAS translation with the validation checks Copilot will not add on its own
+- Steer baseline model code with a time-based split, a leakage rule, and segment checks you can test
+- Govern multi-step Copilot work with stepwise approval, pytest evidence, and a model-risk package
 
 ---
 
@@ -50,9 +50,9 @@
 <!-- layout: panel-right -->
 # Who Should Attend
 
-- Credit analysts and modelers who code daily in Python and SQL
-- Quantitative developers and strategy analysts modernizing legacy analytics workflows
-- Teams that already use generative AI and want stronger GitHub Copilot execution in VS Code
+- Credit modeling, strategy, validation, and credit tech professionals who code daily
+- Analysts and quantitative developers working in Python, SQL, and often SAS or PySpark
+- Early adopters of GitHub Copilot who want sharper VS Code habits and team practices
 
 ![Who Should Attend](images/who-should-attend.png)
 
@@ -61,10 +61,10 @@
 <!-- layout: panel-left -->
 # Prerequisites
 
-- Working knowledge of Python and SQL in a credit analytics environment
-- Familiarity with VS Code and source control workflows
-- Prior hands-on exploration with GitHub Copilot
-- Foundational understanding of credit analytics, monitoring, and validation lifecycles
+- Coding experience in SAS and/or Python and SQL
+- Experience with Visual Studio Code as a development environment
+- Prior self-exploration with GitHub Copilot
+- Foundational knowledge of the credit analytics lifecycle
+- VS Code and GitHub Copilot installed with an active Copilot license
 
 ![Prerequisites](images/prerequisites.png)
-

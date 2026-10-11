@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Analyst Copilot reviewer roles">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="80" y="120" width="440" height="520" rx="24" fill="#1f4b99"/>
+  <text x="300" y="230" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">Analyst</text>
+  <text x="300" y="330" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">sets target and policy</text>
+  <text x="300" y="390" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">defines leakage wall</text>
+  <text x="300" y="450" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">names metrics</text>
+  <text x="300" y="550" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22">Owns the problem</text>
+
+  <rect x="580" y="120" width="440" height="520" rx="24" fill="#3a7ea1"/>
+  <text x="800" y="230" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">Copilot</text>
+  <text x="800" y="330" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="24">scaffolds pipeline code</text>
+  <text x="800" y="390" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="24">drafts tests and tables</text>
+  <text x="800" y="450" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="24">suggests refactors</text>
+  <text x="800" y="550" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22">Accelerates typing</text>
+
+  <rect x="1080" y="120" width="440" height="520" rx="24" fill="#2d7d6f"/>
+  <text x="1300" y="230" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">Reviewer</text>
+  <text x="1300" y="330" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="24">runs checks</text>
+  <text x="1300" y="390" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="24">audits assumptions</text>
+  <text x="1300" y="450" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="24">signs go / no-go</text>
+  <text x="1300" y="550" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22">Owns the decision</text>
+
+  <text x="800" y="760" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="26">We teach the middle and the handoffs - not credit theory</text>
+</svg>

@@ -1,43 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Analytics workflow loop">
-  <defs>
-    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#f7f9fd"/>
-      <stop offset="100%" stop-color="#edf4f7"/>
-    </linearGradient>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2f3d56"/>
-    </marker>
-  </defs>
-  <rect width="1600" height="900" fill="url(#bg)"/>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <circle cx="260" cy="450" r="120" fill="#244d9a"/>
-    <text x="260" y="435" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Question</text>
-    <text x="260" y="475" text-anchor="middle" fill="#dfe9ff" font-size="18">business need</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Profiling workflow with Copilot actions">
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect x="50" y="80" width="280" height="360" rx="20" fill="#1f4b99"/>
+  <text x="190" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">1. Attach</text>
+  <text x="190" y="250" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">#file schema</text>
+  <text x="190" y="300" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">#file metrics</text>
+  <text x="190" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Context first</text>
 
-    <circle cx="505" cy="260" r="120" fill="#3d78b5"/>
-    <text x="505" y="245" text-anchor="middle" fill="#ffffff" font-size="28" font-weight="700">Schema</text>
-    <text x="505" y="285" text-anchor="middle" fill="#dfeaff" font-size="18">and tables</text>
+  <rect x="380" y="80" width="280" height="360" rx="20" fill="#3a7ea1"/>
+  <text x="520" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">2. Prompt</text>
+  <text x="520" y="250" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">module + pytest</text>
+  <text x="520" y="300" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">named output files</text>
+  <text x="520" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Acceptance criteria</text>
 
-    <circle cx="760" cy="450" r="120" fill="#1d8a9e"/>
-    <text x="760" y="435" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Profile</text>
-    <text x="760" y="475" text-anchor="middle" fill="#d8f7f6" font-size="18">quality checks</text>
+  <rect x="710" y="80" width="280" height="360" rx="20" fill="#d97742"/>
+  <text x="850" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">3. Run</text>
+  <text x="850" y="250" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">execute locally</text>
+  <text x="850" y="300" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">inspect outputs</text>
+  <text x="850" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Evidence, not hope</text>
 
-    <circle cx="1015" cy="260" r="120" fill="#d97742"/>
-    <text x="1015" y="245" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Visualize</text>
-    <text x="1015" y="285" text-anchor="middle" fill="#fbe7d9" font-size="18">patterns</text>
+  <rect x="1040" y="80" width="280" height="360" rx="20" fill="#2d7d6f"/>
+  <text x="1180" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">4. Fix</text>
+  <text x="1180" y="250" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">/fix or surgical</text>
+  <text x="1180" y="300" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">revision prompt</text>
+  <text x="1180" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Only what failed</text>
 
-    <circle cx="1270" cy="450" r="120" fill="#2d7d6f"/>
-    <text x="1270" y="435" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">Decide</text>
-    <text x="1270" y="475" text-anchor="middle" fill="#dff5f0" font-size="18">and validate</text>
+  <rect x="1370" y="80" width="180" height="360" rx="18" fill="#334155"/>
+  <text x="1460" y="230" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">5. Approve</text>
+  <text x="1460" y="290" text-anchor="middle" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="18">You sign off</text>
 
-    <path d="M380 370 L455 300" stroke="#384b66" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M625 300 L690 370" stroke="#384b66" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M880 370 L955 300" stroke="#384b66" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M1145 300 L1210 370" stroke="#384b66" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
-    <path d="M1270 570 C1270 680 1100 700 990 710 C700 720 390 700 300 620" stroke="#384b66" stroke-width="10" fill="none" marker-end="url(#arrow)"/>
+  <path d="M330 260 H380" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M660 260 H710" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M990 260 H1040" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M1320 260 H1380" stroke="#334155" stroke-width="8" fill="none"/>
 
-    <rect x="530" y="620" width="540" height="110" rx="18" fill="#ffffff" opacity="0.9"/>
-    <text x="800" y="665" text-anchor="middle" fill="#1f2937" font-size="34" font-weight="700">From question to validated insight</text>
-    <text x="800" y="700" text-anchor="middle" fill="#4b5563" font-size="22">Repeat the loop with clearer checks and better segment logic.</text>
-  </g>
+  <rect x="160" y="520" width="1280" height="300" rx="20" fill="#ffffff" stroke="#1f4b99" stroke-width="4"/>
+  <text x="800" y="610" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Why this beats a one-shot prompt</text>
+  <text x="800" y="690" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">Context attachment prevents invented columns</text>
+  <text x="800" y="750" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">Tests make review objective</text>
+  <text x="800" y="810" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">Surgical fixes protect what already works</text>
 </svg>

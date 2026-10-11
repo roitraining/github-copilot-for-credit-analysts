@@ -12,380 +12,258 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 3: Objectives
 
-- Generate baseline model pipelines with Copilot using explicit leakage, split, and metric constraints
-- Build validation harnesses with repeatable tests for statistical, operational, and governance checks
-- Refactor notebook-style modeling code into reusable modules with controlled diffs and approvals
-- Audit AI-generated model logic with reviewer prompts that surface assumptions and risks
+- Put a time-based split and a feature-availability rule in every model-code prompt
+- Read AUC next to calibration and segment support before trusting a draft
+- Extract a notebook into modules one approved step at a time
+- Audit generated model logic for leakage, labels, and denominators before sign-off
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 3
 
-- Prompting for Model Development
-- Validation Metrics and Test Harnesses
-- Refactoring Analysis into Reusable Modules
-- Auditing Model Logic and Decisions
+- **Prompting for Model Code**
+- Validation and Diagnostics
+- Refactor and Audit
 
 ---
 
-# Model Development with Copilot: Operating Rule
+# Chapter 2’s Wall, Plus the Split
 
-- Copilot can generate implementation fast, but model intent must come from analysts
-- Define target, timeline, feature policy, and leakage boundaries before code generation
-- Require output contracts and tests in every model prompt
-
----
-
-<!-- layout: 2-column -->
-# Model Prompt Context Files
-
-### Required Inputs
-- `#file docs/model-objective.md`
-- `#file docs/feature-policy.md`
-- `#file docs/metric-definitions.md`
-- `#file src/modeling/baseline_pipeline.py`
-
-### Optional Enhancers
-- Historical benchmark results
-- Existing evaluation notebook
-- Team coding standards
-- Reviewer checklist file
+- Features still have to be known at decision time. That rule does not change here
+- A second leak is the split: future months in the training fold
+- Copilot will optimize whatever metric you name. If you name only AUC, you get AUC
+- You set the target, the split, and the forbidden fields before it writes a pipeline
 
 ---
 
-# Baseline Pipeline Prompt Template
+<!-- layout: title-image -->
+# Random Split vs Time Split
+
+![Time-based split versus random split](images/ch03-time-split-vs-random.svg)
+
+---
+
+# The Metric Lie, Illustrated
+
+| Split in the prompt | What the draft can report | What you should believe |
+| :--- | :--- | :--- |
+| “Maximize AUC” with a random split | A flattering AUC | Little, until you rerun on a time split |
+| Time-based train, validate, holdout | A lower, more honest AUC | The number, after split-integrity tests pass |
+| No split stated | Whatever default the library uses | Nothing. Send the prompt back |
+
+> [!NOTE]
+> Treat any specific AUC in a demo as illustrative. The teaching point is the gap between a random split and a time split, not a benchmark to memorize.
+
+---
+
+# Baseline Pipeline Prompt
 
 ```text
-Task: Create a baseline binary classification pipeline for 60-day delinquency risk.
+Task: Draft a baseline classifier for 60-day delinquency within 12 months.
 Use:
-- #file docs/model-objective.md
-- #file docs/feature-policy.md
-- #file docs/metric-definitions.md
 - #file src/modeling/baseline_pipeline.py
 - #file tests/test_baseline_pipeline.py
-
-Requirements:
-- Time-based train, validation, and holdout split.
-- Missing value strategy defined per feature type.
-- Categorical encoding inside scikit-learn pipeline.
-- Metrics: AUC, KS, precision-recall, calibration table.
-- Add tests for split integrity and prediction output schema.
-
-Constraints:
-- Do not edit unrelated files.
-- Return assumptions and unresolved questions.
+Require:
+- Train on months before the cutoff, then validation, then a later holdout.
+- Features available on application_date only. List any column that looks post-decision.
+- Report AUC, KS, and a calibration table. Do not pick a cutoff.
+- Tests that fail if a later month appears in train.
+Edit only those two files. If the label window is unclear, stop and ask.
 ```
 
 ---
 
 <!-- layout: 3-column -->
-# Common Prompt Gaps and Their Risks
+# Three Omissions That Inflate the Model
 
-### Missing Split Rules
-- Leakage risk
-- Inflated performance
-- Invalid validation
+### No split rule
+- Future defaults leak into train
+- The holdout is no longer a holdout
 
-### Missing Feature Policy
-- Unapproved attributes
-- Inconsistent preprocessing
-- Governance breach
+### No feature policy
+- Copilot adds a useful-looking post-decision field
+- Prep then differs from the policy you meant
 
-### Missing Metric Definitions
-- Wrong denominators
-- Incomparable reporting
-- Misleading model choice
+### No metric definition
+- KS and AUC get computed on dropped null labels
+- A quiet denominator change looks like lift
 
 ---
 
-<!-- layout: 2-column -->
-# Prompt for Alternative Baselines
-
-### Why Ask for Alternatives
-- Compare complexity versus lift
-- Avoid overfitting to one model family
-- Build reviewer confidence in selection
-
-### Prompt Pattern
-```text
-Generate two baseline variants:
-1) Logistic regression pipeline.
-2) Tree-based pipeline.
-Use identical split and metrics.
-Return comparison table with strengths and risks.
-```
-
----
-
-# Controlled Iteration Pattern
-
-- Iterate with explicit change requests, not full-regeneration prompts
-- Preserve validated components
-- Modify one dimension at a time: features, split, metric, or thresholding
+# Revise One Piece
 
 ```text
-Revise only calibration reporting.
-Keep all preprocessing and split logic unchanged.
-Add reliability curve data and Brier score output.
+The split tests pass. Revise only calibration reporting.
+Keep preprocessing and the time split unchanged.
+Add a reliability table by score band and a Brier score.
+Do not retune the model in this step.
 ```
+
+- If the reply also changes the feature list, reject the diff and resend
+- Retuning and “fixing calibration” in one prompt makes the review impossible
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 3
 
-- Prompting for Model Development
-- Validation Metrics and Test Harnesses
-- Refactoring Analysis into Reusable Modules
-- Auditing Model Logic and Decisions
-
----
-
-<!-- layout: stacked -->
-# Validation Harness Architecture
-
-- Separate model training, evaluation, and reporting into testable components
-- Training module: fit pipeline and persist artifacts
-- Evaluation module: compute metrics and diagnostics
-- Reporting module: generate tables and narrative summaries
-
-![Model validation pipeline](images/ch03-validation-pipeline.svg)
+- Prompting for Model Code
+- **Validation and Diagnostics**
+- Refactor and Audit
 
 ---
 
 <!-- layout: 3-column -->
-# Validation Layers
+# Which Number Is Allowed to Reassure You
 
-### Statistical
-- AUC and KS
-- Precision-recall
-- Calibration by band
+### AUC or KS
+- Rank-ordering across the book
+- Can look strong while a band is mis-scaled
 
-### Stability
-- Segment drift indicators
-- Population shift checks
-- Time-window sensitivity
+### Calibration
+- Predicted rate versus observed rate by score band
+- This is the number that catches a confident, wrong score
 
-### Operational
-- Runtime constraints
-- Schema contract checks
-- Failure-path behavior
+### Segment support
+- Performance by product, `risk_band`, and tenure bucket
+- Under 500 accounts: show the cell, label it low confidence, do not hide it
 
 ---
 
-# Validation Utility Prompt
+# A Calibration Miss Beats a Pretty AUC
+
+| Score band | Predicted bad rate | Observed bad rate | Accounts |
+| :--- | :--- | :--- | :--- |
+| 0.02 to 0.04 | 3% | 3.1% | 12,000 |
+| 0.20 to 0.30 | 4% | 9% | 9,000 |
+
+- Book-level AUC can stay flattering while the second band is unusable
+- 9,000 accounts is not a small cell you can drop
+- Ask Copilot for this table. Do not ask it whether to approve the model
+
+---
+
+# Validation Prompt
 
 ```text
-Create validation utilities in src/modeling/validation.py.
+Create src/modeling/validation.py and tests/test_validation.py.
 Include:
-- AUC, KS, PR AUC, top-decile precision.
-- Calibration by score band.
-- Segment-level performance by product and risk tier.
-- Stability table versus prior quarter.
-Add tests in tests/test_validation.py for edge cases.
+- AUC, KS, and top-decile precision on the time-based holdout
+- Calibration by score band
+- The same metrics by product and risk_band
+- A flag when a segment has fewer than 500 accounts
+Tests must fail on empty predictions and must not drop null labels silently.
+Do not recommend a production cutoff.
 ```
 
 ---
 
 <!-- layout: 2-column -->
-# Threshold Analysis Prompt Pattern
+# After the Metrics Compile
 
-### Prompt
-```text
-Generate threshold analysis for decision cutoffs:
-- approve rate
-- expected bad rate
-- capture of high-risk accounts
-Return threshold table from 0.1 to 0.9.
-```
+### You check
+- The formula matches your metric note, including the denominator
+- One segment total against a figure you already trust
+- Sparse segments are flagged, not averaged away
 
-### Review Checks
-- Monotonicity sanity checks
-- Denominator consistency
-- Missing-segment behavior
+### You do not accept
+- Holdout AUC by itself
+- A helper that drops null labels with no count of how many
+- A rate whose denominator changed inside the function
 
 ---
 
-# Segment Diagnostics Prompt
+# Stability Is a Comparison, Not a Vibe
 
-- Ask Copilot to expose where model performance hides segment risk
-- Require both aggregate and segment-level views
-- Flag sparse segments with reliability warnings
+- Compare this quarter’s score distribution or bad rate to the prior quarter on the same segments
+- A large shift with no policy change is a data or feature bug until someone explains it
+- Ask Copilot for the comparison table. You decide whether the shift is acceptable
 
 ```text
-Produce segment diagnostics by:
-- product
-- risk_band
-- customer_tenure_bucket
-Mark segments with support under 500 accounts as low confidence.
+Add a stability table versus the prior quarter for score mean and bad rate
+by product. Do not interpret the shift as approve or reject.
 ```
-
----
-
-<!-- layout: 2-column -->
-# Test Harness Checklist
-
-### Unit Tests
-- Data-prep function behavior
-- Split logic correctness
-- Metric function outputs
-- Prediction schema shape
-
-### Regression Tests
-- Known defect scenarios
-- Threshold-table integrity
-- Segment warning behavior
-- Reproducibility with fixed seed
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 3
 
-- Prompting for Model Development
-- Validation Metrics and Test Harnesses
-- Refactoring Analysis into Reusable Modules
-- Auditing Model Logic and Decisions
+- Prompting for Model Code
+- Validation and Diagnostics
+- **Refactor and Audit**
 
 ---
 
-# Notebook-to-Module Refactor Workflow
+<!-- layout: title-image -->
+# One Module per Approval
 
-- Refactor in stages with approval gates between each stage
-- Stage 1: Extract pure data-prep functions
-- Stage 2: Extract training pipeline builder
-- Stage 3: Extract evaluation and reporting
-- Stage 4: Wire CLI or orchestration entry point
+![Notebook to modules with stop gates](images/ch03-notebook-to-modules.svg)
+
+---
+
+# Plan, Then Step 1 Only
+
+```text
+Plan only from #file notebooks/model_dev.ipynb.
+Return target modules, extraction order, and tests to add before each move.
+Do not edit yet.
+```
+
+```text
+Approved: step 1 only.
+Create src/modeling/features.py, move feature logic, add tests, stop.
+Do not extract the pipeline in this step.
+```
+
+> [!IMPORTANT]
+> Parity first: row counts and a sample of feature values must match the notebook before you delete those cells.
 
 ---
 
 <!-- layout: 2-column -->
-# Refactor Planning Prompt
+# When the Refactor Prompt Is Too Big
 
-### Planning Request
-```text
-Read #file notebooks/model_dev.ipynb and propose refactor plan only.
-Return:
-- target module structure
-- functions to extract
-- risks per extraction step
-- tests to add before edits
-Do not edit files yet.
-```
+### Send it
+- One module, named
+- Tests listed before the move
+- “Stop after this step”
 
-### Why This Helps
-- Prevents broad, risky rewrites
-- Aligns reviewer expectations
-- Makes approvals incremental
+### Refuse it
+- “Turn this notebook into a production package”
+- Several modules in one approval
+- Style cleanup mixed with logic moves
 
 ---
 
-# Refactor Execution Prompt
+# What an Audit Reply Must Contain
 
-```text
-Execute refactor step 1 only:
-- Create src/modeling/features.py
-- Move feature engineering logic
-- Preserve behavior
-- Add tests for extracted functions
-Return diff summary and test results.
-Stop for approval.
-```
-
----
-
-<!-- layout: 3-column -->
-# Refactor Quality Controls
-
-### Scope Control
-- Named files only
-- Minimal diffs
-- No opportunistic rewrites
-
-### Behavior Control
-- Parity tests
-- Metric comparison
-- Output schema checks
-
-### Process Control
-- Stepwise approval
-- Change summary
-- Rollback plan
-
----
-
-<!-- layout: navigation -->
-# Chapter 3
-
-- Prompting for Model Development
-- Validation Metrics and Test Harnesses
-- Refactoring Analysis into Reusable Modules
-- Auditing Model Logic and Decisions
----
-
-# Audit Prompt Pattern for Model Logic
-
-- Ask Copilot to critique generated code as a reviewer, not as an author
-- Request explicit risk findings with severity and evidence
-- Require suggested tests for each risk
+| Severity | Finding | Evidence Copilot should cite | Test you add |
+| :--- | :--- | :--- | :--- |
+| High | Possible leakage | Column uses post-decision DPD | Split-integrity or feature-list test |
+| Medium | Label window unclear | Outcome built with no stated horizon | Test that documents the 12-month label |
+| Low | Sparse segment hidden | Cell under 500 accounts omitted | Test that the flag column exists |
 
 ```text
-Audit this pipeline code for:
-- leakage risk
-- label construction issues
-- denominator errors in metrics
-- unstable segment behavior
-Return findings with severity and suggested tests.
+Audit #file src/modeling/baseline_pipeline.py for leakage, label construction,
+and denominator errors. Return severity, evidence, and a test. Do not invent metrics.
 ```
-
----
-
-<!-- layout: card-layout -->
-# High-Value Audit Questions
-
-### Data Lineage
-- Are all features available at decision time?
-
-### Label Integrity
-- Is the target label aligned with decision horizon?
-
-### Metric Fidelity
-- Are metric formulas consistent with governance definitions?
-
-### Segment Fairness
-- Do weak segments have explicit warnings and mitigations?
 
 ---
 
 <!-- layout: 2-column -->
-# Reviewer Approval Checklist
+# A Reviewer Summary May Only Cite
 
-### Technical Approval
-- Tests pass
-- Leakage checks pass
-- Metric definitions match standards
-- Refactor preserves behavior
+### Allowed
+- Purpose and population taken from the code and your prompt
+- Metrics that appear in a test output or a table you provide
+- Limitations and follow-ups marked as open
 
-### Governance Approval
-- Assumptions documented
-- Open risks listed
-- Evidence attached to pull request
-- Human reviewer sign-off present
-
----
-
-# Model-Risk Evidence Prompt
-
-```text
-Draft a reviewer summary with:
-- model purpose
-- assumptions
-- validation outcomes
-- known limitations
-- recommended follow-up checks
-Use plain language for governance stakeholders.
-```
+### Not allowed
+- An AUC, KS, or cutoff the run did not produce
+- “Validated” or “approved” as a conclusion
+- A segment story with no support count
 
 ---
 
@@ -398,67 +276,56 @@ Use plain language for governance stakeholders.
 
 # What You Learned
 
-- Generated baseline model pipelines with Copilot using explicit leakage, split, and metric constraints
-- Built validation harnesses with repeatable tests for statistical, operational, and governance checks
-- Refactored notebook-style modeling code into reusable modules with controlled diffs and approvals
-- Audited AI-generated model logic with reviewer prompts that surface assumptions and risks
-
----
-
-<!-- layout: navigation -->
-# Chapter 3 Knowledge Check
-
-- Quiz 1
-- Quiz 2
-- Quiz 3 Discussion
+- Put a time-based split and a feature-availability rule in every model-code prompt
+- Read AUC next to calibration and segment support before trusting a draft
+- Extracted a notebook into modules one approved step at a time
+- Audited generated model logic for leakage, labels, and denominators before sign-off
 
 ---
 
 # Quiz 1 of 3
 
-Which prompt most reduces model leakage risk during Copilot code generation?
+**Which prompt most reduces leakage when Copilot drafts model code?**
 
-- A. “Build the highest AUC model possible.”
-- B. “Use random split and optimize quickly.”
-- C. “Use time-based split, define feature availability policy, and add split-integrity tests.”
-- D. “Try several models and pick the best.”
+- A. “Build the highest AUC model you can.”
+- B. “Use a random split so the sample stays balanced.”
+- C. “Time-based train, validation, and holdout. Features known at application only. Fail the test if a later month is in train.”
+- D. “Try three algorithms and keep the best score.”
 
 ---
 
 # Quiz 1: Answer
 
-Which prompt most reduces model leakage risk during Copilot code generation?
+**Which prompt most reduces leakage when Copilot drafts model code?**
 
-**Correct: C.** It encodes leakage controls directly into implementation requirements.
+**Correct: C.** The split and the feature rule have to be requirements, not hopes.
 
-- Time-based split limits future information leakage
-- Feature policy constrains invalid attributes
-- Tests make leakage checks repeatable
+- Maximizing AUC rewards a leaky split
+- A random split is how later defaults enter training
+- Algorithm shopping does not fix a bad label window
 
 ---
 
 # Quiz 2 of 3
 
-What is the best way to refactor notebook modeling code with Copilot?
+**What is the right way to turn a modeling notebook into modules with Copilot?**
 
-- A. Ask for full project rewrite in one prompt
-- B. Extract staged modules with step-by-step approvals and parity tests
-- C. Move code manually and test later
-- D. Focus on style cleanup before functional extraction
+- A. One prompt: “Rewrite this project as a package.”
+- B. A plan with no edits, then one module per approval, with parity tests before notebook cells are removed
+- C. Move the code by hand and add tests after the pull request
+- D. Clean up names and markdown first, then extract everything
 
 ---
 
-<!-- layout: 2-column -->
 # Quiz 2: Answer
 
-### Correct Choice
-- **B.** Extract staged modules with step-by-step approvals and parity tests.
-- Controlled staging reduces regression risk.
+**What is the right way to turn a modeling notebook into modules with Copilot?**
 
-### Why It Works
-- Scope remains reviewable
-- Regressions are caught early
-- Approvals remain evidence-based
+**Correct: B.** Staged extraction keeps each diff reviewable.
+
+- A single rewrite hides logic changes inside a style change
+- Tests after the pull request means the move and the proof are separated
+- Renaming first feels productive and does not reduce extraction risk
 
 ---
 
@@ -466,29 +333,29 @@ What is the best way to refactor notebook modeling code with Copilot?
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-- Copilot generated a model with strong aggregate metrics but weak calibration for one segment.
-- How should the team respond before deployment?
+Holdout AUC looks strong. One product segment is badly calibrated, and it has 9,000 accounts.
 
 ### Discuss
-- Which diagnostics come first?
-- What remediation options are acceptable?
-- What must be documented for approval?
+- Which diagnostics do you open first?
+- What changes are acceptable before anyone talks about a cutoff?
+- What has to be written down if the model is still proposed for use?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
+**Holdout AUC looks strong. One product segment is badly calibrated, and it has 9,000 accounts.**
+
 ### Strong Answers Mention
-- Segment-level recalibration or threshold strategy
-- Minimum support and reliability considerations
-- Updated tests for segment behavior
-- Governance note on residual risk
+- Calibration by band and by that product, with support counts
+- Recalibration or a segment limitation, not a silent threshold tweak
+- Residual risk written down before any approval
+- 9,000 accounts is not a “small cell” you can drop
 
 ### Watch For
-- Approving based on aggregate metrics only
-- No plan for sparse segments
-- Missing documentation of trade-offs
+- Approving on AUC alone
+- Hiding the segment because the book-level number looks fine
 
 ---
 

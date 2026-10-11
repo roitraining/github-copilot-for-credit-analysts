@@ -12,897 +12,285 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 1: Objectives
 
-- Explain how Copilot capabilities map to real credit analytics engineering workflows
-- Apply enterprise-safe prompting and data-handling habits in regulated model-risk environments
-- Use VS Code interaction surfaces intentionally for speed, control, and reviewability
-- Engineer context across files and repositories to improve generation quality and reduce rework
-- Build a team operating model for instructions, reusable prompts, and measurable quality outcomes
+- Choose the Copilot surface for the task: web, apps, or VS Code
+- Keep sensitive data out of prompts and treat public-code matches as review flags
+- Select inline, Chat, or Agent, and constrain the prompt with scope, checks, and a stop
+- Attach the smallest context that can succeed
+- Store team defaults in `.github/copilot-instructions.md` and shared prompt files
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 1
 
-- Copilot Platform and Enterprise Guardrails
-- Prompting Surfaces in VS Code
-- Context Engineering Patterns
-- Team Instructions, Skills, and Prompt Reuse
+- **Surfaces, Demo, and Guardrails**
+- Prompting in VS Code
+- Context, Instructions, and Reuse
 
 ---
 
-# Why This Chapter Matters
+<!-- layout: 3-column -->
+# Pick the Surface for the Job
 
-- Most Copilot failures are workflow failures, not model failures
-- Teams lose trust when they skip scope control, testing prompts, and review protocols
-- This chapter defines the operating system for how your team uses Copilot all day
+### VS Code: finish the work
+- Inline completions, Chat, and Agent mode
+- Diffs, tests, and file-scoped edits
+- This is where production changes land
+
+### Web: orient, then leave
+- [github.com/copilot](https://github.com/copilot) for a quick question
+- Useful before you open the repo
+- Not a place to merge code
+
+### Apps: capture, then leave
+- Desktop and mobile for a draft thought
+- No test run, no diff, no approval
+- Paste the idea into VS Code before you trust it
+
+---
+
+# Do Now: Same Question, Two Surfaces (5 minutes)
+
+1. Open [github.com/copilot](https://github.com/copilot)
+2. Ask: “What is the difference between Copilot Chat and inline suggestions in VS Code?”
+3. Open VS Code Copilot Chat and ask the same question
+4. Create `scratch.py`, type `def add(a, b):`, and pause for ghost text
+5. Accept one suggestion. Undo, then reject or edit the next one
+
+> [!NOTE]
+> Ghost text requires Copilot completions enabled in VS Code. If nothing appears, check the Copilot status icon before debugging the prompt.
+
+---
+
+<!-- layout: title-image -->
+# What May Enter a Prompt
+
+![Safe zone versus keep-out zone for prompts](images/ch01-secure-boundary.svg)
+
+---
+
+<!-- layout: 2-column -->
+# Risky Ask vs Safe Ask
+
+### Risky
+- “Analyze this account-level default extract and recommend cutoff scores.”
+- Live rows, identifiers, and a policy decision in one paste
+- No schema, no synthetic sample, no parameter for the cutoff
+
+### Safe
+- “Given this synthetic schema and 10 sample rows, draft helpers for feature prep and threshold evaluation.”
+- “Leave cutoffs as parameters.”
+- “List assumptions. Do not invent columns.”
+
+---
+
+# Public Code Matching Is a Review Flag
+
+- Copilot can warn when a suggestion resembles public code
+- Open the match. Rewrite the block if you cannot attribute it or your policy forbids it
+- Do not disable the filter to get unstuck
+- Org content exclusions still apply even when the match looks harmless
+
+> [!WARNING]
+> A suggestion with no warning is not a license review and not a correctness review.
+
+---
+
+# Accept Boilerplate. Reject Hidden Rules.
+
+- Accept a completion that fills in syntax you already decided
+- Reject a completion that invents a metric, a join, or a null rule
+- Edit in place when the shape is right and one line is wrong
+
+```python
+def delinquency_rate(df):
+    return df["dpd"].mean()  # reject: no denominator, no null rule
+```
 
 > [!IMPORTANT]
-> In credit analytics, acceleration without control creates governance debt.
+> If you cannot explain the suggestion to a reviewer, do not accept it.
 
 ---
 
-<!-- layout: stacked -->
-# Safe Copilot Workflow
+<!-- layout: navigation -->
+# Chapter 1
 
-- Start with the business goal and policy constraints
-- Scope the task to the right files and limits
-- Generate a draft with explicit acceptance criteria
-- Validate with tests and data checks before approval
-- Review evidence and lock the workflow into a repeatable pattern
-
-![Safe Copilot workflow](images/ch01-copilot-workflow.svg)
+- Surfaces, Demo, and Guardrails
+- **Prompting in VS Code**
+- Context, Instructions, and Reuse
 
 ---
 
-<!-- layout: 3-column -->
-# Copilot Capability Map
+<!-- layout: title-image -->
+# Inline, Chat, or Agent
 
-### Assistive
-- Inline completions
-- Code explanations
-- Local refactors
-
-### Agentic
-- Multi-step task execution
-- File edits with validation loops
-- Change summaries for review
-
-### Customizable
-- Repository instructions
-- Reusable prompt templates
-- Skill and tool integrations
-
----
-
-# GitHub Copilot Website: What It Is For
-
-- Use [github.com/copilot](https://github.com/copilot) as the product entry point, not as your daily coding surface
-- It is where teams evaluate Copilot offerings, access paths, and organizational rollout context
-- Day-to-day implementation for this course still happens primarily in VS Code
-
----
-
-<!-- layout: 2-column -->
-# Website vs VS Code: Division of Labor
-
-### GitHub Copilot Website
-- Product overview and onboarding entry
-- Plan and access information
-- Links to documentation and rollout guidance
-
-### VS Code Copilot Experience
-- Inline completions and chat-driven coding
-- File-scoped prompting and multi-file edits
-- Planning, implementation, tests, and approvals
-
----
-
-<!-- layout: 2-column -->
-# Copilot Apps on Desktop and Mobile
-
-### Useful Scenarios
-- Review pull request summaries away from coding workstation
-- Ask quick repository questions while traveling
-- Capture ideas and prompts for later execution in VS Code
-
-### Practical Limits for This Course
-- Apps are complementary surfaces, not primary coding environments
-- Production code edits, tests, and approvals stay in VS Code workflows
-- Treat mobile and desktop app outputs as draft guidance until validated
-
----
-
-<!-- layout: 3-column -->
-# Copilot Surfaces in the Real Workflow
-
-### Discover
-- Visit [github.com/copilot](https://github.com/copilot)
-- Confirm product fit
-- Review feature families
-
-### Configure
-- Align org access and policy
-- Confirm team standards
-- Share rollout expectations
-
-### Execute
-- Build in VS Code
-- Validate with tests and reviews
-- Capture evidence in pull requests
-
----
-
-<!-- layout: 2-column -->
-# Instructor Demo: Website to Editor Flow
-
-### Demo Script
-- Open [github.com/copilot](https://github.com/copilot)
-- Identify where learners find official docs and onboarding links
-- Transition into VS Code for actual coding workflows
-
-### Teaching Point
-- Website explains “what Copilot is”
-- VS Code shows “how to do real work safely”
-- Keep learners focused on execution habits
+![Inline versus Chat versus Agent](images/ch01-vscode-surfaces.svg)
 
 ---
 
 <!-- layout: card-layout -->
-# Enterprise Guardrails You Must Internalize
+# Three Slash Commands Worth Memorizing
 
-### Data Sensitivity
-- Prompting practices must align with data classification and sharing policy.
+### /explain
+- Highlight the function and ask for assumptions, null behavior, and grain.
 
-### Access Controls
-- Organization settings determine available models, features, and integrations.
+### /tests
+- Name the cases: empty input, missing columns, and the denominator rule.
 
-### Human Accountability
-- Analysts and reviewers own business correctness, regardless of generated code quality.
+### /fix
+- Paste the failure text and ask for a minimal diff, not a rewrite.
 
-### Audit Trail
-- Prompt intent, review notes, and validation evidence should be retained.
+---
+
+# What You Check After Each Command
+
+| Command | Pass looks like | Send it back when |
+| :--- | :--- | :--- |
+| `/explain` | Names grain, nulls, and ambiguity | It restates the code with no assumptions |
+| `/tests` | Covers the cases you named | It only tests the happy path |
+| `/fix` | Changes the failing lines | It rewrites functions that were passing |
 
 ---
 
 <!-- layout: 2-column -->
-# Data Classification and Prompt Boundaries
+# Weak Prompt vs Strong Prompt
 
-### Safe to Share in Prompts
-- Sanitized schemas
-- Synthetic examples
-- Publicly documented transformations
-- Non-sensitive code scaffolds
-
-### Restricted or Prohibited
-- Raw customer identifiers
-- Full account-level extracts
-- Proprietary strategy thresholds
-- Sensitive narrative from active governance reviews
-
----
-
-# Secure Prompt Rewrite Pattern
-
-- Convert risky prompts into policy-safe prompts before sending to Copilot
-- Replace live records with schema plus representative synthetic rows
-- Split sensitive business logic into abstract constraints
-
-```text
-Risky:
-"Analyze this account-level default dataset and recommend cutoff scores."
-
-Safe rewrite:
-"Given this synthetic schema and sample rows, draft Python code for
-feature preparation and threshold-evaluation utilities.
-Do not infer policy cutoffs. Leave threshold values as parameters."
-```
-
----
-
-<!-- layout: 2-column -->
-# Human Control Points in the Workflow
-
-### Before Generation
-- Define objective and acceptance criteria
-- Scope context and constraints
-- Confirm policy-safe inputs
-
-### After Generation
-- Review assumptions and edge cases
-- Run tests and data checks
-- Approve or reject with documented rationale
-
----
-
-# When Copilot Should Not Be the First Move
-
-- Do not start with generation when domain logic is still unclear
-- Clarify metric definitions and denominator rules with stakeholders first
-- Resolve conflicting business requirements before asking for code
-
-> [!WARNING]
-> Copilot can produce coherent code for an incoherent requirement. That is still a defect.
-
----
-
-<!-- layout: navigation -->
-# Chapter 1
-
-- Copilot Platform and Enterprise Guardrails
-- Prompting Surfaces in VS Code
-- Context Engineering Patterns
-- Team Instructions, Skills, and Prompt Reuse
-
----
-
-# Choosing the Right Interaction Surface
-
-- Surface choice determines output quality, review cost, and turnaround speed
-- Use inline completions for local precision
-- Use chat for structured generation and explanation
-- Use agentic task flows for bounded, multi-step implementation
-
----
-
-<!-- layout: stacked -->
-# VS Code Surface Map
-
-- Website gives product orientation and access context
-- VS Code handles real implementation and review
-- Agents add controlled execution when the work is multi-step
-
-![Copilot surface map](images/ch01-surface-map.svg)
-
----
-
-<!-- layout: 2-column -->
-# Inline Completions: High-Confidence Use Cases
-
-### Use Inline for
-- Completing boilerplate
-- Expanding local function logic
-- Small refactors in known patterns
-- Test assertion additions
-
-### Avoid Inline for
-- Cross-file architectural changes
-- Unknown domain rules
-- Large migrations
-- Governance-critical logic without review plan
-
----
-
-<!-- layout: 2-column -->
-# Chat: Best for Structured Problem Solving
-
-### Strong Chat Requests
-- “Generate and explain”
-- “Compare two approaches”
-- “Refactor with constraints”
-- “Draft tests for these edge cases”
-
-### Weak Chat Requests
-- “Fix everything”
-- “Make this production-ready”
-- “Optimize this somehow”
-- “Do whatever is best”
-
----
-
-# Prompt Anatomy for Analysts
-
-- A complete prompt includes intent, context, constraints, output, and checks
-- Missing any one element increases revision loops and hidden defects
-
-```text
-Intent: What business problem to solve.
-Context: Which files, schema definitions, and assumptions apply.
-Constraints: Policy, performance, and style requirements.
-Output: Expected artifact shape and location.
-Checks: Tests, validation metrics, and review criteria.
-```
-
----
-
-<!-- layout: 2-column -->
-# Prompt Upgrade: Before and After
-
-### Before
+### Weak
 - “Create SQL for delinquency trends.”
-- No grain definition
-- No denominator rule
-- No validation requirement
+- No grain
+- No denominator
+- No check that the result is safe to use
 
-### After
-- “Create SQL for monthly 30-day delinquency rate by risk_band at portfolio grain.”
-- “Exclude charged-off accounts from denominator.”
-- “Return row count per segment for stability checks.”
-- “Add companion query to verify duplicates at output grain.”
+### Strong
+- “Monthly 30-day delinquency rate by risk_band.”
+- “Exclude charged-off accounts from the denominator.”
+- “Return a companion query that flags duplicate account-month keys.”
 
 ---
 
-# File-Scoped Prompting: Exact Pattern
-
-- Tell Copilot exactly which files to read before asking for changes
-- Pair the task with target files, support files, and acceptance tests
-- Prevent broad repo drift by naming output file location explicitly
+# File-Scoped Prompt You Will Reuse
 
 ```text
 Task: Add a delinquency trend helper.
 Use:
 - #file src/analytics/delinquency.py
-- #file docs/metrics.md
 - #file tests/test_delinquency.py
 Output:
-- Edit src/analytics/delinquency.py only.
-- Update tests/test_delinquency.py with two edge-case tests.
+- Edit only those two files.
+- Add tests for an empty frame and a missing risk_band.
+Stop:
+- If grain is unclear, list assumptions and do not edit.
 ```
-
----
-
-<!-- layout: 2-column -->
-# Context Selectors in Practice
-
-### Narrow Scope First
-- `#selection` for targeted edits
-- `#file` for function-level or module-level changes
-- `@workspace` only when dependencies span multiple files
-
-### Decision Rule
-- Start with smallest scope that can succeed
-- Escalate only when imports or contracts require wider context
-- Ask for a file impact list before approving multi-file edits
-
----
-
-<!-- layout: 2-column -->
-# Prompting for Controlled Multi-File Changes
-
-### Safe Pattern
-- Ask for plan before code edits
-- Require impacted-file list
-- Approve one batch of files at a time
-- Run tests between batches
-
-### Unsafe Pattern
-- “Refactor the whole repository”
-- No acceptance criteria
-- No test gates
-- No rollback plan
-
----
-
-# Prompt Iteration Loop
-
-- Treat prompting as iterative engineering, not one-shot generation
-- Start with scoped prototype output
-- Review assumptions and refine constraints
-- Add test and edge-case requirements
-- Lock final prompt into reusable team library if successful
 
 ---
 
 <!-- layout: 3-column -->
-# Fast Prompt Triage When Output Is Off
+# When Another Prompt Will Not Help
 
-### Ambiguity
-- Clarify objective
-- Define input and output schema
-- Restate business rule language
+### Missing definition
+- Copilot is guessing the denominator.
+- Write the rule yourself, then prompt again.
 
-### Missing Context
-- Attach relevant files
-- Provide glossary and metric definitions
-- Identify target modules explicitly
+### Wrong context
+- It edited a file you did not name.
+- Resend with an explicit file list.
 
-### Missing Checks
-- Require assertions
-- Require unit tests
-- Request assumption summary
-
----
-
-# Prompting for Explanations, Not Just Code
-
-- High-performing teams ask Copilot to explain generated logic before merge
-- Request plain-language rationale for joins, filters, and transformations
-- Ask for known failure modes and suggested test cases
-
-```text
-Explain this generated function in reviewer language:
-- what assumptions it makes
-- where null behavior can change outcomes
-- which edge cases should be tested first
-```
+### Policy invention
+- It recommended a cutoff or a decline rule.
+- That decision stays with you.
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 1
 
-- Copilot Platform and Enterprise Guardrails
-- Prompting Surfaces in VS Code
-- Context Engineering Patterns
-- Team Instructions, Skills, and Prompt Reuse
+- Surfaces, Demo, and Guardrails
+- Prompting in VS Code
+- **Context, Instructions, and Reuse**
 
 ---
 
-# Context Engineering: Core Principle
+<!-- layout: title-image -->
+# Start with the Smallest Useful Scope
 
-- Better context beats bigger prompts
-- Precision context reduces hallucinated assumptions and unnecessary edits
-- Scope as narrowly as possible, then expand intentionally
+![Context selectors from selection to workspace](images/ch01-context-selectors.svg)
 
 ---
 
-<!-- layout: stacked -->
-# Context Stack for Better Output
+# @workspace Touched Files You Did Not Name
 
-- Business goal and policy are the foundation
-- Schemas, metrics, and files narrow the problem
-- Prompt and review rules decide the quality bar
-
-![Context stack](images/ch01-context-stack.svg)
+- You asked for a null-rate helper. The diff also reformatted a monitoring job
+- That happens when the prompt says `@workspace` and “clean this up”
+- Resend with `#file` on the helper and its test, and “do not edit other files”
+- Revert the extra edits before the next prompt so the diff stays reviewable
 
 ---
 
 <!-- layout: 3-column -->
-# Context Sources You Control
+# Attach Three Kinds of Context, Not the Repo
 
-### Code Context
-- Current file
-- Selected block
-- Neighboring modules
+### Code
+- `#selection` or `#file`
+- The matching test file when you want tests
+- Skip unrelated modules
 
-### Domain Context
-- Metric dictionary
-- Business-rule document
-- Data contract notes
+### Definitions
+- Grain, denominator, and column meanings you already know
+- “Do not invent columns”
+- A short metric note beats a data dump
 
-### Process Context
-- Coding standards
-- Test requirements
-- Review checklist
-
----
-
-<!-- layout: 2-column -->
-# Scoping Ladder
-
-### Step 1: Local
-- Current selection
-- One function or class
-- Minimal-diff edits
-
-### Step 2: Module
-- Related imports
-- Shared utilities
-- Immediate tests
-
-### Step 3: Repository
-- Cross-file dependency graph
-- Shared standards
-- Broader regression checks
-
----
-
-# Example: Context Pack for SQL Migration
-
-- For SAS-to-SQL translation, context quality drives both correctness and trust
-- Include source logic, target data model, and acceptance checks in one request
-
-```text
-Context pack:
-- #file legacy_rules.sas
-- #file schema_dictionary.md
-- #file sql_style_guide.md
-
-Task:
-Translate monthly risk-segment rollup logic into ANSI SQL.
-Preserve denominator rules and null handling.
-Return SQL and a validation query that compares record counts by segment.
-```
+### Process
+- “Edit only this file”
+- “List assumptions first”
+- “Stop after the tests”
 
 ---
 
 <!-- layout: 2-column -->
-# Multi-File Refactor Context Pattern
+# What Belongs in copilot-instructions.md
 
-### What to Provide
-- Entry-point file
-- Shared utility modules
-- Existing tests that must pass
-- Known constraints to preserve behavior
+### Put in the file
+- Explicit null handling for model inputs
+- No bare `except` blocks
+- Unit tests for denominator and segment logic
+- Synthetic examples only in prompts
 
-### What to Request
-- Impact summary before edits
-- Ordered change plan
-- File-by-file diffs
-- Post-change test report
-
----
-
-# Context Compression for Better Responses
-
-- Summarize large domain documents into compact decision rules before prompting
-- Include only definitions that affect current task outcomes
-- Remove historical narrative that does not affect implementation choices
+### Leave out of the file
+- This month’s cutoff or champion strategy
+- Customer, account, or application extracts
+- One-off questions that belong in a single chat
 
 > [!TIP]
-> A one-page “metric definition sheet” outperforms a 40-page policy document in most generation tasks.
+> Keep the file short enough that a new teammate will actually read it. Instructions steer defaults. They do not replace review.
 
 ---
 
-<!-- layout: card-layout -->
-# Common Context Engineering Failures
+# Ask Whether the Instructions Actually Loaded
 
-### Over-Scoping
-- Sending entire repositories for simple tasks introduces irrelevant patterns.
-
-### Under-Scoping
-- Missing schema or business definitions leads to plausible but incorrect outputs.
-
-### Contradictory Context
-- Conflicting files and instructions create unstable generation behavior.
-
-### Unverified Assumptions
-- Teams accept generated assumptions without demanding explicit validation.
-
----
-
-# Ask Copilot to Declare Its Assumptions
-
-- Explicit assumptions expose hidden risks before code reaches production
-- Require Copilot to list open questions and uncertain logic areas
-- Block merge when unresolved assumptions affect critical metrics
-
-```text
-Before writing code, list:
-1) Assumptions you are making.
-2) Missing inputs required for certainty.
-3) Which assumptions could materially alter delinquency metrics.
-```
-
----
-
-<!-- layout: navigation -->
-# Chapter 1
-
-- Copilot Platform and Enterprise Guardrails
-- Prompting Surfaces in VS Code
-- Context Engineering Patterns
-- Team Instructions, Skills, and Prompt Reuse
----
-
-# Team Operating Model for Copilot
-
-- Consistency at team level is the difference between occasional wins and durable productivity
-- Standardize instructions, prompts, and review checklists
-- Assign ownership for maintaining Copilot operating assets
+- Prompt: “What repo rules apply before you edit?”
+- A useful reply names null handling, tests, and synthetic data without you pasting them
+- A reply that invents a cutoff, or asks for a live extract, means the file is missing or ignored
+- Fix `.github/copilot-instructions.md`. Do not keep compensating in every chat
 
 ---
 
 <!-- layout: 2-column -->
-# Planning and Approval Workflow
+# Instructions vs Prompt Files
 
-### Planning Prompt
-- “Propose a step-by-step plan only.”
-- “List files to edit and tests to run.”
-- “Do not modify files yet.”
+### `.github/copilot-instructions.md`
+- Defaults for every task in the repo
+- Style, tests, and data-handling rules
+- Loaded without you pasting them
 
-### Approval Prompt
-- “Proceed with step 1 only.”
-- “Show diff summary before next step.”
-- “Stop after tests and wait for approval.”
+### A shared prompt file
+- One recurring workflow, such as “SQL plus a validation query”
+- You attach it when that workflow starts
+- Not a Cursor `.agents/skills/` folder, and not a skip for review
 
----
+<!-- below-columns -->
 
-# Planning Example You Can Reuse
-
-```text
-You are helping with credit analytics code maintenance.
-First, produce a plan only:
-1) What will you change?
-2) Which files and why?
-3) Which tests will you run?
-4) What could go wrong?
-Do not edit files until I approve.
-```
-
----
-
-# Approval Gate Example
-
-```text
-Approved: execute Step 1 only.
-Constraints:
-- Edit only files you listed in Step 1.
-- Preserve current business logic.
-- Run targeted tests.
-- Return a concise diff summary and test results.
-Stop and wait for my next approval.
-```
-
----
-
-# Repository Instructions: What to Include
-
-- Repository instructions should encode non-negotiable engineering behaviors
-- Define style, testing, error handling, and documentation expectations
-- Capture prohibited patterns and unsafe shortcuts
-
-```text
-Suggested sections:
-- Coding conventions
-- Data-handling restrictions
-- Test minimums
-- Review expectations
-- Documentation and traceability rules
-```
-
----
-
-<!-- layout: 2-column -->
-# Customizing Copilot in VS Code
-
-### Instruction Files
-- `.github/copilot-instructions.md` sets default team rules
-- `AGENTS.md` guides multi-agent workflow boundaries
-- Custom instruction files can encode domain safety checks
-
-### Why It Matters
-- Better than ad hoc prompts for recurring standards
-- Keeps policy and review expectations consistent across teams
-- Makes the model follow the operating model rather than improvising
-
----
-
-<!-- layout: 2-column -->
-# Specialized Agents and MCP in Practice
-
-### Specialized Agents
-- Separate tasks by role: review, refactor, docs, or validation
-- Keep review logic distinct from implementation logic
-- Reduce noisy, cross-purpose prompts in large repos
-
-### MCP and Tool Integration
-- Connect the agent to external systems, docs, or APIs
-- Expose structured tools for repo access, data checks, or issue workflows
-- Use the tool layer to keep prompts shorter and evidence stronger
-
-> [!TIP]
-> In regulated analytics work, well-scoped agents and tool access often outperform a single all-purpose prompt.
-
----
-
-<!-- layout: 2-column -->
-# When to Use Which Customization
-
-### Custom Instructions
-- Set default team standards and operating rules
-- Best for repository-wide expectations and code quality constraints
-- Good for policy, testing, and review expectations
-
-### Specialized Agents
-- Split work by role or task type
-- Best for review, refactor, documentation, or validation flows
-- Good when a single general prompt is too noisy or too broad
-
-### MCP Tools
-- Connect the agent to external systems, data, or repo tooling
-- Best for structured access to evidence, issue workflows, or data checks
-- Good when the model needs verifiable operational context
-
----
-
-<!-- layout: card-layout -->
-# Customization Stack: Pick the Right Layer
-
-### Repository Instructions
-- Default rules for every prompt
-- Best for policy, testing, and review guardrails
-- Use when the rule should apply everywhere
-
-### Skills
-- Reusable playbooks for recurring tasks
-- Best for SQL checks, refactors, and review prompts
-- Use when the workflow is repeatable and teachable
-
-### Specialized Agents
-- Role-specific execution and review
-- Best for documentation, validation, and narrow refactors
-- Use when work needs separate operating logic
-
-### MCP Tools
-- Real context from repos, issues, and data systems
-- Best when the model needs evidence, not guesses
-- Use when the workflow depends on live tool access
-
----
-
-<!-- layout: 2-column -->
-# Example Instruction Snippet
-
-### Instruction Goal
-- Enforce analytics reliability standards
-- Reduce review churn
-- Improve generated test quality
-
-### Sample Content
-```markdown
-For credit-risk analytics code:
-- Require explicit null handling for all model inputs.
-- Reject broad exception swallowing.
-- Add unit tests for denominator and segmentation logic.
-- Summarize assumptions in pull request notes.
-```
-
----
-
-<!-- layout: 2-column -->
-# Where to Configure Copilot Behavior
-
-### Repository-Level
-- `.github/copilot-instructions.md` for coding standards and constraints
-- `AGENTS.md` to guide cross-agent behavior in this repository
-- Shared prompt files in a versioned folder
-
-### Team Process-Level
-- Pull request templates for review expectations
-- Required test commands in CI
-- Governance checklist for model-risk evidence
-
----
-
-# Create a Skill: Minimum Viable Structure
-
-- Skills turn successful prompt patterns into reusable team assets
-- Start with one narrow skill per recurring workflow
-- Keep scope specific and measurable
-
-```text
-.agents/skills/sql-quality-check/
-  SKILL.md
-  examples/
-    prompt-template.md
-```
-
----
-
-<!-- layout: 2-column -->
-# Skill File Template
-
-### Frontmatter
-```yaml
-name: sql-quality-check
-description: >
-  Generates SQL plus validation queries for credit metrics.
-```
-
-### Body Guidance
-- When to use the skill
-- Inputs required from the user
-- Output format and quality gates
-- Common failure modes and fixes
-
----
-
-<!-- layout: card-layout -->
-# Skill Design Rules That Work
-
-### Narrow Scope
-- One skill should solve one recurring workflow well.
-
-### Explicit Inputs
-- Define required files, schema notes, and acceptance criteria.
-
-### Concrete Outputs
-- Require output shape, validations, and test artifacts.
-
-### Iterative Improvement
-- Version skill guidance based on observed review outcomes.
-
----
-
-# Example Skill Invocation Prompt
-
-```text
-Use the sql-quality-check skill.
-Task:
-- Build SQL for monthly 30-day delinquency by risk_band.
-Context:
-- #file docs/metric-definitions.md
-- #file data/schema.md
-Output:
-- Query plus validation query for duplicate-grain and null checks.
-```
-
----
-
-<!-- layout: 3-column -->
-# Approvals Checklist for Generated Changes
-
-### Logic
-- Metric definition preserved
-- Denominator rules preserved
-- Null and edge handling explicit
-
-### Engineering
-- Tests added or updated
-- No silent exception handling
-- Diff scope matches approved plan
-
-### Governance
-- Assumptions documented
-- Reviewer sign-off captured
-- Evidence linked in pull request
-
----
-
-<!-- layout: card-layout -->
-# Prompt Library Design
-
-### Foundation Prompts
-- Reusable prompts for profiling, SQL drafting, and model baseline generation.
-
-### Validation Prompts
-- Templates for assumption checks, test generation, and metric review.
-
-### Review Prompts
-- Structured prompts for pull request risk analysis and governance artifacts.
-
-### Recovery Prompts
-- Prompts for debugging failed generations and narrowing context quickly.
-
----
-
-<!-- layout: 3-column -->
-# Skill and Prompt Governance
-
-### Ownership
-- One owner per prompt family
-- Defined review cadence
-- Version history in git
-
-### Quality
-- Score prompt outcomes
-- Track rework cycles
-- Retire low-value templates
-
-### Adoption
-- Publish quick-start guide
-- Run team demos
-- Capture feedback monthly
-
----
-
-# Measuring Copilot Performance Like a Product
-
-- If you do not measure output quality, you cannot improve adoption quality
-- Track speed and quality together to avoid false productivity gains
-
-```text
-Practical team metrics:
-- Prompt-to-accepted-code cycle time
-- Rework rate after first generation
-- Test pass rate on generated changes
-- Review findings per pull request
-```
-
----
-
-<!-- layout: 2-column -->
-# 30-60-90 Day Enablement Plan
-
-### First 30 Days
-- Stand up instruction baseline
-- Build initial prompt library
-- Pilot with one analytics squad
-
-### Days 31 to 90
-- Expand to additional teams
-- Calibrate quality metrics
-- Formalize governance evidence workflow
+> [!NOTE]
+> Multi-file refactors use the plan-then-approve loop in Chapter 4. Do not ask Agent mode to “clean up the repo” from this chapter’s habits alone.
 
 ---
 
@@ -915,68 +303,58 @@ Practical team metrics:
 
 # What You Learned
 
-- Explained how Copilot capabilities map to real credit analytics engineering workflows
-- Applied enterprise-safe prompting and data-handling habits in regulated model-risk environments
-- Used VS Code interaction surfaces intentionally for speed, control, and reviewability
-- Engineered context across files and repositories to improve generation quality and reduce rework
-- Built a team operating model for instructions, reusable prompts, and measurable quality outcomes
-
----
-
-<!-- layout: navigation -->
-# Chapter 1 Knowledge Check
-
-- Quiz 1
-- Quiz 2
-- Quiz 3 Discussion
+- Chose the Copilot surface for the task: web, apps, or VS Code
+- Kept sensitive data out of prompts and treated public-code matches as review flags
+- Selected inline, Chat, or Agent, and constrained the prompt with scope, checks, and a stop
+- Attached the smallest context that can succeed
+- Stored team defaults in `.github/copilot-instructions.md` and shared prompt files
 
 ---
 
 # Quiz 1 of 3
 
-Your team asks Copilot to generate a delinquency metric pipeline and gets inconsistent outputs week to week. What is the best first remediation?
+**A teammate pastes a full account-level extract into Copilot Chat and asks for cutoff scores. What should you recommend?**
 
-- A. Switch to a different model immediately
-- B. Ban inline completions for all contributors
-- C. Standardize repository instructions and prompt templates with explicit acceptance checks
-- D. Increase prompt length with more background narrative
+- A. Switch to the mobile app so the extract is “less official”
+- B. Replace the extract with a synthetic schema and leave cutoffs as parameters
+- C. Disable public code matching so the answer is unrestricted
+- D. Ask Copilot to delete the data from the chat afterward
 
 ---
 
 # Quiz 1: Answer
 
-Your team asks Copilot to generate a delinquency metric pipeline and gets inconsistent outputs week to week. What is the best first remediation?
+**A teammate pastes a full account-level extract into Copilot Chat and asks for cutoff scores. What should you recommend?**
 
-**Correct: C.** Consistency comes from shared operating standards and measurable checks.
+**Correct: B.** Sensitive rows do not belong in the prompt, and a cutoff is a human decision.
 
-- Team instructions reduce behavioral variance
-- Prompt templates encode proven request structure
-- Acceptance checks force objective validation
+- A short synthetic schema is enough structure for a code draft
+- Org content exclusions reduce accidents. They do not make a live extract safe
+- Deleting a message is not a control you should plan on
 
 ---
 
 # Quiz 2 of 3
 
-Which action best reduces the risk of plausible but incorrect generated SQL?
+**Which change most improves consistency across a team that already uses Copilot?**
 
-- A. Asking for “optimized SQL” first
-- B. Supplying the full repository for context on every request
-- C. Defining output grain, denominator rules, and a validation query in the prompt
-- D. Requesting shorter responses only
+- A. Require longer prompts from everyone
+- B. Turn off inline completions
+- C. Maintain `.github/copilot-instructions.md` plus a few shared prompt files with acceptance checks
+- D. Start every chat with `@workspace`
 
 ---
 
-<!-- layout: 2-column -->
 # Quiz 2: Answer
 
-### Correct Choice
-- **C.** Define output grain, denominator rules, and a validation query in the prompt.
-- These constraints force structural clarity before generation.
+**Which change most improves consistency across a team that already uses Copilot?**
 
-### Why It Works
-- Grain definition controls aggregation correctness
-- Denominator rules protect business meaning
-- Validation queries expose hidden join issues
+**Correct: C.** Shared instructions and prompt files carry the rules people otherwise retype badly.
+
+- Defaults reduce variance from one chat to the next
+- A prompt file encodes a workflow that already worked
+- Acceptance checks give review something objective to point at
+- `@workspace` widens context. It does not set a team standard
 
 ---
 
@@ -984,29 +362,28 @@ Which action best reduces the risk of plausible but incorrect generated SQL?
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-- Your analytics team wants to “roll out Copilot everywhere” next month.
-- What rollout plan protects quality while still moving fast?
+A colleague wants to do all coding in Copilot on the web because it feels simpler than VS Code.
 
 ### Discuss
-- Which guardrails are mandatory before broad rollout?
-- Which metrics prove value beyond speed?
-- What governance evidence should be required per project?
+- When is the web UI the right first step?
+- What has to finish in VS Code before you trust a change?
+- How would you show that handoff in five minutes?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
+**A colleague wants to do all coding in Copilot on the web because it feels simpler than VS Code.**
+
 ### Strong Answers Mention
-- Scoped pilot before broad adoption
-- Shared instructions and prompt libraries
-- Quality metrics paired with speed metrics
-- Required review and validation artifacts
+- Web for orientation and a quick explanation
+- VS Code for file scope, diffs, tests, and accept or reject
+- A five-minute demo: same question on the web, then ghost text you can undo
 
 ### Watch For
-- “Speed-only” success criteria
-- No ownership model for prompts and instructions
-- No process for unresolved assumptions
+- Treating web chat as the production editor
+- Skipping verification because the answer looked fluent
 
 ---
 
