@@ -1,5 +1,5 @@
 <!-- course-title: GitHub Copilot for Credit Analytics and Risk Modeling -->
-<!-- course-theme: roi-theme -->
+<!-- course-theme: roi-alt-theme -->
 
 <!-- layout: title -->
 ![ROI Logo](images/roi-logo-with-name.png)
@@ -27,11 +27,11 @@
 
 # Course Objectives
 
-- Use GitHub Copilot in VS Code to draft, check, and document credit analytics and model code under human review
-- Choose a Copilot surface, constrain the prompt, and set repository instructions without putting sensitive data in chat
-- Drive profiling, charts, SQL, and SAS translation with the validation checks Copilot will not add on its own
-- Steer baseline model code with a time-based split, a leakage rule, and segment checks you can test
-- Govern multi-step Copilot work with stepwise approval, pytest evidence, and a model-risk package
+- Use GitHub Copilot in VS Code to speed up credit analytics and modeling
+- Use context scoping, chat commands, and repository instructions to direct code output
+- Prompt Copilot to translate and draft SQL and Python data scripts
+- Generate baseline machine learning model and validation code
+- Audit AI code using unit tests, assertions, and documentation
 
 ---
 

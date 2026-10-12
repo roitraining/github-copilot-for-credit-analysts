@@ -1,5 +1,5 @@
 <!-- course-title: GitHub Copilot for Credit Analytics and Risk Modeling -->
-<!-- course-theme: roi-theme -->
+<!-- course-theme: roi-alt-theme -->
 
 <!-- layout: title -->
 ![ROI Logo](images/roi-logo-with-name.png)
@@ -12,8 +12,8 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 1: Objectives
 
-- Choose the Copilot surface for the task: web, apps, or VS Code
-- Keep sensitive data out of prompts and treat public-code matches as review flags
+- Choose where the work belongs: VS Code, the website, or the Copilot app
+- Keep live customer data out of prompts
 - Select inline, Chat, or Agent, and constrain the prompt with scope, checks, and a stop
 - Attach the smallest context that can succeed
 - Store team defaults in `.github/copilot-instructions.md` and shared prompt files
@@ -23,14 +23,14 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 <!-- layout: navigation -->
 # Chapter 1
 
-- **Surfaces, Demo, and Guardrails**
+- **Where Copilot Runs**
 - Prompting in VS Code
 - Context, Instructions, and Reuse
 
 ---
 
 <!-- layout: 3-column -->
-# Pick the Surface for the Job
+# Where the Work Belongs
 
 ### VS Code: finish the work
 - Inline completions, Chat, and Agent mode
@@ -47,25 +47,83 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - No test run, no diff, no approval
 - Paste the idea into VS Code before you trust it
 
----
-
-# Do Now: Same Question, Two Surfaces (5 minutes)
-
-1. Open [github.com/copilot](https://github.com/copilot)
-2. Ask: “What is the difference between Copilot Chat and inline suggestions in VS Code?”
-3. Open VS Code Copilot Chat and ask the same question
-4. Create `scratch.py`, type `def add(a, b):`, and pause for ghost text
-5. Accept one suggestion. Undo, then reject or edit the next one
+<!-- below-columns -->
 
 > [!NOTE]
-> Ghost text requires Copilot completions enabled in VS Code. If nothing appears, check the Copilot status icon before debugging the prompt.
+> GitHub’s policy docs call these places surfaces. In class, name the place: VS Code, the website, or the app.
+
+---
+
+# Do Now: Using the Copilot Website
+
+1. Open [github.com/copilot](https://github.com/copilot).
+2. Paste the following prompt, and read the results. 
+
+```text
+What is the difference between Copilot Chat and inline suggestions in VS Code?
+```
+
+3. At the bottom of the chat, open the model menu and choose a different model.
+
+4. Paste this prompt:
+
+```text
+I have a CSV of credit accounts with balance, utilization, and delinquency_days. Which summary statistics should I compute first, and what would a bad value look like?
+```
+
+> [!NOTE]
+> Compare the two answers. The second one should name count, missing values, min, max, and mean, and it should flag a blank utilization or a delinquency_days of 9999.
 
 ---
 
 <!-- layout: title-image -->
-# What May Enter a Prompt
+# GitHub Copilot Website
 
-![Safe zone versus keep-out zone for prompts](images/ch01-secure-boundary.svg)
+![GitHub Copilot website](images/ch01-github-copilot-website.jpg)
+
+---
+
+# Do Now: Using Copilot in Visual Studio
+
+1. Open Visual Studio Code. Choose File, then Open Folder, and open an empty folder. Just create an empty folder anywhere on your computer. 
+2. Open Copilot Chat from the Copilot icon in the title bar.
+3. Paste the prompt below and press Enter. If asked, allow CoPilot to create the files requested in the prompt. 
+
+```text
+Create two files in this folder.
+
+sample_accounts.csv
+- Columns: account_id, balance, utilization, delinquency_days
+- 12 realistic credit-card rows
+- Leave utilization blank on 2 rows
+- Set one delinquency_days value to 9999
+
+stats.html
+- One page I can open in a browser. No server and no install.
+- An Upload CSV button
+- After upload, show the row count
+- For every column, show how many values are missing
+- For every numeric column, show min, max, and mean
+- Make the results a clear table
+```
+
+4. In the Explorer pane on the left, right-click `stats.html`, choose Reveal in Finder or Reveal in File Explorer, and open the file in a browser.
+
+5. Click Upload CSV and choose `sample_accounts.csv` from the same folder.
+
+---
+
+<!-- layout: title-image -->
+# Visual Studio with Copilot
+
+![Visual Studio Code with Copilot Chat and the generated stats page](images/ch01-visual-studio-with-copilot.jpg)
+
+---
+
+<!-- layout: title-image -->
+# Prevent Data Leakage in Prompts
+
+![A prompt is sent to the model, so customer data in the prompt leaks](images/ch01-prompt-data-leakage.svg)
 
 ---
 
@@ -84,38 +142,37 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 ---
 
-# Public Code Matching Is a Review Flag
+# Do Now: Inline Completion
 
-- Copilot can warn when a suggestion resembles public code
-- Open the match. Rewrite the block if you cannot attribute it or your policy forbids it
-- Do not disable the filter to get unstuck
-- Org content exclusions still apply even when the match looks harmless
+1. In VS Code, create a file named `fizz-buzz.js`.
+2. Type this line, add a space after the parenthesis, and pause.
 
-> [!WARNING]
-> A suggestion with no warning is not a license review and not a correctness review.
+```javascript
+function fizzBuzz()
+```
+
+3. Wait for the gray ghost text.
+4. Press Tab to accept it.
+5. Read the inserted code. Undo it if it is not the loop you wanted.
+
+> [!NOTE]
+> Ghost text requires Copilot completions. If nothing appears, check the Copilot icon in the status bar.
 
 ---
 
-# Accept Boilerplate. Reject Hidden Rules.
+# Accepting an Inline Suggestion
 
-- Accept a completion that fills in syntax you already decided
-- Reject a completion that invents a metric, a join, or a null rule
-- Edit in place when the shape is right and one line is wrong
-
-```python
-def delinquency_rate(df):
-    return df["dpd"].mean()  # reject: no denominator, no null rule
-```
-
-> [!IMPORTANT]
-> If you cannot explain the suggestion to a reviewer, do not accept it.
+- Read the gray text before you press a key.
+- Press Tab only when you understand it and it is what you meant to write.
+- Press Esc when it is wrong, or when you do not understand it.
+- If only the start is right, accept that part and leave the rest. On a Mac, press Command+Right. On Windows, press Ctrl+Right.
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 1
 
-- Surfaces, Demo, and Guardrails
+- Where Copilot Runs
 - **Prompting in VS Code**
 - Context, Instructions, and Reuse
 
@@ -132,23 +189,23 @@ def delinquency_rate(df):
 # Three Slash Commands Worth Memorizing
 
 ### /explain
-- Highlight the function and ask for assumptions, null behavior, and grain.
+- Select a function and ask what it assumes, including how it treats blank values.
 
 ### /tests
-- Name the cases: empty input, missing columns, and the denominator rule.
+- Name the cases, including an empty input, a missing column, and which accounts count.
 
 ### /fix
-- Paste the failure text and ask for a minimal diff, not a rewrite.
+- Paste the error and ask for a change only to the lines that failed.
 
 ---
 
 # What You Check After Each Command
 
-| Command | Pass looks like | Send it back when |
+| Command | A good reply | Send it back when |
 | :--- | :--- | :--- |
-| `/explain` | Names grain, nulls, and ambiguity | It restates the code with no assumptions |
-| `/tests` | Covers the cases you named | It only tests the happy path |
-| `/fix` | Changes the failing lines | It rewrites functions that were passing |
+| `/explain` | States assumptions and how blanks are treated | It only repeats the code |
+| `/tests` | Covers the cases you named | It only tests the normal case |
+| `/fix` | Changes the lines that failed | It rewrites functions that already worked |
 
 ---
 
@@ -156,15 +213,14 @@ def delinquency_rate(df):
 # Weak Prompt vs Strong Prompt
 
 ### Weak
-- “Create SQL for delinquency trends.”
-- No grain
-- No denominator
-- No check that the result is safe to use
+- “Analyze this data.”
+- “Make a chart.”
+- “Fix the bug.”
 
 ### Strong
-- “Monthly 30-day delinquency rate by risk_band.”
-- “Exclude charged-off accounts from the denominator.”
-- “Return a companion query that flags duplicate account-month keys.”
+- “Read scores.csv. Each row is one student. Print the average of the score column, and skip blank scores.”
+- “Bar chart of cups sold by weekday. Weekday on the x-axis, cups on the y-axis.”
+- “average() crashes on an empty list. Return None for an empty list, and do not change any other function.”
 
 ---
 
@@ -179,7 +235,7 @@ Output:
 - Edit only those two files.
 - Add tests for an empty frame and a missing risk_band.
 Stop:
-- If grain is unclear, list assumptions and do not edit.
+- If you are not sure what one row represents, list assumptions and do not edit.
 ```
 
 ---
@@ -187,110 +243,122 @@ Stop:
 <!-- layout: 3-column -->
 # When Another Prompt Will Not Help
 
-### Missing definition
-- Copilot is guessing the denominator.
-- Write the rule yourself, then prompt again.
+### You left out a rule
+- Copilot chose which accounts count, because you did not say.
+- Write that rule, then prompt again.
 
-### Wrong context
-- It edited a file you did not name.
-- Resend with an explicit file list.
+### It edited the wrong file
+- It changed a file you did not name.
+- Send the prompt again with the file names.
 
-### Policy invention
-- It recommended a cutoff or a decline rule.
-- That decision stays with you.
+### It made a business decision
+- It recommended a cutoff or who to decline.
+- That choice stays with you.
+
+---
+
+# Do Now: Explain, Tests, and Fix
+
+1. In VS Code, create a file named `average.py`. Then, paste this code and save the file.
+
+```python
+def average(numbers):
+    total = 0
+    for n in numbers:
+        total = total + n
+    return total / len(numbers)
+
+print(average([]))
+```
+
+2. Select the `average` function. Then, open Copilot Chat and paste the following prompt.
+
+```text
+/explain What does this function assume, and what happens when the list is empty?
+```
+
+3. Read the reply before you continue, and then paste this prompt.
+
+```text
+/tests Include a normal list and an empty list.
+```
+
+4. Read the tests. Confirm the empty list is one of the cases.
+5. Open the terminal in the folder that contains the file, and run this command.
+
+```bash
+python average.py
+```
+
+6. Copy the error. Paste this prompt, and replace the second line with the error you copied.
+
+```text
+/fix
+PASTE THE ERROR HERE
+Change only the lines that failed. An empty list should return None.
+```
+
+7. Read the edit. Keep it only if an empty list returns None.
+
+> [!NOTE]
+> If `python` is not found, run `python3 average.py`. If a reply ignores the function, select `average` and send the prompt again.
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 1
 
-- Surfaces, Demo, and Guardrails
+- Where Copilot Runs
 - Prompting in VS Code
 - **Context, Instructions, and Reuse**
 
 ---
 
 <!-- layout: title-image -->
-# Start with the Smallest Useful Scope
+# Start with the Smallest Context
 
 ![Context selectors from selection to workspace](images/ch01-context-selectors.svg)
 
 ---
 
-# @workspace Touched Files You Did Not Name
+# How You Point Copilot at Code
 
-- You asked for a null-rate helper. The diff also reformatted a monitoring job
-- That happens when the prompt says `@workspace` and “clean this up”
-- Resend with `#file` on the helper and its test, and “do not edit other files”
-- Revert the extra edits before the next prompt so the diff stays reviewable
-
----
-
-<!-- layout: 3-column -->
-# Attach Three Kinds of Context, Not the Repo
-
-### Code
-- `#selection` or `#file`
-- The matching test file when you want tests
-- Skip unrelated modules
-
-### Definitions
-- Grain, denominator, and column meanings you already know
-- “Do not invent columns”
-- A short metric note beats a data dump
-
-### Process
-- “Edit only this file”
-- “List assumptions first”
-- “Stop after the tests”
+- Select the function. Chat uses that selection.
+- Type `#file` and choose the file. Add the test file when you want tests.
+- Type `@workspace` only when the change needs other files.
+- `@workspace` can change files you did not name. Name the files when you can.
 
 ---
 
 <!-- layout: 2-column -->
-# What Belongs in copilot-instructions.md
+# What copilot-instructions.md Is For
 
-### Put in the file
-- Explicit null handling for model inputs
-- No bare `except` blocks
-- Unit tests for denominator and segment logic
-- Synthetic examples only in prompts
+### The file
+- It lives at `.github/copilot-instructions.md`
+- Copilot adds it to every chat in that repo
+- You do not paste it into the prompt
+- It holds rules for the whole team, not today’s task
 
-### Leave out of the file
-- This month’s cutoff or champion strategy
-- Customer, account, or application extracts
-- One-off questions that belong in a single chat
-
-> [!TIP]
-> Keep the file short enough that a new teammate will actually read it. Instructions steer defaults. They do not replace review.
-
----
-
-# Ask Whether the Instructions Actually Loaded
-
-- Prompt: “What repo rules apply before you edit?”
-- A useful reply names null handling, tests, and synthetic data without you pasting them
-- A reply that invents a cutoff, or asks for a live extract, means the file is missing or ignored
-- Fix `.github/copilot-instructions.md`. Do not keep compensating in every chat
+### Rules that belong there
+- Write tests with the change
+- Do not use real customer data in examples
+- State assumptions before editing
+- Leave out one-off questions, secrets, and live data
 
 ---
 
 <!-- layout: 2-column -->
-# Instructions vs Prompt Files
+# Instructions vs a Prompt File
 
 ### `.github/copilot-instructions.md`
-- Defaults for every task in the repo
-- Style, tests, and data-handling rules
-- Loaded without you pasting them
+- Loaded on every chat in the repo
+- Standing rules for the team
+- You do not choose it each time
 
-### A shared prompt file
-- One recurring workflow, such as “SQL plus a validation query”
-- You attach it when that workflow starts
-- Not a Cursor `.agents/skills/` folder, and not a skip for review
-
-<!-- below-columns -->
-
-> [!NOTE]
-> Multi-file refactors use the plan-then-approve loop in Chapter 4. Do not ask Agent mode to “clean up the repo” from this chapter’s habits alone.
+### `.github/prompts/name.prompt.md`
+- One job you repeat, such as “add tests for this function”
+- You run it by typing `/` and the file name
+- It does not run until you ask for it
 
 ---
 
@@ -303,8 +371,8 @@ Stop:
 
 # What You Learned
 
-- Chose the Copilot surface for the task: web, apps, or VS Code
-- Kept sensitive data out of prompts and treated public-code matches as review flags
+- Chose where the work belongs: VS Code, the website, or the Copilot app
+- Kept live customer data out of prompts
 - Selected inline, Chat, or Agent, and constrained the prompt with scope, checks, and a stop
 - Attached the smallest context that can succeed
 - Stored team defaults in `.github/copilot-instructions.md` and shared prompt files
@@ -313,48 +381,49 @@ Stop:
 
 # Quiz 1 of 3
 
-**A teammate pastes a full account-level extract into Copilot Chat and asks for cutoff scores. What should you recommend?**
+**You need Copilot to change one function in VS Code. What context should you give it?**
 
-- A. Switch to the mobile app so the extract is “less official”
-- B. Replace the extract with a synthetic schema and leave cutoffs as parameters
-- C. Disable public code matching so the answer is unrestricted
-- D. Ask Copilot to delete the data from the chat afterward
+- A. `@workspace`, so it can see the whole repo
+- B. The selected function, or `#file` on that file and its test
+- C. Every file in the repo, pasted into the chat
+- D. The website, with the repo described from memory
 
 ---
 
 # Quiz 1: Answer
 
-**A teammate pastes a full account-level extract into Copilot Chat and asks for cutoff scores. What should you recommend?**
+**You need Copilot to change one function in VS Code. What context should you give it?**
 
-**Correct: B.** Sensitive rows do not belong in the prompt, and a cutoff is a human decision.
+**Correct: B.** Start with the selection or the named files.
 
-- A short synthetic schema is enough structure for a code draft
-- Org content exclusions reduce accidents. They do not make a live extract safe
-- Deleting a message is not a control you should plan on
+- Select the function when the change stays in that block
+- Add the test file with `#file` when you want tests
+- Use `@workspace` only when the change needs other files
+- `@workspace` can change files you did not name
 
 ---
 
 # Quiz 2 of 3
 
-**Which change most improves consistency across a team that already uses Copilot?**
+**The team wants the same rules on every chat, without pasting them each time. Where do the rules go?**
 
-- A. Require longer prompts from everyone
-- B. Turn off inline completions
-- C. Maintain `.github/copilot-instructions.md` plus a few shared prompt files with acceptance checks
-- D. Start every chat with `@workspace`
+- A. In a prompt file that someone runs with `/`
+- B. In `.github/copilot-instructions.md`
+- C. In the ghost text, so Tab inserts the rules
+- D. In one chat. Later chats will remember it
 
 ---
 
 # Quiz 2: Answer
 
-**Which change most improves consistency across a team that already uses Copilot?**
+**The team wants the same rules on every chat, without pasting them each time. Where do the rules go?**
 
-**Correct: C.** Shared instructions and prompt files carry the rules people otherwise retype badly.
+**Correct: B.** Copilot adds `copilot-instructions.md` to every chat in that repo.
 
-- Defaults reduce variance from one chat to the next
-- A prompt file encodes a workflow that already worked
-- Acceptance checks give review something objective to point at
-- `@workspace` widens context. It does not set a team standard
+- A prompt file is one job you repeat. It does not run until you ask
+- Ghost text is an inline suggestion, not a store for team rules
+- One chat does not set the default for the next chat
+- Keep the file to standing rules, such as tests and no live customer data
 
 ---
 
@@ -362,34 +431,35 @@ Stop:
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-A colleague wants to do all coding in Copilot on the web because it feels simpler than VS Code.
+A teammate runs `/fix` on a function that crashes. They keep the edit without reading it. Copilot also rewrote a function that already worked.
 
 ### Discuss
-- When is the web UI the right first step?
-- What has to finish in VS Code before you trust a change?
-- How would you show that handoff in five minutes?
+- What should they have included with `/fix`?
+- What should they check before keeping the edit?
+- Which command comes first if they do not yet understand the function?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
-**A colleague wants to do all coding in Copilot on the web because it feels simpler than VS Code.**
+**A teammate runs `/fix` on a function that crashes. They keep the edit without reading it. Copilot also rewrote a function that already worked.**
 
 ### Strong Answers Mention
-- Web for orientation and a quick explanation
-- VS Code for file scope, diffs, tests, and accept or reject
-- A five-minute demo: same question on the web, then ghost text you can undo
+- The error, and a limit to the lines that failed
+- Keep the edit only if the crash is fixed and the other function is unchanged
+- `/explain` first, when they cannot say what the function does
+- `/tests` for the failing case, such as an empty list
 
 ### Watch For
-- Treating web chat as the production editor
-- Skipping verification because the answer looked fluent
+- Keeping the edit because it looks finished
+- Using `/fix` to rewrite the whole file
+- Skipping `/explain` when the function is unclear
 
 ---
 
 <!-- layout: stacked -->
 # Questions and Answers
 
-Questions?
 
 ![Questions and Answers](images/qa.png)

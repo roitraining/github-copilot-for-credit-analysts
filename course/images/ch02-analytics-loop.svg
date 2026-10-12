@@ -1,41 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Profiling workflow with Copilot actions">
-  <rect width="1600" height="900" fill="#f5f7fb"/>
-  <rect x="50" y="80" width="280" height="360" rx="20" fill="#1f4b99"/>
+  <rect width="1600" height="900" fill="#F4F6FB"/>
+  <rect x="50" y="80" width="280" height="360" rx="20" fill="#1E2A6B"/>
   <text x="190" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">1. Attach</text>
-  <text x="190" y="250" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">#file schema</text>
-  <text x="190" y="300" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="22">#file metrics</text>
-  <text x="190" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Context first</text>
+  <text x="190" y="250" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">#file schema</text>
+  <text x="190" y="300" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">#file metrics</text>
+  <text x="190" y="380" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Context first</text>
 
-  <rect x="380" y="80" width="280" height="360" rx="20" fill="#3a7ea1"/>
+  <rect x="380" y="80" width="280" height="360" rx="20" fill="#4F46E5"/>
   <text x="520" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">2. Prompt</text>
-  <text x="520" y="250" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">module + pytest</text>
-  <text x="520" y="300" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="22">named output files</text>
-  <text x="520" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Acceptance criteria</text>
+  <text x="520" y="250" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">module + pytest</text>
+  <text x="520" y="300" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">named output files</text>
+  <text x="520" y="380" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Acceptance criteria</text>
 
-  <rect x="710" y="80" width="280" height="360" rx="20" fill="#d97742"/>
+  <rect x="710" y="80" width="280" height="360" rx="20" fill="#7C3AED"/>
   <text x="850" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">3. Run</text>
-  <text x="850" y="250" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">execute locally</text>
-  <text x="850" y="300" text-anchor="middle" fill="#fbe7d9" font-family="Arial, Helvetica, sans-serif" font-size="22">inspect outputs</text>
-  <text x="850" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Evidence, not hope</text>
+  <text x="850" y="250" text-anchor="middle" fill="#EDE9FE" font-family="Arial, Helvetica, sans-serif" font-size="22">execute locally</text>
+  <text x="850" y="300" text-anchor="middle" fill="#EDE9FE" font-family="Arial, Helvetica, sans-serif" font-size="22">inspect outputs</text>
+  <text x="850" y="380" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Evidence, not hope</text>
 
-  <rect x="1040" y="80" width="280" height="360" rx="20" fill="#2d7d6f"/>
+  <rect x="1040" y="80" width="280" height="360" rx="20" fill="#0E7490"/>
   <text x="1180" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">4. Fix</text>
-  <text x="1180" y="250" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">/fix or surgical</text>
-  <text x="1180" y="300" text-anchor="middle" fill="#def5f1" font-family="Arial, Helvetica, sans-serif" font-size="22">revision prompt</text>
-  <text x="1180" y="380" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="20">Only what failed</text>
+  <text x="1180" y="250" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="22">/fix or surgical</text>
+  <text x="1180" y="300" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="22">revision prompt</text>
+  <text x="1180" y="380" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Only what failed</text>
 
-  <rect x="1370" y="80" width="180" height="360" rx="18" fill="#334155"/>
+  <rect x="1370" y="80" width="180" height="360" rx="18" fill="#312E81"/>
   <text x="1460" y="230" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">5. Approve</text>
-  <text x="1460" y="290" text-anchor="middle" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="18">You sign off</text>
+  <text x="1460" y="290" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="18">You sign off</text>
 
-  <path d="M330 260 H380" stroke="#334155" stroke-width="8" fill="none"/>
-  <path d="M660 260 H710" stroke="#334155" stroke-width="8" fill="none"/>
-  <path d="M990 260 H1040" stroke="#334155" stroke-width="8" fill="none"/>
-  <path d="M1320 260 H1380" stroke="#334155" stroke-width="8" fill="none"/>
+  <path d="M330 260 H380" stroke="#312E81" stroke-width="8" fill="none"/>
+  <path d="M660 260 H710" stroke="#312E81" stroke-width="8" fill="none"/>
+  <path d="M990 260 H1040" stroke="#312E81" stroke-width="8" fill="none"/>
+  <path d="M1320 260 H1380" stroke="#312E81" stroke-width="8" fill="none"/>
 
-  <rect x="160" y="520" width="1280" height="300" rx="20" fill="#ffffff" stroke="#1f4b99" stroke-width="4"/>
-  <text x="800" y="610" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Why this beats a one-shot prompt</text>
-  <text x="800" y="690" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">Context attachment prevents invented columns</text>
-  <text x="800" y="750" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">Tests make review objective</text>
-  <text x="800" y="810" text-anchor="middle" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="24">Surgical fixes protect what already works</text>
+  <rect x="160" y="520" width="1280" height="300" rx="20" fill="#ffffff" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="800" y="610" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Why this beats a one-shot prompt</text>
+  <text x="800" y="690" text-anchor="middle" fill="#4C4668" font-family="Arial, Helvetica, sans-serif" font-size="24">Context attachment prevents invented columns</text>
+  <text x="800" y="750" text-anchor="middle" fill="#4C4668" font-family="Arial, Helvetica, sans-serif" font-size="24">Tests make review objective</text>
+  <text x="800" y="810" text-anchor="middle" fill="#4C4668" font-family="Arial, Helvetica, sans-serif" font-size="24">Surgical fixes protect what already works</text>
 </svg>

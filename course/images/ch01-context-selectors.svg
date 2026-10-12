@@ -1,31 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Start with selection, then file, then workspace">
-  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <rect width="1600" height="900" fill="#F4F6FB"/>
 
-  <rect x="70" y="160" width="380" height="460" rx="24" fill="#1f4b99"/>
-  <text x="260" y="280" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">START HERE</text>
+  <rect x="70" y="160" width="380" height="460" rx="24" fill="#1E2A6B"/>
+  <text x="260" y="280" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">START HERE</text>
   <text x="260" y="360" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">#selection</text>
-  <text x="260" y="440" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">One function or block</text>
-  <text x="260" y="520" text-anchor="middle" fill="#dfe9ff" font-family="Arial, Helvetica, sans-serif" font-size="24">Lowest blast radius</text>
+  <text x="260" y="440" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="36">One function or block</text>
+  <text x="260" y="520" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="36">Only that block</text>
 
-  <path d="M470 390 H530" stroke="#334155" stroke-width="10" fill="none"/>
-  <polygon points="555,390 525,370 525,410" fill="#334155"/>
+  <path d="M470 390 H530" stroke="#312E81" stroke-width="10" fill="none"/>
+  <polygon points="555,390 525,370 525,410" fill="#312E81"/>
 
-  <rect x="575" y="160" width="400" height="460" rx="24" fill="#3a7ea1"/>
-  <text x="775" y="280" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">WIDEN IF NEEDED</text>
+  <rect x="575" y="160" width="400" height="460" rx="24" fill="#4F46E5"/>
+  <text x="775" y="280" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">WIDEN IF NEEDED</text>
   <text x="775" y="360" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">#file</text>
-  <text x="775" y="440" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="24">The module and its test</text>
-  <text x="775" y="520" text-anchor="middle" fill="#dff2fb" font-family="Arial, Helvetica, sans-serif" font-size="24">Name both files</text>
+  <text x="775" y="440" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="36">The file and its test</text>
+  <text x="775" y="520" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="36">Name both files</text>
 
-  <path d="M995 390 H1055" stroke="#334155" stroke-width="10" fill="none"/>
-  <polygon points="1080,390 1050,370 1050,410" fill="#334155"/>
+  <path d="M995 390 H1055" stroke="#312E81" stroke-width="10" fill="none"/>
+  <polygon points="1080,390 1050,370 1050,410" fill="#312E81"/>
 
-  <rect x="1100" y="160" width="430" height="460" rx="24" fill="#64748b"/>
-  <text x="1315" y="280" text-anchor="middle" fill="#fff3c4" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">LAST RESORT</text>
+  <rect x="1100" y="160" width="430" height="460" rx="24" fill="#6366F1"/>
+  <text x="1315" y="280" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">LAST RESORT</text>
   <text x="1315" y="360" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">@workspace</text>
-  <text x="1315" y="440" text-anchor="middle" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="24">Only when imports</text>
-  <text x="1315" y="490" text-anchor="middle" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="24">force other files</text>
-  <text x="1315" y="560" text-anchor="middle" fill="#fee2e2" font-family="Arial, Helvetica, sans-serif" font-size="22">Easy to over-edit</text>
+  <text x="1315" y="450" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="36">The whole repo</text>
+  <text x="1315" y="530" text-anchor="middle" fill="#FCE7F3" font-family="Arial, Helvetica, sans-serif" font-size="36">Can change other files</text>
 
-  <rect x="180" y="700" width="1240" height="120" rx="18" fill="#ffffff" stroke="#1f4b99" stroke-width="4"/>
-  <text x="800" y="775" text-anchor="middle" fill="#1f2937" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Default: smallest scope that can succeed</text>
+  <rect x="180" y="700" width="1240" height="120" rx="18" fill="#ffffff" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="800" y="775" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Start small. Widen only if you must.</text>
 </svg>

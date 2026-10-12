@@ -1,5 +1,5 @@
 <!-- course-title: GitHub Copilot for Credit Analytics and Risk Modeling -->
-<!-- course-theme: roi-theme -->
+<!-- course-theme: roi-alt-theme -->
 
 <!-- layout: title -->
 ![ROI Logo](images/roi-logo-with-name.png)
