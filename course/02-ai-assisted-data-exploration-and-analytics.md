@@ -292,20 +292,43 @@ Ensure null dpd values produce dlq_flag = 0 (matching SAS where missing is less 
 
 ---
 
+<!-- layout: stacked -->
+# Comment-Driven Code 
+
+- Inline ghost text is often faster than the Chat 
+- Start with a function signature that includes type hints so Copilot knows you are working on
+- Write a numbered comment for each step in a function 
+- Press `Enter` after each comment, read the gray ghost text, and press `Tab` to accept
+
+![Comment-driven ghost text completion in VS Code](images/ch02-comment-ghost-text.png)
+
+---
+
 <!-- layout: 2-column -->
-# Building Feature Pipelines with Comment-Driven Ghost Text
+# What You Type vs What Copilot Completes
 
-### How to Drive Ghost Text
-- Inline ghost text is faster than the Chat sidebar when adding engineered columns one by one
-- Write a numbered comment with the target column name, formula, and edge-case rule
-- Press `Enter`, read the gray completion, and press `Tab` to accept
-
-### What You Type vs What Copilot Completes
+### What You Type (Comments Only)
 ```python
 def add_credit_features(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
 
-    # 1. utilization_ratio: balance / credit_limit; np.nan if credit_limit <= 0
+    # 1. utilization_ratio: balance / credit_limit;
+    #    set to np.nan if credit_limit <= 0
+
+
+    # 2. over_limit_flag: 1 if balance > credit_limit else 0
+
+
+    return out
+```
+
+### After Pressing Tab (Completed Code)
+```python
+def add_credit_features(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+
+    # 1. utilization_ratio: balance / credit_limit;
+    #    set to np.nan if credit_limit <= 0
     out["utilization_ratio"] = np.where(
         out["credit_limit"] > 0,
         out["balance"] / out["credit_limit"],
@@ -313,7 +336,9 @@ def add_credit_features(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     # 2. over_limit_flag: 1 if balance > credit_limit else 0
-    out["over_limit_flag"] = (out["balance"] > out["credit_limit"]).astype(int)
+    out["over_limit_flag"] = (
+        out["balance"] > out["credit_limit"]
+    ).astype(int)
 
     return out
 ```
