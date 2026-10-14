@@ -1,23 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Model card generated from code and tests">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Generating a Model Card from code, schema, and metrics files with Copilot">
   <rect width="1600" height="900" fill="#F4F6FB"/>
-  <rect x="80" y="80" width="540" height="640" rx="20" fill="#1E2A6B"/>
-  <text x="350" y="180" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Source inputs</text>
-  <text x="350" y="300" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">baseline_pipeline.py</text>
-  <text x="350" y="370" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">test_validation.py</text>
-  <text x="350" y="440" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">model-objective.md</text>
-  <text x="350" y="540" text-anchor="middle" fill="#E9D5FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Attach with #file</text>
-  <text x="350" y="620" text-anchor="middle" fill="#DDD6FE" font-family="Arial, Helvetica, sans-serif" font-size="20">Known facts only</text>
 
-  <path d="M640 400 H760" stroke="#312E81" stroke-width="12" fill="none"/>
-  <polygon points="780,400 750,375 750,425" fill="#312E81"/>
-  <text x="710" y="360" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="18">Copilot draft</text>
+  <!-- Header -->
+  <rect x="50" y="40" width="1500" height="100" rx="20" fill="#1E2A6B"/>
+  <text x="800" y="102" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">How Copilot Builds a Model Card Without Guessing</text>
 
-  <rect x="800" y="80" width="720" height="640" rx="20" fill="#ffffff" stroke="#0E7490" stroke-width="5"/>
-  <text x="1160" y="180" text-anchor="middle" fill="#155E75" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Model card sections</text>
-  <text x="1160" y="290" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">intended use</text>
-  <text x="1160" y="360" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">data and features</text>
-  <text x="1160" y="430" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">metrics and evaluation</text>
-  <text x="1160" y="500" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">limitations and residual risk</text>
-  <text x="1160" y="570" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">links to tests</text>
-  <text x="1160" y="660" text-anchor="middle" fill="#BE185D" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Mark unknowns as TODO for humans</text>
+  <!-- Left Column: Source Files -->
+  <rect x="50" y="175" width="460" height="535" rx="24" fill="#312E81"/>
+  <text x="280" y="238" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">ATTACHED CONTEXT FILES</text>
+
+  <rect x="85" y="270" width="390" height="115" rx="14" fill="#1E1B4B"/>
+  <text x="280" y="318" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="25" font-weight="700">#file schema.md</text>
+  <text x="280" y="358" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="22">Feature definitions and target</text>
+
+  <rect x="85" y="410" width="390" height="115" rx="14" fill="#1E1B4B"/>
+  <text x="280" y="458" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="25" font-weight="700">#file train_baseline.py</text>
+  <text x="280" y="498" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="22">Pipeline steps and split dates</text>
+
+  <rect x="85" y="550" width="390" height="115" rx="14" fill="#1E1B4B"/>
+  <text x="280" y="598" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="25" font-weight="700">#file metrics_output.json</text>
+  <text x="280" y="638" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="22">Actual ROC AUC, KS, row counts</text>
+
+  <!-- Arrow -->
+  <path d="M530 440 H595" stroke="#1E2A6B" stroke-width="10" fill="none"/>
+  <polygon points="620,440 590,420 590,460" fill="#1E2A6B"/>
+
+  <!-- Right Area: Model Card Sections -->
+  <rect x="640" y="175" width="910" height="535" rx="24" fill="#0E7490"/>
+  <text x="1095" y="238" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">GENERATED MODEL_CARD.md</text>
+
+  <!-- Sub-box 1: Grounded from files -->
+  <rect x="675" y="270" width="410" height="395" rx="16" fill="#155E75"/>
+  <text x="880" y="320" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Auto-Populated from Code</text>
+  <text x="705" y="375" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Estimator and hyperparameters</text>
+  <text x="705" y="425" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Exact input features and types</text>
+  <text x="705" y="475" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Imputation and scaling rules</text>
+  <text x="705" y="525" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Train and test date windows</text>
+  <text x="705" y="575" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Holdout AUC and KS from JSON</text>
+
+  <!-- Sub-box 2: Marked TODO for Human -->
+  <rect x="1110" y="270" width="405" height="395" rx="16" fill="#1E1B4B"/>
+  <text x="1312" y="320" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Marked TODO for Human</text>
+  <text x="1140" y="375" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Approved score cutoff</text>
+  <text x="1140" y="425" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Business policy exceptions</text>
+  <text x="1140" y="475" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Fair lending review sign-off</text>
+  <text x="1140" y="525" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Monitoring alert owners</text>
+  <text x="1140" y="575" fill="#FDE68A" font-family="Courier New, monospace" font-size="23">TODO:Requires human sign-off</text>
+
+  <!-- Footer -->
+  <rect x="50" y="745" width="1500" height="110" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="800" y="812" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Copilot extracts technical facts from your files and leaves policy decisions as explicit TODOs</text>
 </svg>

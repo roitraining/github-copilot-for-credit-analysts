@@ -12,292 +12,337 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 2: Objectives
 
-- Prompt Copilot for portfolio profiling and revise only the logic that failed
-- Ask for charts and hypothesis rows that name a signal and a check
-- Require a SQL validation query beside every metric query
-- Translate SAS one block at a time, and block features that are not known at decision time
+- Attach schema context with `#file` so Copilot writes Python profiling and segmentation code without guessing column names
+- Prompt Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate and refine `matplotlib` and `seaborn` charts
+- Feed table definitions to Copilot to generate SQL queries with CTEs and window functions
+- Translate legacy SAS blocks to Python using `/explain`, scoped prompts, and `/tests`
+- Use comment-driven inline completions to build feature engineering pipelines in VS Code
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 2
 
-- **Profiling and Charts**
-- SQL and SAS Translation
-- Features and Quality Checks
+- **Prompting for Data Profiling**
+- Generating Charts with Copilot
+- SQL, SAS Migration, and Feature Pipelines
 
 ---
 
-# One Question for This Chapter
+# Give Copilot the Schema, Not the Data
 
-- Which risk bands drove the quarter’s rise in 30-day delinquency?
-- Grain is account-month, rolled to month by `risk_band`
-- Denominator excludes charged-off accounts
-- Copilot may draft the code. You still own the grain and the denominator
+- Copilot cannot see your DataFrame columns unless you put their names in context
+- If you prompt “profile my credit data,” Copilot invents column names that fail at runtime
+- Create a short `schema.md` file or header sample and attach it with `#file` in Chat
+- You get runnable `pandas` code while keeping real customer records out of the prompt
 
-> [!NOTE]
-> Use the Chapter 1 prompt shape: named files, constraints, tests, and a stop. This chapter changes the analytics task, not the habit.
+![Attach schema context instead of raw data](images/ch02-schema-context.svg)
 
 ---
 
 <!-- layout: 3-column -->
-# Profile These Before You Chart
+# Three Ways to Generate Profiling Code
 
-### Nulls
-- Null rate by column and by `risk_band`
-- A band that is suddenly half-null is not a risk story
+### Ghost Text (Tab)
+- Write a descriptive comment above a line in your `.py` file
+- Best for one check, such as a single `groupby` or null count
+- Fastest when the DataFrame is already in the file
 
-### Shape
-- Percentiles for utilization and balance
-- `delinquency_days` above 365 is a data defect until proven otherwise
+### Inline Chat (`Cmd+I` / `Ctrl+I`)
+- Select existing DataFrame lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+- Ask Copilot to add a column check or summary right in the editor
+- Shows an inline diff you can Accept or Discard
 
-### Grain
-- Duplicate account-month keys
-- Row counts by month before any rate
-
----
-
-# Profiling Prompt
-
-```text
-Task: Build profiling helpers for a monthly portfolio DataFrame.
-Use:
-- #file src/eda/portfolio_profile.py
-- #file tests/test_portfolio_profile.py
-Require:
-- Null rate by column and by risk_band
-- Percentiles for utilization and balance
-- A flag when delinquency_days is above 365
-- pytest for an empty frame and a missing risk_band
-Edit only those two files.
-If a column meaning is unclear, list assumptions and do not invent columns.
-```
+### Copilot Chat (`#file`)
+- Open the Chat sidebar and attach `#file schema.md`
+- Ask for a reusable profiling module with multiple functions
+- Best when starting a brand-new script
 
 ---
 
 <!-- layout: 2-column -->
-# First Draft vs the Revision You Send Back
+# Weak vs Strong Profiling Prompts
 
-### What the draft often gets wrong
-- `utilization` nulls in `new_to_credit` become zeros
-- `delinquency_days` of 9999 stays in the percentile table
-- Tests cover only a clean frame
+### Weak Prompt
+- “Write a Python script to explore my credit card dataset and check for bad values.”
+- Leaves column names, library choice, and output format up to guesswork
+- Often produces generic `df.describe()` boilerplate with made-up column names
 
-### Revision prompt
-- “Keep the functions that already match the tests.”
-- “Treat `new_to_credit` utilization nulls as missing, not zero.”
-- “Cap the outlier flag at 365 days and add one mixed-null test.”
-- “Do not rewrite unaffected functions.”
-
----
-
-<!-- layout: 3-column -->
-# A Chart Answers One Question
-
-### Rate chart
-- Level of 30-day delinquency by band this month
-- Does not show what moved
-
-### Change chart
-- Month-over-month basis-point change by band
-- Does not show whether the level is high
-
-### Still not a cause
-- Neither chart explains why a band moved
-- Volume has to sit beside the rate or mix shift will fool you
+### Strong Prompt
+- “Using `#file schema.md`, write `profile_accounts(df)` in `pandas`.”
+- “Return a summary DataFrame with row count, null percent per column, and 5th, 50th, and 95th percentiles for numeric columns.”
+- “Add a separate function `flag_outliers(df)` that returns rows where `utilization > 1.0` or `delinquency_days < 0`.”
 
 ---
 
-# Hypothesis Row You Can Defend
+# Iterating on `groupby` Logic with Inline Chat
 
-| Hypothesis | Signal you have | Check before you believe it | Priority |
-| :--- | :--- | :--- | :--- |
-| Near-prime drove the rise | Rate up about 40 bp, volume stable | Duplicate keys and null `risk_band` | High |
-| Mix shift, not worse risk | More accounts in worse bands | Recompute the rate holding mix fixed | Medium |
+- Start with a working function, then use Inline Chat to add segmentation without rewriting the file
+- Highlight the function in VS Code, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and state the exact grouping columns and metrics
 
-- Reject a row whose “signal” is a story (“the economy”) and whose check is “review later”
-- Cap the table at five rows. Copilot will pad a longer list with guesses
+```text
+Modify this function to group by risk_band and vintage_quarter.
+Calculate account count, mean balance, and the share of rows where delinquency_days >= 30.
+Keep the existing null check unchanged.
+```
+
+> [!TIP]
+> Naming the function part to keep (“Keep the existing null check unchanged”) stops Copilot from deleting working code during an edit.
+
+---
+
+# Demo: Profiling a Dataset with `#file` Schema Context
+
+1. In VS Code, open your workspace folder and create a file named `schema.md` with these contents:
+
+```markdown
+# Credit Accounts Schema (sample_accounts.csv)
+- `account_id` (string): unique account identifier
+- `risk_band` (string): Prime, Near-Prime, or Subprime
+- `balance` (float): current balance in USD
+- `credit_limit` (float): credit limit in USD
+- `utilization` (float): ratio from 0.0 to 1.0 (may contain blanks)
+- `delinquency_days` (int): days past due (9999 indicates a data error)
+```
+
+2. Open Copilot Chat, attach `#file schema.md`, and run this prompt:
+
+```text
+Using #file schema.md, create two files:
+1. make_sample_data.py: generates sample_accounts.csv with 50 synthetic rows across all three risk_band values, including 4 blank utilization rows and 2 rows with delinquency_days = 9999.
+2. profile_accounts.py: loads sample_accounts.csv with pandas and prints:
+   - Null count and null percentage for every column
+   - 5th, 50th, and 95th percentiles for balance and utilization
+   - Count of error rows where delinquency_days > 365
+   - A groupby summary by risk_band showing account count and mean balance
+```
+
+3. Run `python make_sample_data.py` and `python profile_accounts.py` in the VS Code terminal to verify the output.
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 2
 
-- Profiling and Charts
-- **SQL and SAS Translation**
-- Features and Quality Checks
+- Prompting for Data Profiling
+- **Generating Charts with Copilot**
+- SQL, SAS Migration, and Feature Pipelines
 
 ---
 
 <!-- layout: title-image -->
-# Every Metric Query Needs a Twin
+# Four Parts of a Chart Prompt
 
-![Main query plus validation query](images/ch02-sql-validation-pair.svg)
-
----
-
-# The Bug the Twin Is There to Catch
-
-```sql
--- Looks finished. Charged-off accounts are still in the denominator.
-select risk_band,
-       avg(case when dpd >= 30 then 1.0 else 0.0 end) as dlq_30_rate
-from perf
-group by risk_band;
-```
-
-```sql
--- Companion: one row per account-month, or the rate is not a rate.
-select acct_id, perf_month, count(*) as n
-from perf
-group by acct_id, perf_month
-having count(*) > 1;
-```
-
-> [!WARNING]
-> Copilot will return the first query alone unless you require the second.
-
----
-
-# SQL Prompt for the Chapter Question
-
-```text
-Business question:
-Which segments drove the quarter-over-quarter rise in 30-day delinquency?
-
-Return both:
-- Quarterly delinquency rate by segment and product
-- Denominator excludes charged-off accounts
-- Account volume beside the rate
-- A validation query for duplicate grain and null segment
-
-Explain assumptions in five bullets. Do not invent columns.
-```
-
----
-
-<!-- layout: title-image -->
-# SAS: Interpret, Then One Block
-
-![SAS migration stages](images/ch02-sas-migration-stages.svg)
-
----
-
-# Make Copilot Name the Ambiguity First
-
-```sas
-data roll;
-  set perf;
-  if dpd > 30 then bucket = "30plus";
-  where dpd > 0;
-run;
-```
-
-- `WHERE` filters rows as they are read. `IF` assigns after the read
-- A translation that swaps them changes who is in the metric
-- Ask for inputs, grain, and this kind of ambiguity before any SQL or Python
-
-> [!IMPORTANT]
-> “Do not generate code yet” is the control. Skip it and you review a fluent wrong port.
-
----
-
-<!-- layout: 2-column -->
-# Then Translate One Block
-
-### Step 1: Interpret
-```text
-Read #file legacy/roll_rate.sas.
-Summarize inputs, transforms, grain, and ambiguity.
-Do not generate code yet.
-```
-
-### Step 2: Translate
-```text
-Translate the first DATA step only into SQL.
-Keep output column names.
-Return a record-count parity query against the SAS row count.
-```
-
----
-
-<!-- layout: navigation -->
-# Chapter 2
-
-- Profiling and Charts
-- SQL and SAS Translation
-- **Features and Quality Checks**
-
----
-
-<!-- layout: title-image -->
-# Features Stop at Decision Time
-
-![Decision-time feature availability](images/ch02-feature-decision-time.svg)
-
----
-
-<!-- layout: 2-column -->
-# Name the Columns Out Loud
-
-### Allowed in this exercise
-- `open_date` and `application_date` for tenure
-- Balance and limit known on `application_date` for utilization
-- A flag when raw utilization exceeds 1.0, stored before any cap
-
-### Not allowed
-- `delinquency_days` measured after the decision
-- Recovery amounts, cure flags, or “ever 60 DPD” built from the outcome window
-- Any column Copilot proposes that you did not name
-
----
-
-# Feature Helper Prompt
-
-```text
-Task: Draft helpers for utilization_ratio and tenure_months.
-Use:
-- #file src/features/credit_features.py
-- #file tests/test_credit_features.py
-Rules:
-- Only columns available on application_date.
-- Cap utilization_ratio at 1.0 and keep a flag for values above 1.0 before the cap.
-- pytest for nulls, inverted dates, and utilization above 1.
-- Do not add features I did not name.
-```
-
----
-
-<!-- layout: title-image -->
-# Three Gates Before You Trust the Draft
-
-![Static, logic, and business gates](images/ch02-quality-gates.svg)
-
----
-
-# Tests Can Pass While the Story Is Wrong
-
-- Pytest confirms the function returns a rate between 0 and 1
-- The chart still shows a 40 bp rise that is a volume collapse in one band
-- Gate 3 asks whether the population changed or the risk changed
-- Copilot can add the volume column. You decide whether the movement is real
+![Four parts of a Copilot chart prompt](images/ch02-chart-prompt-anatomy.svg)
 
 ---
 
 <!-- layout: card-layout -->
-# When the Output Is Wrong, Change the Prompt, Not the Whole File
+# Prompt Patterns for Common Analytics Plots
 
-### Wrong grain
-- Restate the output keys and require a duplicate-key check before any rewrite.
+### Multi-Line Trend Chart
+- Name the library (`seaborn`), the time column on `x`, the rate column on `y`, and `hue="risk_band"`.
+- Ask Copilot to sort the date axis and format `y` as percentages.
 
-### Join inflation
-- Ask for a join-cardinality count, then a minimal fix.
+### Distribution and Outlier Boxplot
+- Ask for a `seaborn.boxplot` with `x="risk_band"` and `y="utilization"`.
+- Tell Copilot to add a red dashed reference line at `y=1.0` using `ax.axhline`.
 
-### Silent null drift
-- Require a null-rate report after each major step.
+### Cohort Heatmap
+- Ask Copilot to build a `pandas.pivot_table` first, then pass it to `sns.heatmap`.
+- Specify `annot=True` and `fmt=".1%"` so every cell displays its value clearly.
 
-### Overbroad rewrite
-- Resend with the file list and the words “minimal diff.”
+---
+
+# Use Inline Chat to Tweak a Chart in Place
+
+- Pasting a whole script back into the Chat sidebar just to rotate labels wastes time and can alter your data prep
+- Highlight only the plotting lines in the editor and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+- Ask for the exact visual adjustment and review the highlighted diff before pressing Accept
+
+![Inline Chat inside the editor for chart edits](images/ch02-inline-chat-chart.svg)
+
+---
+
+<!-- layout: 2-column -->
+# Sidebar Chat vs Inline Chat for Plots
+
+### Use Copilot Chat Sidebar When
+- Creating a brand-new plotting script from `#file schema.md`
+- Combining multiple charts into a new multi-panel `plt.subplots(1, 2)` layout
+- Asking `/explain` what a complex `matplotlib` formatting block does
+
+### Use Inline Chat (`Cmd+I` / `Ctrl+I`) When
+- Rotating overlapping x-axis date labels by 45 degrees
+- Adding a horizontal threshold line or data callout to an existing axis
+- Switching a color palette or moving a legend outside the plot box
+
+---
+
+# Fixing Broken Plot Code with `/fix`
+
+- `matplotlib` and `seaborn` often fail when column types are strings instead of dates or numbers, or when nulls break an axis
+- Select the failing plot block, open Chat, and pair `/fix` with the traceback or visual symptom
+
+| Problem You See | Prompt to Send Copilot |
+| :--- | :--- |
+| `TypeError` or `ValueError` traceback | `/fix` + paste the error line + “Cast `perf_month` to datetime before plotting.” |
+| Overlapping x-axis labels | Select the plot block in Inline Chat: “Rotate x-axis labels 45 degrees and call `plt.tight_layout()`.” |
+| Blank window or script hangs in terminal | Inline Chat: “Save the figure to `charts/delinquency_by_band.png` with `dpi=150` instead of `plt.show()`.” |
+
+---
+
+# Demo: Generating and Refining a Two-Panel Chart
+
+1. In VS Code, open Copilot Chat and attach `#file schema.md` and `#file profile_accounts.py` from the previous demo.
+2. Send this prompt to create a visualization script:
+
+```text
+Using #file schema.md, create plot_portfolio.py using matplotlib and seaborn.
+Load sample_accounts.csv, filter out rows where delinquency_days > 365, and create a 1x2 subplot figure (figsize 12x5):
+- Left panel: bar chart of account count by risk_band
+- Right panel: boxplot of utilization by risk_band
+Save the figure to portfolio_summary.png and close the plot.
+```
+
+3. Run `python plot_portfolio.py` and open `portfolio_summary.png` in VS Code to inspect the chart.
+4. Open `plot_portfolio.py`, select the right-panel `boxplot` code, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and type:
+
+```text
+Add a horizontal red dashed line at y=0.80 labeled "High Utilization Threshold" and add data labels on top of the left panel bars.
+```
+
+5. Accept the diff, rerun `python plot_portfolio.py`, and watch `portfolio_summary.png` update in VS Code.
+
+---
+
+<!-- layout: navigation -->
+# Chapter 2
+
+- Prompting for Data Profiling
+- Generating Charts with Copilot
+- **SQL, SAS Migration, and Feature Pipelines**
+
+---
+
+<!-- layout: stacked -->
+# Attach Table Definitions Before You Ask for SQL
+
+- Copilot writes broken SQL when it has to guess table names, join keys, or SQL dialects
+- Keep a `schema.sql` file with your `CREATE TABLE` definitions in the project and attach it with `#file schema.sql`
+- Name the target SQL dialect (`PostgreSQL`, `Snowflake`, `T-SQL`, or `Spark SQL`) in the prompt so date functions work on the first run
+
+![Attach SQL schema before asking Copilot for queries](images/ch02-sql-schema-to-query.svg)
+
+---
+
+# Prompting Copilot for Multi-Step SQL Queries
+
+- Break complex analytical SQL prompts into named Common Table Expressions (CTEs) so the generated query is easy to read and verify
+
+```text
+Using #file schema.sql, write a Snowflake SQL query with two CTEs:
+1. active_accounts: filter monthly_performance to status != 'charged_off'
+2. band_summary: group active_accounts by perf_month and risk_band, calculating account count and average 30-day delinquency rate (dpd >= 30)
+In the final SELECT, use LAG() over risk_band ordered by perf_month to show month-over-month delinquency change.
+Do not invent columns not in schema.sql.
+```
+
+> [!TIP]
+> Store your target SQL dialect in `.github/copilot-instructions.md` (for example, “Default SQL dialect is Snowflake SQL; prefer CTEs over nested subqueries”) so you do not have to repeat it in every prompt.
+
+---
+
+<!-- layout: title-image -->
+# Translate Legacy SAS in Three Copilot Steps
+
+![Three-step workflow to translate SAS to Python with Copilot](images/ch02-sas-to-python-workflow.svg)
+
+---
+
+<!-- layout: 2-column -->
+# SAS to Python: Explain First, Then Translate
+
+### Legacy SAS (`#file roll_rate.sas`)
+```sas
+data acct_flags;
+  set credit.monthly_perf;
+  where status ne 'CHARGED_OFF';
+  util_ratio = balance / credit_limit;
+  if dpd >= 30 then dlq_flag = 1;
+  else dlq_flag = 0;
+run;
+```
+
+### Two-Step Copilot Chat Sequence
+```text
+Step 1:
+/explain #file roll_rate.sas
+List how SAS handles missing values in balance / credit_limit and in dpd >= 30.
+
+Step 2:
+Translate #file roll_rate.sas into a pandas function build_acct_flags(df).
+Ensure null dpd values produce dlq_flag = 0 (matching SAS where missing is less than 0), and add a docstring noting the SAS parity rules.
+```
+
+<!-- below-columns -->
+
+> [!IMPORTANT]
+> In SAS, a missing numeric value (`.`) evaluates as less than any number, while in `pandas` `NaN` comparisons return `False`. Asking `/explain` about missing values before translating catches this difference every time.
+
+---
+
+<!-- layout: 2-column -->
+# Building Feature Pipelines with Comment-Driven Ghost Text
+
+### How to Drive Ghost Text
+- Inline ghost text is faster than the Chat sidebar when adding engineered columns one by one
+- Write a numbered comment with the target column name, formula, and edge-case rule
+- Press `Enter`, read the gray completion, and press `Tab` to accept
+
+### What You Type vs What Copilot Completes
+```python
+def add_credit_features(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+
+    # 1. utilization_ratio: balance / credit_limit; np.nan if credit_limit <= 0
+    out["utilization_ratio"] = np.where(
+        out["credit_limit"] > 0,
+        out["balance"] / out["credit_limit"],
+        np.nan,
+    )
+
+    # 2. over_limit_flag: 1 if balance > credit_limit else 0
+    out["over_limit_flag"] = (out["balance"] > out["credit_limit"]).astype(int)
+
+    return out
+```
+
+---
+
+# Demo: Comment-Driven Feature Engineering
+
+1. In VS Code, create a new file named `features.py` and type only the imports, function header, and comments below:
+
+```python
+import numpy as np
+import pandas as pd
+
+def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+
+    # Calculate available_credit as credit_limit minus balance, floored at 0
+
+    # Create is_delinquent_30 as 1 when delinquency_days >= 30 and delinquency_days <= 365, else 0
+
+    # Bucket utilization into 'Low' (<0.3), 'Medium' (0.3 to 0.7), and 'High' (>0.7) using np.select
+
+    return out
+```
+
+2. Place your cursor on the blank line below the first comment, wait for Copilot’s gray ghost text, read it, and press `Tab` to accept.
+3. Repeat for the second and third comments.
+4. Select the entire `engineer_features` function, open Copilot Chat, and run `/tests` to generate a quick check for `available_credit` when `balance` exceeds `credit_limit`.
 
 ---
 
@@ -310,56 +355,57 @@ Rules:
 
 # What You Learned
 
-- Prompted Copilot for portfolio profiling and revised only the logic that failed
-- Asked for charts and hypothesis rows that name a signal and a check
-- Required a SQL validation query beside every metric query
-- Translated SAS one block at a time, and blocked features that are not known at decision time
+- Attached schema context with `#file` so Copilot wrote Python profiling and segmentation code without guessing column names
+- Prompted Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate and refine `matplotlib` and `seaborn` charts
+- Fed table definitions to Copilot to generate SQL queries with CTEs and window functions
+- Translated legacy SAS blocks to Python using `/explain`, scoped prompts, and `/tests`
+- Used comment-driven inline completions to build feature engineering pipelines in VS Code
 
 ---
 
 # Quiz 1 of 3
 
-**Which SQL prompt is the one you should send?**
+**When you ask Copilot Chat to write a Python profiling script or SQL query, it keeps inventing column names that do not exist in your dataset. What is the best fix?**
 
-- A. “Write the fastest delinquency query you can.”
-- B. “Quarterly 30-day rate by segment, charged-off accounts out of the denominator, plus a duplicate-grain check.”
-- C. “Give me a SQL template. I will fill in the business rules later.”
-- D. “Why did delinquency rise last quarter?”
+- A. Paste 10,000 rows of real customer production data into the Chat window
+- B. Attach a schema file (`#file schema.md` or `#file schema.sql`) with the exact column names and types
+- C. Repeatedly click Regenerate until Copilot guesses the right column names
+- D. Turn off Copilot Chat and only use inline ghost text
 
 ---
 
 # Quiz 1: Answer
 
-**Which SQL prompt is the one you should send?**
+**When you ask Copilot Chat to write a Python profiling script or SQL query, it keeps inventing column names that do not exist in your dataset. What is the best fix?**
 
-**Correct: B.** Grain, denominator, and a validation query are the contract.
+**Correct: B.** Attach a schema file (`#file schema.md` or `#file schema.sql`) with the exact column names and types.
 
-- Speed and a vague business question leave the denominator up to the model
-- A template you “fill in later” is how the wrong denominator ships
-- The companion query is what catches a join that duplicated account-months
+- Copilot cannot guess column names that are not in its active context
+- A lightweight schema file gives Copilot exact names, types, and value ranges without exposing customer PII
+- Regenerating without schema context just produces a different set of guessed names
 
 ---
 
 # Quiz 2 of 3
 
-**Copilot’s profiling module passes most tests and still zeros out `new_to_credit` utilization nulls. What do you send next?**
+**You already have a working 60-line Python script that loads data and builds a `seaborn` chart. You only want to rotate the x-axis labels 45 degrees and add a horizontal reference line. Which Copilot workflow is best?**
 
-- A. “Regenerate the module from scratch.”
-- B. “Looks close enough. We will patch it in the pull request.”
-- C. “Keep passing functions. Treat those nulls as missing, and add one mixed-null test.”
-- D. “Stop profiling and build the chart.”
+- A. Ask the Chat sidebar to rewrite the entire 60-line file from scratch
+- B. Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes
+- C. Delete the plotting code and wait for ghost text to guess the new layout
+- D. Copy the script into the Copilot mobile app
 
 ---
 
 # Quiz 2: Answer
 
-**Copilot’s profiling module passes most tests and still zeros out `new_to_credit` utilization nulls. What do you send next?**
+**You already have a working 60-line Python script that loads data and builds a `seaborn` chart. You only want to rotate the x-axis labels 45 degrees and add a horizontal reference line. Which Copilot workflow is best?**
 
-**Correct: C.** A surgical revision keeps the code you already checked.
+**Correct: B.** Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes.
 
-- A full regenerate throws away passing tests and hides a new diff
-- Patching later means the chat record and the code diverge
-- Charting on zero-filled nulls will invent a utilization story
+- Inline Chat scopes the edit to your highlighted lines and shows a clean in-place diff
+- Data loading and filtering above the selection stay untouched
+- Regenerating the whole file in the sidebar risks breaking working code above or below the plot
 
 ---
 
@@ -367,35 +413,34 @@ Rules:
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-A SAS roll-rate was translated with Copilot. It runs faster, and the portfolio total does not match the legacy job.
+A teammate needs to migrate a 400-line legacy SAS script with six `DATA` steps and two `PROC SQL` blocks into Python `pandas`. They paste the entire file into Copilot Chat with the prompt: “Convert this to Python.”
 
 ### Discuss
-- Which checks do you run before you touch the SQL again?
-- What parity gap would you accept, and who signs that?
-- What has to be in the pull request besides “tests passed”?
+- What typically goes wrong when you ask Copilot to translate a 400-line SAS file in a single prompt?
+- How should they use `#file`, `/explain`, and `/tests` to migrate the script safely?
+- Which SAS-to-pandas behavior differences should they explicitly mention in their prompt?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
-**A SAS roll-rate was translated with Copilot. It runs faster, and the portfolio total does not match the legacy job.**
+**A teammate needs to migrate a 400-line legacy SAS script with six `DATA` steps and two `PROC SQL` blocks into Python `pandas`. They paste the entire file into Copilot Chat with the prompt: “Convert this to Python.”**
 
 ### Strong Answers Mention
-- Grain, duplicate keys, and `WHERE` versus `IF` behavior
-- Segment totals, not only the portfolio total
-- An explicit tolerance and a named sign-off
-- The parity query in the pull request
+- Run `/explain` on `#file` first to map inputs, outputs, and macro variables before generating Python
+- Translate one `DATA` step or `PROC SQL` block at a time into its own function
+- State how SAS missing values (`.` evaluating as less than any number) and `WHERE` vs `IF` filtering should behave in `pandas`
+- Use `/tests` with synthetic rows after each step to verify parity before moving to the next block
 
 ### Watch For
-- Approving because the new job is faster
-- Comparing totals that use different denominators
+- Accepting a 400-line one-shot translation because the Python syntax looks clean
+- Ignoring how `NaN` comparisons in `pandas` differ from `.` comparisons in SAS
+- Skipping unit tests until all six steps are merged together
 
 ---
 
 <!-- layout: stacked -->
 # Questions and Answers
-
-Questions?
 
 ![Questions and Answers](images/qa.png)

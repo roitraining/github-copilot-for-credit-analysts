@@ -12,254 +12,257 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 4: Objectives
 
-- Run a plan-only prompt and approve one refactor step at a time
-- Ask for pytest and assertions that protect grain and denominators
-- Package the prompt, the diff, the tests, and the decision for model-risk review
-- Draft model cards and docstrings from code, and leave unknown numbers as TODO
+- Use Inline Chat (`Cmd+I` or `Ctrl+I`) and Copilot Chat to refactor, modularize, and vectorize slow Python analytics scripts
+- Prompt Copilot to add defensive runtime assertions and generate comprehensive `pytest` suites with `/tests`
+- Drive Copilot Agent mode safely using plan-first prompts, single-step approvals, and VS Code diff reviews
+- Use reusable `.github/prompts/*.prompt.md` templates to generate Model Risk Management (MRM) audit evidence
+- Generate grounded Model Cards, technical specifications, and docstrings with `#file`, `/doc`, and `/explain`
 
 ---
 
 <!-- layout: navigation -->
 # Chapter 4
 
-- **Plan-First Execution**
-- Tests and Assertions
-- Evidence and Documentation
+- **AI-Powered Code Maintenance**
+- Human-in-the-Loop Governance with Agent Mode
+- Automated Documentation and Model Cards
+
+---
+
+# Three Copilot Workflows for Code Maintenance
+
+- Analytical scripts often start as long, single-file prototypes with slow row loops, no runtime checks, and zero tests
+- Use Inline Chat (`Cmd+I` or `Ctrl+I`) to split monolithic functions and replace `.iterrows()` loops with vectorized `pandas` or `numpy`
+- Use Inline Chat or ghost text to insert defensive `ValueError` guards right above and below numerical calculations
+- Use `/tests` with `#file` in Copilot Chat to generate a complete `pytest` suite that tests both normal math and every new assertion
+
+![Three Copilot steps to refactor, add assertions, and generate pytest suites](images/ch04-maintenance-copilot-tools.svg)
+
+---
+
+<!-- layout: 2-column -->
+# Refactoring and Optimizing with Inline Chat
+
+### Splitting a Long Function
+- Highlight the 80-line function in VS Code and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+- Prompt: “Split this into `filter_active_accounts(df)` and `compute_band_rates(df)` with type hints. Do not change the math or column names.”
+- Review the side-by-side diff in the editor before clicking Accept
+
+### Vectorizing a Slow Loop
+- Highlight a slow `for idx, row in df.iterrows():` block and open Inline Chat
+- Prompt: “Replace this `iterrows()` loop with vectorized `np.select` or `pandas` operations that produce identical values, including for `NaN` rows.”
+- Ask `/tests` for a parity test comparing the old function and new function on 20 synthetic rows
+
+---
+
+<!-- layout: card-layout -->
+# Prompting Copilot for Defensive Assertions
+
+### Input Schema Guard
+- Select the top of your function in Inline Chat and ask Copilot to check required columns.
+- Raise a `ValueError` listing any missing column names before running calculations.
+
+### Grain and Denominator Guard
+- Ask Copilot to assert that `(account_id, perf_month)` has no duplicate rows.
+- Raise a `ValueError` if filtering out `charged_off` rows leaves an empty denominator (`len(active) == 0`).
+
+### Statistical Output Guard
+- Place your cursor after the rate calculation and write a comment for ghost text.
+- Raise a `ValueError` if any computed delinquency or loss rate is `NaN`, below `0.0`, or above `1.0`.
+
+---
+
+# Generating Comprehensive `pytest` Suites with `/tests`
+
+- Typing `/tests` alone often produces only one happy-path test; always pair `/tests` with explicit edge cases and `pytest` features
+
+```text
+/tests #file src/monitoring/risk_rollup.py
+Create tests/test_risk_rollup.py using pytest:
+1. Add a @pytest.fixture with 8 synthetic account rows covering Prime, Near-Prime, and Subprime, including 1 charged_off row and 1 null balance.
+2. Use @pytest.mark.parametrize to test normal rate calculations across risk bands.
+3. Use pytest.raises(ValueError) to test missing required columns, duplicate (account_id, perf_month) keys, an all-charged-off denominator, and a rate outside [0, 1].
+```
+
+> [!TIP]
+> Add “Use `@pytest.fixture` with synthetic rows and `pytest.raises` for all `ValueError` guards” to `.github/copilot-instructions.md` so `/tests` follows this standard automatically.
+
+---
+
+# Demo: Refactoring, Asserting, and Testing with Copilot
+
+1. In VS Code, create `risk_rollup.py` and paste this unguarded, loop-heavy function:
+
+```python
+import pandas as pd
+
+def calc_delinquency(df):
+    rates = {}
+    for band in df["risk_band"].unique():
+        sub = df[df["risk_band"] == band]
+        active = 0
+        bad = 0
+        for _, row in sub.iterrows():
+            if row["status"] != "charged_off":
+                active += 1
+                if row["dpd"] >= 30:
+                    bad += 1
+        rates[band] = bad / active
+    return pd.Series(rates, name="dlq_30_rate")
+```
+
+2. Select `calc_delinquency`, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and run this prompt:
+
+```text
+1. Replace the iterrows() loop with vectorized pandas groupby operations.
+2. Add ValueError checks at the top for required columns (account_id, risk_band, status, dpd) and duplicate account_id values.
+3. Raise ValueError if any band has zero active accounts or if any output rate is outside [0.0, 1.0].
+```
+
+3. Accept the diff, open Copilot Chat, and run `/tests #file risk_rollup.py` asking for `pytest` tests that verify both the exact rates and all `pytest.raises(ValueError)` guards.
+4. Run `pytest` in the VS Code terminal to confirm all tests pass.
+
+---
+
+<!-- layout: navigation -->
+# Chapter 4
+
+- AI-Powered Code Maintenance
+- **Human-in-the-Loop Governance with Agent Mode**
+- Automated Documentation and Model Cards
 
 ---
 
 <!-- layout: title-image -->
-# Agentic Work Is a Gated Loop
+# Driving Copilot Agent Mode with Human Gates
 
-![Plan, approve, and test loop](images/ch04-plan-approve-loop.svg)
-
----
-
-# The Only Prompt That Starts a Multi-Step Change
-
-```text
-Plan only. Do not edit files yet.
-Return:
-- ordered steps
-- files each step may touch
-- tests to run before the next step
-- risks and assumptions
-
-Stop. Wait for approval of step 1.
-```
-
-```text
-Approved: execute step 1 only.
-Edit the listed files, preserve metric definitions, run the targeted tests, stop.
-```
-
-> [!WARNING]
-> “Improve the monitoring package” is not a plan. If the reply has no file list, do not approve it.
+![Four-step Agent mode workflow with human-in-the-loop gates in VS Code](images/ch04-agent-hitl-loop.svg)
 
 ---
 
 <!-- layout: 2-column -->
-# Approve the Task or Send It Back
+# Unconstrained Agent Prompt vs Plan-First Agent Prompt
 
-### Approve
-- Named files
-- A behavior you can test, such as “output grain stays month by risk_band”
-- A stop after this batch
+### Unconstrained Agent Prompt (Risky)
+- “Clean up our monitoring scripts, reorganize the files, and fix any issues you see.”
+- Agent mode edits 6 files at once, renames public functions, and alters metric filters
+- Leaves you with a sprawling diff where a formula bug can hide inside formatting changes
 
-### Send back
-- “Clean up everything”
-- No acceptance test
-- Extra files you did not list
-- A style rewrite bundled with a formula change
+### Plan-First Agent Prompt (Controlled)
+- “Plan only. Read `#file risk_rollup.py` and `#file test_risk_rollup.py`. Propose a 3-step plan to extract validation guards into `validators.py`. List the files each step touches and wait for my approval. Do not edit any files yet.”
+- You review the plan, then prompt: “Execute Step 1 only and run `pytest`.”
 
 ---
 
-# What “Preserve the Metric” Means
+# Using VS Code’s Review Controls in Agent Mode
 
-```python
-# Before and after the refactor, this contract stays true:
-# grain = perf_month x risk_band
-# denominator = accounts where status != "charged_off"
-# rate is in [0, 1]
-def rollup_delinquency(frame):
-    ...
-```
+- When Copilot Agent edits files in your workspace, VS Code displays inline diffs and an action bar (`Keep` or `Undo`) for every modified file
+- Never click **Keep All** before expanding each modified file and running `pytest`
 
-- A refactor may move helpers. It may not change who is in the denominator
-- Ask for a test that locks the grain and the exclusion before you approve the next batch
-
----
-
-# Read This Before You Approve Step 2
-
-- The diff touches only the files in step 1
-- Targeted pytest output is in the reply, not a promise to run tests later
-- Metric definitions are listed as unchanged
-- New risks are explicit. “No issues” with no evidence is a fail
-
----
-
-<!-- layout: navigation -->
-# Chapter 4
-
-- Plan-First Execution
-- **Tests and Assertions**
-- Evidence and Documentation
-
----
-
-<!-- layout: 3-column -->
-# Tests Worth Asking For
-
-### Unit
-- Empty frame, duplicate keys, null `exposure_amount`
-- Charged-off accounts out of the denominator
-- Fixtures are synthetic. No warehouse extract in the test file
-
-### Regression
-- A past bug, written as a test that failed before the fix
-- The fix stays narrow enough that this test still names the bug
-
-### Contract
-- Required input columns
-- Output grain and column names
-- A rate outside `[0, 1]` fails loudly
-
----
-
-<!-- layout: 2-column -->
-# Fixtures You Can Read
-
-### Use
-- A handful of synthetic rows
-- One charged-off account, one null exposure, one duplicate key
-- Values small enough to compute the expected rate by hand
-
-### Do not use
-- A production extract pasted into the test
-- A mock that skips the denominator so the test cannot fail
-- Random rows with no expected value
-
----
-
-# Pytest Prompt
-
-```text
-Create tests/test_risk_rollup.py with pytest and synthetic fixtures.
-Cover:
-- month by risk_band grain
-- empty frame
-- duplicate keys at the output grain
-- null exposure_amount
-- charged-off accounts excluded from the denominator
-No network calls.
-If a test shows a production bug, stop and describe it. Do not patch production in this turn.
-```
-
----
-
-<!-- layout: 2-column -->
-# Put the Assertion Next to the Rate
-
-### Unguarded
-```python
-return frame["dlq_30"].mean()
-```
-- Charged-off rows stay in the denominator
-- An empty slice returns NaN and keeps going
-
-### Guarded
-```python
-active = frame.loc[frame["status"] != "charged_off"]
-if active.empty:
-    raise ValueError("denominator is empty")
-rate = float(active["dlq_30"].mean())
-if not 0.0 <= rate <= 1.0:
-    raise ValueError(f"rate out of range: {rate}")
-```
-- Ask Copilot to place each check beside the calculation
-- A sentence in a docstring does not protect the metric
-
----
-
-# A Red Test Stops the Agent
-
-- Read the failure. Decide if the test or the code is wrong
-- If the code is wrong, approve a minimal fix in a new step
-- Do not let the same turn “make the tests pass” by weakening the assertion
-- Chapter 1’s `/fix` habit still applies: paste the failure, demand a small diff
-
----
-
-<!-- layout: navigation -->
-# Chapter 4
-
-- Plan-First Execution
-- Tests and Assertions
-- **Evidence and Documentation**
-
----
-
-<!-- layout: title-image -->
-# What Model Risk Needs to See
-
-![Prompt, diff, tests, and decision](images/ch04-mrm-evidence-chain.svg)
-
----
-
-# A Package, Not a Longer Pull Request
-
-| Piece | Example a reviewer can check |
+| VS Code Agent Control | How to Use It During Review |
 | :--- | :--- |
-| Prompt | 2026-04-02 plan prompt, files named, “do not edit yet” |
-| Diff | `risk_rollup.py` and `test_risk_rollup.py` only |
-| Tests | `pytest tests/test_risk_rollup.py` → 5 passed |
-| Decision | Grain unchanged. Residual risk: prior-quarter stability not rerun. Not approved for cutoff use |
-
-- If any cell is “see chat,” the package is incomplete
-- The decision states what was not done. It does not say “validated” by default
-
----
-
-<!-- layout: 2-column -->
-# Model Card: Cite or Mark TODO
-
-### Cite from code or test output
-- Intended use, in your words, matched to the label in code
-- Feature list actually read by the pipeline
-- Metrics printed by the validation tests
-- Links to those tests
-
-### Mark TODO
-- Any AUC, KS, or cutoff you did not run
-- Limitations you have not reviewed
-- Population differences the code does not show
+| File change list in Chat | Click each filename to open the side-by-side diff editor in VS Code. |
+| Inline Accept / Discard (`Keep` / `Undo`) | Keep changes file-by-file or hunk-by-hunk; click `Undo` on any file you did not authorize Copilot to touch. |
+| Terminal command approval | Read the exact terminal command Agent proposes (for example, `pytest tests/test_risk_rollup.py`) before clicking Allow. |
 
 > [!IMPORTANT]
-> Unknown is a TODO. A fluent number with no run behind it is a finding, not a documentation win.
+> If Agent mode modifies a test just to make a broken formula pass, click **Undo** on the test file immediately and narrow your prompt.
 
 ---
 
-# Docstrings Without a Behavior Change
+<!-- layout: stacked -->
+# Generating MRM Audit Evidence with a Prompt File
 
-```text
-Add docstrings to #file src/monitoring/risk_rollup.py.
-Cover grain, denominator rules, and failure modes.
-Do not change runtime behavior.
-List anything you could not resolve from the code.
+- Model Risk Management (MRM) reviewers need a clear record of what changed, whether business formulas moved, and which tests verified the change
+- Instead of writing audit notes from scratch, store a reusable prompt template at `.github/prompts/mrm-evidence.prompt.md`
+- Attach the code file, test file, and `pytest` output, then run `/mrm-evidence` in Copilot Chat
+
+![Prompting Copilot to generate an MRM audit trail from code, tests, and diffs](images/ch04-mrm-evidence-generator.svg)
+
+---
+
+# Creating `.github/prompts/mrm-evidence.prompt.md`
+
+```markdown
+---
+mode: ask
+description: Generate an MRM audit evidence summary from code and test files
+---
+Using the attached code file, test file, and pytest terminal output, generate `AUDIT_EVIDENCE.md` with:
+1. **Scope of Change**: List every function modified or added.
+2. **Formula and Denominator Parity**: State whether any filter, grain, or rate formula changed.
+3. **Runtime Assertions Added**: List each `ValueError` check and the condition that triggers it.
+4. **Test Verification**: Table of `pytest` test names, what each verifies, and pass/fail status from the attached run.
+5. **Human Sign-Off Checklist**: Leave reviewer name, date, and approval decision as `TODO`.
+
+Rule: Do not invent test results or claim a model is "Approved."
 ```
 
-- If the reply edits a formula, reject it and resend with “docstrings only”
-- Ambiguities belong in the list, not in a guessed sentence
+---
+
+<!-- layout: navigation -->
+# Chapter 4
+
+- AI-Powered Code Maintenance
+- Human-in-the-Loop Governance with Agent Mode
+- **Automated Documentation and Model Cards**
 
 ---
 
-# The Card Drifts When the Code Moves
+<!-- layout: title-image -->
+# Generating Grounded Model Cards from Code and Output Files
 
-- Regenerate the card from the current files after a metric or feature change
-- Diff the card the way you diff the code
-- A card that still describes last quarter’s features is worse than a short TODO
-- Tests stay the source for numbers. The card only quotes them
+![Generating a Model Card from code, schema, and metrics files with Copilot](images/ch04-model-card-from-code.svg)
+
+---
+
+# Prompting Copilot for a Model Card Without Hallucinations
+
+- If you ask Copilot to “write a model card for our delinquency model” with no files attached, it invents feature lists, training dates, and validation numbers
+- Attach `#file schema.md`, `#file train_baseline.py`, and `#file metrics_output.json` so every technical section comes straight from your repo
+
+```text
+Using #file schema.md, #file train_baseline.py, and #file metrics_output.json,
+create MODEL_CARD.md with these sections:
+1. Model Architecture and Hyperparameters (read from train_baseline.py)
+2. Feature List and Preprocessing Pipeline (from schema.md and ColumnTransformer)
+3. Training and Holdout Split Window (from train_baseline.py)
+4. Holdout Performance Metrics (exact numbers from metrics_output.json)
+5. Governance, Cutoffs, and Policy Limitations (mark every item in this section as TODO for human completion)
+
+Do not invent any metric, date, or policy rule not present in the attached files.
+```
+
+---
+
+# Using `/doc` and `/explain` to Document Complex Scripts
+
+- Highlight any function and press `Cmd+I` (Mac) or `Ctrl+I` (Windows), then type `/doc` to generate a structured docstring in place
+- Specify your team’s docstring format (`NumPy` or `Google` style) and require grain, exclusions, and raised exceptions
+- Add the guardrail “Add docstrings and comments only; do not modify any executable code” so Copilot never alters a formula while documenting it
+
+![Using /doc in Inline Chat to add Google or NumPy style docstrings](images/ch04-docstring-annotation.svg)
+
+---
+
+# Do Now: Document and Package `risk_rollup.py` for Review
+
+1. In VS Code, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and run:
+
+```text
+/doc Add a NumPy-style docstring stating required columns, the charged_off exclusion rule, output Series format, and all ValueError conditions. Do not change any executable lines.
+```
+
+2. Accept the docstring diff and run `pytest` in the terminal to confirm all tests still pass.
+3. In Copilot Chat, attach `#file risk_rollup.py` and `#file test_risk_rollup.py`, paste your `pytest` terminal output, and run:
+
+```text
+Generate AUDIT_EVIDENCE.md with:
+1. Functions changed and vectorized
+2. Runtime ValueError assertions added
+3. Table of pytest tests in test_risk_rollup.py and pass count
+4. Human sign-off section marked TODO
+```
 
 ---
 
@@ -272,56 +275,57 @@ List anything you could not resolve from the code.
 
 # What You Learned
 
-- Ran a plan-only prompt and approved one refactor step at a time
-- Asked for pytest and assertions that protect grain and denominators
-- Packaged the prompt, the diff, the tests, and the decision for model-risk review
-- Drafted model cards and docstrings from code, and left unknown numbers as TODO
+- Used Inline Chat (`Cmd+I` or `Ctrl+I`) and Copilot Chat to refactor, modularize, and vectorize slow Python analytics scripts
+- Prompted Copilot to add defensive runtime assertions and generated comprehensive `pytest` suites with `/tests`
+- Drove Copilot Agent mode safely using plan-first prompts, single-step approvals, and VS Code diff reviews
+- Used reusable `.github/prompts/*.prompt.md` templates to generate Model Risk Management (MRM) audit evidence
+- Generated grounded Model Cards, technical specifications, and docstrings with `#file`, `/doc`, and `/explain`
 
 ---
 
 # Quiz 1 of 3
 
-**Which practice actually controls risk when Copilot is editing multiple files?**
+**You want to use Copilot Agent mode in VS Code to refactor a 300-line monitoring script into separate modules (`validators.py`, `metrics.py`, and `test_metrics.py`). How should you start the session?**
 
-- A. One broad prompt, then a careful read at the end
-- B. A plan with no edits, approval of one step, and tests before the next step
-- C. Skip tests when the change “looks small”
-- D. Approve because the new names are clearer
+- A. Prompt Agent mode to “Clean up and reorganize the whole repo however you think is best” and click Keep All
+- B. Ask Agent mode for a step-by-step plan listing which files each step will touch (“Do not edit files yet”), then approve and test one step at a time
+- C. Delete all existing unit tests first so Agent mode is not slowed down by test failures
+- D. Paste the 300-line script into the Copilot mobile app
 
 ---
 
 # Quiz 1: Answer
 
-**Which practice actually controls risk when Copilot is editing multiple files?**
+**You want to use Copilot Agent mode in VS Code to refactor a 300-line monitoring script into separate modules (`validators.py`, `metrics.py`, and `test_metrics.py`). How should you start the session?**
 
-**Correct: B.** The gate is the plan, the single-step approval, and the test evidence.
+**Correct: B.** Ask Agent mode for a step-by-step plan listing which files each step will touch (“Do not edit files yet”), then approve and test one step at a time.
 
-- Reviewing a wide diff at the end is how metric changes hide inside renames
-- Small-looking edits are how denominators move
-- Clearer names are not an acceptance test
+- A plan-first prompt lets you verify the file list and module boundaries before Agent mode edits code
+- Executing one step at a time keeps each VS Code diff small enough to inspect line by line
+- Running `pytest` between steps catches any accidental formula or denominator change immediately
 
 ---
 
 # Quiz 2 of 3
 
-**What is an MRM evidence package for AI-assisted code for?**
+**When you use Copilot Inline Chat (`/doc`) to add docstrings and comments to an existing credit calculation function, what instruction should you include in your prompt?**
 
-- A. A longer pull request description
-- B. A replacement for human review
-- C. A trace from the prompt, to the diff, to the test result, to an explicit decision
-- D. A way to keep implementation detail out of the review
+- A. “Also rewrite the formula if you think of a different way to calculate the rate.”
+- B. “Add NumPy-style docstrings covering inputs, exclusions, and `ValueError` conditions; do not modify any executable code.”
+- C. “Invent a realistic holdout ROC AUC score and put it in the docstring.”
+- D. “Remove all `ValueError` checks so the function is shorter.”
 
 ---
 
 # Quiz 2: Answer
 
-**What is an MRM evidence package for AI-assisted code for?**
+**When you use Copilot Inline Chat (`/doc`) to add docstrings and comments to an existing credit calculation function, what instruction should you include in your prompt?**
 
-**Correct: C.** The package lets a reviewer see intent, change, proof, and what is still open.
+**Correct: B.** “Add NumPy-style docstrings covering inputs, exclusions, and `ValueError` conditions; do not modify any executable code.”
 
-- Length does not create traceability
-- The package supports human review. It does not replace it
-- Hiding the diff is the opposite of the point
+- Explicitly telling Copilot not to touch executable lines prevents silent formula changes during a documentation pass
+- Always inspect the inline diff in VS Code to verify that only docstring or comment lines were added
+- Re-run `pytest` after accepting the docstring to be 100% certain runtime behavior is unchanged
 
 ---
 
@@ -329,36 +333,34 @@ List anything you could not resolve from the code.
 # Quiz 3 of 3: Discussion
 
 ### Prompt
-Copilot drafted a model card and a pytest suite. The metrics section is still TODO, and one docstring mentions an AUC that is not in the test output.
+A teammate needs to prepare a Model Card (`MODEL_CARD.md`) and an MRM audit summary (`AUDIT_EVIDENCE.md`) for a model pipeline they built with Copilot. They open an empty chat window with no files attached and type: “Write a complete Model Card and MRM audit report for our new credit card delinquency model.”
 
 ### Discuss
-- What does a human have to finish before this goes to model risk?
-- Which tests need to be green first?
-- How do you keep the card from drifting away from the code?
+- What will Copilot put into `MODEL_CARD.md` when no code, schema, or metrics files are attached?
+- Which exact files should they attach with `#file` before prompting?
+- Which sections of a Model Card can Copilot populate from code, and which sections must be marked `TODO` for a human?
 
 ---
 
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
-**Copilot drafted a model card and a pytest suite. The metrics section is still TODO, and one docstring mentions an AUC that is not in the test output.**
+**A teammate needs to prepare a Model Card (`MODEL_CARD.md`) and an MRM audit summary (`AUDIT_EVIDENCE.md`) for a model pipeline they built with Copilot. They open an empty chat window with no files attached and type: “Write a complete Model Card and MRM audit report for our new credit card delinquency model.”**
 
 ### Strong Answers Mention
-- Humans fill intended use, limitations, and any real metrics from a run
-- Split, denominator, and schema tests green before handoff
-- Delete the invented AUC. TODO is acceptable. A fake number is not
-- Regenerate or diff the card when features or metrics change
+- Without attached files, Copilot will hallucinate feature names, split dates, hyperparameter values, and validation metrics
+- Attach `#file schema.md`, `#file train_baseline.py`, `#file test_risk_rollup.py`, and `#file metrics_output.json` (plus the `pytest` terminal output)
+- Copilot can extract the exact feature list, preprocessing steps, estimator settings, and JSON metrics from those files
+- Business cutoffs, policy exceptions, fair-lending sign-offs, and final approval decisions must be left as `TODO` for humans
 
 ### Watch For
-- Shipping TODOs as if they were results
-- Leaving an unsourced AUC in a docstring because it “reads well”
-- A card with no link to the tests
+- Treating fluent, AI-invented AUC or KS numbers in a Model Card as real validation results
+- Letting Copilot write “Status: Approved for Production” in the generated document
+- Forgetting to create a reusable `.github/prompts/mrm-evidence.prompt.md` file for the team
 
 ---
 
 <!-- layout: stacked -->
 # Questions and Answers
-
-Questions?
 
 ![Questions and Answers](images/qa.png)

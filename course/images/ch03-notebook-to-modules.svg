@@ -1,37 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Notebook refactor into modules">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Extracting a Jupyter notebook into reusable Python modules with Copilot">
   <rect width="1600" height="900" fill="#F4F6FB"/>
-  <rect x="60" y="80" width="380" height="640" rx="20" fill="#6366F1"/>
-  <text x="250" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">notebook.ipynb</text>
-  <rect x="100" y="220" width="300" height="55" rx="8" fill="#A5B4FC"/>
-  <rect x="100" y="300" width="300" height="55" rx="8" fill="#A5B4FC"/>
-  <rect x="100" y="380" width="300" height="55" rx="8" fill="#A5B4FC"/>
-  <rect x="100" y="460" width="300" height="55" rx="8" fill="#A5B4FC"/>
-  <rect x="100" y="540" width="300" height="55" rx="8" fill="#A5B4FC"/>
-  <text x="250" y="660" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="34">mixed cells, hard to test</text>
 
-  <path d="M470 400 H560" stroke="#312E81" stroke-width="12" fill="none"/>
-  <polygon points="580,400 550,375 550,425" fill="#312E81"/>
-  <text x="525" y="360" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="32">plan + approve</text>
+  <!-- Left: Ad-hoc Notebook -->
+  <rect x="60" y="60" width="540" height="630" rx="24" fill="#1E2A6B"/>
+  <text x="330" y="130" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">SOURCE: AD-HOC NOTEBOOK</text>
+  <text x="330" y="185" text-anchor="middle" fill="#FFFFFF" font-family="Courier New, monospace" font-size="34" font-weight="700">credit_experiment.ipynb</text>
 
-  <rect x="600" y="100" width="300" height="140" rx="16" fill="#1E2A6B"/>
-  <text x="750" y="160" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">features.py</text>
-  <text x="750" y="205" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="32">step 1 + tests</text>
+  <rect x="100" y="225" width="460" height="120" rx="14" fill="#312E81" stroke="#818CF8" stroke-width="3"/>
+  <text x="125" y="268" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Cell [4]: Data Prep (Hardcoded)</text>
+  <text x="125" y="308" fill="#E0E7FF" font-family="Courier New, monospace" font-size="21">df["util"] = df["bal"] / df["lim"]</text>
 
-  <rect x="600" y="290" width="300" height="140" rx="16" fill="#4F46E5"/>
-  <text x="750" y="350" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">pipeline.py</text>
-  <text x="750" y="395" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="32">step 2 + tests</text>
+  <rect x="100" y="365" width="460" height="120" rx="14" fill="#312E81" stroke="#818CF8" stroke-width="3"/>
+  <text x="125" y="408" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Cell [9]: Model Fit</text>
+  <text x="125" y="448" fill="#E0E7FF" font-family="Courier New, monospace" font-size="21">clf.fit(X_train, y_train)</text>
 
-  <rect x="600" y="480" width="300" height="140" rx="16" fill="#0E7490"/>
-  <text x="750" y="540" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">validation.py</text>
-  <text x="750" y="585" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="32">step 3 + tests</text>
+  <rect x="100" y="505" width="460" height="120" rx="14" fill="#312E81" stroke="#818CF8" stroke-width="3"/>
+  <text x="125" y="548" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Cell [14]: Evaluation Printouts</text>
+  <text x="125" y="588" fill="#E0E7FF" font-family="Courier New, monospace" font-size="21">print(roc_auc_score(y_test, p))</text>
 
-  <path d="M920 400 H1010" stroke="#312E81" stroke-width="12" fill="none"/>
-  <polygon points="1030,400 1000,375 1000,425" fill="#312E81"/>
+  <!-- Center Arrow + Copilot Prompt -->
+  <rect x="640" y="250" width="320" height="250" rx="20" fill="#4F46E5"/>
+  <text x="800" y="315" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">COPILOT CHAT</text>
+  <text x="800" y="365" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">Extract one cell block</text>
+  <text x="800" y="405" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">at a time into typed</text>
+  <text x="800" y="445" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">functions + docstrings</text>
 
-  <rect x="1050" y="160" width="480" height="460" rx="20" fill="#ffffff" stroke="#1E2A6B" stroke-width="5"/>
-  <text x="1290" y="250" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Each step returns</text>
-  <text x="1290" y="340" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="36">diff summary</text>
-  <text x="1290" y="410" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="36">pytest results</text>
-  <text x="1290" y="480" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="36">parity checks</text>
-  <text x="1290" y="560" text-anchor="middle" fill="#0E7490" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">then STOP for approval</text>
+  <path d="M605 375 H635" stroke="#1E2A6B" stroke-width="8" fill="none"/>
+  <path d="M965 375 H995" stroke="#1E2A6B" stroke-width="8" fill="none"/>
+
+  <!-- Right: Clean Python Modules -->
+  <rect x="1000" y="60" width="540" height="630" rx="24" fill="#0E7490"/>
+  <text x="1270" y="130" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">TARGET: REUSABLE MODULES</text>
+  <text x="1270" y="185" text-anchor="middle" fill="#FFFFFF" font-family="Courier New, monospace" font-size="34" font-weight="700">src/modeling/</text>
+
+  <rect x="1040" y="225" width="460" height="120" rx="14" fill="#155E75"/>
+  <text x="1065" y="268" fill="#6EE7B7" font-family="Courier New, monospace" font-size="24" font-weight="700">features.py</text>
+  <text x="1065" y="308" fill="#FFFFFF" font-family="Courier New, monospace" font-size="21">def add_features(df: pd.DataFrame)</text>
+
+  <rect x="1040" y="365" width="460" height="120" rx="14" fill="#155E75"/>
+  <text x="1065" y="408" fill="#6EE7B7" font-family="Courier New, monospace" font-size="24" font-weight="700">pipeline.py</text>
+  <text x="1065" y="448" fill="#FFFFFF" font-family="Courier New, monospace" font-size="21">def train_baseline(df, features)</text>
+
+  <rect x="1040" y="505" width="460" height="120" rx="14" fill="#155E75"/>
+  <text x="1065" y="548" fill="#6EE7B7" font-family="Courier New, monospace" font-size="24" font-weight="700">metrics.py</text>
+  <text x="1065" y="588" fill="#FFFFFF" font-family="Courier New, monospace" font-size="21">def compute_metrics(y_true, y_prob)</text>
+
+  <!-- Footer -->
+  <rect x="60" y="730" width="1480" height="115" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="800" y="798" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Select one notebook cell group, extract one function, and run /tests before moving on</text>
 </svg>

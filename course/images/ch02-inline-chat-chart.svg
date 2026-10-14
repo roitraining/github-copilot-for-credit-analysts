@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Inline Chat inside the editor for chart edits">
+  <rect width="800" height="800" fill="#F4F6FB"/>
+
+  <!-- Editor Window Frame -->
+  <rect x="40" y="40" width="720" height="720" rx="24" fill="#1E1B4B"/>
+  <rect x="40" y="40" width="720" height="64" rx="24" fill="#312E81"/>
+  <circle cx="85" cy="72" r="10" fill="#F87171"/>
+  <circle cx="120" cy="72" r="10" fill="#FBBF24"/>
+  <circle cx="155" cy="72" r="10" fill="#34D399"/>
+  <text x="400" y="80" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="24" font-weight="700">plot_trends.py</text>
+
+  <!-- Unchanged top code -->
+  <text x="75" y="155" fill="#94A3B8" font-family="Courier New, monospace" font-size="22">df = pd.read_csv("sample_accounts.csv")</text>
+  <text x="75" y="190" fill="#94A3B8" font-family="Courier New, monospace" font-size="22">fig, ax = plt.subplots(figsize=(8, 5))</text>
+
+  <!-- Highlighted selection -->
+  <rect x="60" y="220" width="680" height="175" rx="12" fill="#3730A3" stroke="#818CF8" stroke-width="3"/>
+  <text x="75" y="260" fill="#FFFFFF" font-family="Courier New, monospace" font-size="22">sns.lineplot(data=df, x="month",</text>
+  <text x="75" y="295" fill="#FFFFFF" font-family="Courier New, monospace" font-size="22">             y="dlq_rate", hue="risk_band",</text>
+  <text x="75" y="330" fill="#FFFFFF" font-family="Courier New, monospace" font-size="22">             ax=ax)</text>
+  <text x="75" y="365" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">1. Select only the plotting lines</text>
+
+  <!-- Inline Chat Popover -->
+  <rect x="80" y="425" width="640" height="190" rx="16" fill="#0E7490" stroke="#67E8F9" stroke-width="4"/>
+  <text x="110" y="470" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">2. Press Cmd+I (Mac) or Ctrl+I (Windows)</text>
+  <rect x="105" y="490" width="590" height="95" rx="10" fill="#155E75"/>
+  <text x="125" y="530" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">"Rotate x-axis labels 45 degrees and add a</text>
+  <text x="125" y="562" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">dashed horizontal line at y=0.05"</text>
+
+  <!-- Unchanged bottom code -->
+  <text x="75" y="675" fill="#94A3B8" font-family="Courier New, monospace" font-size="22">plt.tight_layout()</text>
+  <text x="75" y="710" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">3. Accept the diff in place. Rest of file stays untouched.</text>
+</svg>

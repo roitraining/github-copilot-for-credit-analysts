@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Using /explain to catch data leakage in Copilot-generated model code">
+  <rect width="800" height="800" fill="#F4F6FB"/>
+
+  <!-- Top: Leaky Code -->
+  <rect x="40" y="40" width="720" height="290" rx="20" fill="#1E1B4B"/>
+  <rect x="40" y="40" width="720" height="58" rx="20" fill="#DC2626"/>
+  <text x="400" y="78" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">COMMON AI BUG: FIT ON WHOLE DATASET</text>
+  <text x="70" y="145" fill="#FCA5A5" font-family="Courier New, monospace" font-size="22"># Scales before splitting (leaks test distribution)</text>
+  <text x="70" y="185" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">X_scaled = scaler.fit_transform(df[features])</text>
+  <text x="70" y="225" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">X_tr, X_te, y_tr, y_te = train_test_split(</text>
+  <text x="70" y="265" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">    X_scaled, df["default_60d"]</text>
+  <text x="70" y="305" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">)</text>
+
+  <!-- Middle: Audit Prompt -->
+  <rect x="90" y="365" width="620" height="115" rx="16" fill="#4F46E5"/>
+  <text x="400" y="410" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Select code and ask in Copilot Chat:</text>
+  <text x="400" y="452" text-anchor="middle" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">"/explain Check for preprocessing or split leakage"</text>
+
+  <!-- Bottom: Fixed Pipeline -->
+  <rect x="40" y="515" width="720" height="245" rx="20" fill="#155E75"/>
+  <rect x="40" y="515" width="720" height="58" rx="20" fill="#0F766E"/>
+  <text x="400" y="553" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">FIXED WITH /fix: PIPELINE FITS ON TRAIN ONLY</text>
+  <text x="70" y="618" fill="#6EE7B7" font-family="Courier New, monospace" font-size="23">pipe = Pipeline([("scaler", StandardScaler()),</text>
+  <text x="70" y="655" fill="#6EE7B7" font-family="Courier New, monospace" font-size="23">                 ("clf", LogisticRegression())])</text>
+  <text x="70" y="695" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">pipe.fit(X_train, y_train)</text>
+  <text x="70" y="732" fill="#FFFFFF" font-family="Courier New, monospace" font-size="23">probs = pipe.predict_proba(X_test)[:, 1]</text>
+</svg>

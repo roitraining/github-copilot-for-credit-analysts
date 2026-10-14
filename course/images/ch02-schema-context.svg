@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Attach schema context instead of raw data">
+  <rect width="800" height="800" fill="#F4F6FB"/>
+
+  <!-- Top Bad Box: Vague prompt or raw data -->
+  <rect x="50" y="50" width="700" height="200" rx="22" fill="#FEE2E2" stroke="#DC2626" stroke-width="4"/>
+  <rect x="80" y="80" width="150" height="44" rx="10" fill="#DC2626"/>
+  <text x="155" y="110" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">AVOID</text>
+  <text x="255" y="112" fill="#7F1D1D" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Prompt with no schema</text>
+  <text x="80" y="165" fill="#991B1B" font-family="Courier New, monospace" font-size="24">"Write a script to profile my credit data"</text>
+  <text x="80" y="212" fill="#7F1D1D" font-family="Arial, Helvetica, sans-serif" font-size="24">Result: Copilot invents column names that fail at runtime</text>
+
+  <!-- Arrow Down -->
+  <path d="M400 265 V315" stroke="#1E2A6B" stroke-width="8" fill="none"/>
+  <polygon points="400,335 382,308 418,308" fill="#1E2A6B"/>
+
+  <!-- Bottom Good Box: Schema + Prompt -->
+  <rect x="50" y="350" width="700" height="400" rx="22" fill="#1E2A6B"/>
+  <rect x="80" y="380" width="170" height="44" rx="10" fill="#10B981"/>
+  <text x="165" y="410" text-anchor="middle" fill="#064E3B" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">DO THIS</text>
+  <text x="275" y="412" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Attach #file schema.md</text>
+
+  <rect x="80" y="450" width="300" height="170" rx="16" fill="#312E81"/>
+  <text x="230" y="492" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">1. Schema File</text>
+  <text x="105" y="535" fill="#FFFFFF" font-family="Courier New, monospace" font-size="21">account_id: str</text>
+  <text x="105" y="568" fill="#FFFFFF" font-family="Courier New, monospace" font-size="21">balance: float</text>
+  <text x="105" y="601" fill="#FFFFFF" font-family="Courier New, monospace" font-size="21">utilization: 0..1</text>
+
+  <rect x="420" y="450" width="300" height="170" rx="16" fill="#4F46E5"/>
+  <text x="570" y="492" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">2. Specific Task</text>
+  <text x="445" y="535" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">Null rate per column</text>
+  <text x="445" y="568" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">Percentiles: 5, 50, 95</text>
+  <text x="445" y="601" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">Outlier flag rules</text>
+
+  <rect x="80" y="650" width="640" height="70" rx="14" fill="#151C4A"/>
+  <text x="400" y="694" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Output: Runnable pandas code with exact column names</text>
+</svg>

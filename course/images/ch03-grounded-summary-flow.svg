@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650" role="img" aria-label="Attach actual metrics output file so Copilot summarizes real numbers">
+  <rect width="1600" height="650" fill="#F4F6FB"/>
+
+  <!-- Box 1: Input Files -->
+  <rect x="60" y="60" width="460" height="530" rx="24" fill="#1E2A6B"/>
+  <text x="290" y="130" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">1. ATTACH ACTUAL OUTPUT</text>
+
+  <rect x="95" y="170" width="390" height="170" rx="14" fill="#312E81"/>
+  <text x="290" y="220" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="26" font-weight="700">#file metrics_output.json</text>
+  <text x="290" y="268" text-anchor="middle" fill="#FFFFFF" font-family="Courier New, monospace" font-size="22">{"roc_auc": 0.742, "ks": 0.361}</text>
+  <text x="290" y="310" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="22">Saved by your evaluation script</text>
+
+  <rect x="95" y="370" width="390" height="170" rx="14" fill="#312E81"/>
+  <text x="290" y="420" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="26" font-weight="700">#file decile_table.csv</text>
+  <text x="290" y="468" text-anchor="middle" fill="#FFFFFF" font-family="Courier New, monospace" font-size="22">decile,count,actual_bad_rate</text>
+  <text x="290" y="510" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="22">Real numbers from the holdout run</text>
+
+  <!-- Arrow 1 -->
+  <path d="M540 325 H600" stroke="#1E2A6B" stroke-width="10" fill="none"/>
+  <polygon points="625,325 595,305 595,345" fill="#1E2A6B"/>
+
+  <!-- Box 2: Grounded Prompt -->
+  <rect x="645" y="115" width="350" height="420" rx="24" fill="#4F46E5"/>
+  <text x="820" y="190" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2. GROUNDING RULE</text>
+  <text x="820" y="265" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">"Cite only numbers</text>
+  <text x="820" y="305" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">from the attached files."</text>
+  <text x="820" y="385" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">"Write TODO for any</text>
+  <text x="820" y="425" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">missing metric."</text>
+
+  <!-- Arrow 2 -->
+  <path d="M1015 325 H1075" stroke="#1E2A6B" stroke-width="10" fill="none"/>
+  <polygon points="1100,325 1070,305 1070,345" fill="#1E2A6B"/>
+
+  <!-- Box 3: Structured Markdown Summary -->
+  <rect x="1120" y="60" width="420" height="530" rx="24" fill="#0E7490"/>
+  <text x="1330" y="130" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">3. MARKDOWN REPORT</text>
+  <rect x="1155" y="170" width="350" height="370" rx="14" fill="#155E75"/>
+  <text x="1180" y="225" fill="#6EE7B7" font-family="Courier New, monospace" font-size="23" font-weight="700">model_summary.md</text>
+  <text x="1180" y="275" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Holdout AUC: 0.742</text>
+  <text x="1180" y="315" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Holdout KS: 0.361</text>
+  <text x="1180" y="355" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">- Top decile table</text>
+  <text x="1180" y="420" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Zero hallucinated numbers</text>
+  <text x="1180" y="460" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="22">Ready for peer review</text>
+</svg>

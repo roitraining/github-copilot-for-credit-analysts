@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Three Copilot steps to refactor, add assertions, and generate pytest suites">
+  <rect width="800" height="800" fill="#F4F6FB"/>
+
+  <!-- Header -->
+  <rect x="40" y="35" width="720" height="85" rx="18" fill="#1E2A6B"/>
+  <text x="400" y="88" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">AI-Powered Code Maintenance Loop</text>
+
+  <!-- Step 1: Inline Chat Refactor -->
+  <rect x="50" y="150" width="700" height="175" rx="20" fill="#312E81"/>
+  <rect x="75" y="180" width="190" height="54" rx="12" fill="#4F46E5"/>
+  <text x="170" y="215" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">1. REFACTOR</text>
+  <text x="290" y="205" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">Inline Chat (Cmd+I / Ctrl+I)</text>
+  <text x="290" y="242" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Split a long script into small, typed functions</text>
+  <text x="290" y="276" fill="#A5B4FC" font-family="Courier New, monospace" font-size="21">Vectorize slow loops with numpy/pandas</text>
+
+  <!-- Arrow 1 -->
+  <path d="M400 330 V355" stroke="#1E2A6B" stroke-width="8" fill="none"/>
+  <polygon points="400,372 384,348 416,348" fill="#1E2A6B"/>
+
+  <!-- Step 2: Defensive Assertions -->
+  <rect x="50" y="380" width="700" height="175" rx="20" fill="#4F46E5"/>
+  <rect x="75" y="410" width="190" height="54" rx="12" fill="#1E2A6B"/>
+  <text x="170" y="445" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">2. ASSERT</text>
+  <text x="290" y="435" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">Inline Chat + Ghost Text</text>
+  <text x="290" y="472" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Add input schema and output range guards</text>
+  <text x="290" y="506" fill="#FDE68A" font-family="Courier New, monospace" font-size="21">raise ValueError if rate not in [0, 1]</text>
+
+  <!-- Arrow 2 -->
+  <path d="M400 560 V585" stroke="#1E2A6B" stroke-width="8" fill="none"/>
+  <polygon points="400,602 384,578 416,578" fill="#1E2A6B"/>
+
+  <!-- Step 3: PyTest Suite -->
+  <rect x="50" y="610" width="700" height="150" rx="20" fill="#0E7490"/>
+  <rect x="75" y="638" width="190" height="54" rx="12" fill="#155E75"/>
+  <text x="170" y="673" text-anchor="middle" fill="#67E8F9" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">3. PYTEST</text>
+  <text x="290" y="660" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">Chat /tests + #file</text>
+  <text x="290" y="697" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="22">Generate fixtures, @pytest.mark.parametrize,</text>
+  <text x="290" y="728" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">and pytest.raises checks for every guard</text>
+</svg>
