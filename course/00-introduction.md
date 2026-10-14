@@ -31,7 +31,7 @@
 - Use context scoping, chat commands, and repository instructions to direct code output
 - Prompt Copilot to translate and draft SQL and Python data scripts
 - Generate baseline machine learning model and validation code
-- Audit AI code using unit tests, assertions, and documentation
+- Refactor, test, and document AI-assisted code using Agent mode, pytest, assertions, and Model Cards
 
 ---
 
@@ -66,5 +66,6 @@
 - Prior self-exploration with GitHub Copilot
 - Foundational knowledge of the credit analytics lifecycle
 - VS Code and GitHub Copilot installed with an active Copilot license
+  - Disable competing AI coding extensions (such as Gemini Code Assist) so keyboard shortcuts do not conflict
 
 ![Prerequisites](images/prerequisites.png)

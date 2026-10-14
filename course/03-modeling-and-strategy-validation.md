@@ -103,7 +103,7 @@ Keep the existing OneHotEncoder step unchanged.
 - `default_60d` (int): 1 if 60+ days past due within 12 months, else 0 (target)
 ```
 
-2. Open Copilot Chat, attach `#file schema.md`, and run this prompt:
+2. Open Copilot Chat (`</> Agent` in **Interactive** mode), attach `#file schema.md`, and run this prompt:
 
 ```text
 Using #file schema.md, create train_baseline.py.
@@ -246,7 +246,7 @@ print("AUC:", roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1]))
 - Gives you a 300-line diff that is impossible to verify against the notebook
 
 ### The Staged Copilot Workflow
-- **Step 1**: Attach `#file notebook.ipynb` and ask Copilot for a module extraction plan (no code yet)
+- **Step 1**: Attach `#file notebook.ipynb` in Chat (or press `Cmd+I` / `Ctrl+I` inside an individual notebook cell) and ask for a module extraction plan (no code yet)
 - **Step 2**: Select one logical cell group (such as feature prep) and prompt Chat to extract it into `src/features.py` with type hints
 - **Step 3**: Run `/tests` on `src/features.py` and verify output parity before extracting the next cell group
 
@@ -281,9 +281,9 @@ Rule: Do not invent any metric values. If a metric is not in metrics_output.json
 
 ---
 
-# Do Now: Generate and Summarize Validation Output
+# Demo: Generate and Summarize Validation Output
 
-1. In VS Code, open Copilot Chat and attach `#file train_baseline.py` from earlier.
+1. In VS Code, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file train_baseline.py` from earlier.
 2. Prompt Copilot to add evaluation output saving at the bottom of `train_baseline.py`:
 
 ```text

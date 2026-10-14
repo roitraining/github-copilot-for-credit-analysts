@@ -71,11 +71,11 @@ I have a CSV of credit accounts with balance, utilization, and delinquency_days.
 
 ![GitHub Copilot website](images/ch01-github-copilot-website.jpg)
 ---
-# Demo: Using Copilot in Visual Studio
+# Demo: Using Copilot in Visual Studio Code
 
 1. Open Visual Studio Code. Choose File, then Open Folder, and open an empty folder. Just create an empty folder anywhere on your computer. 
-2. Open Copilot Chat from the Copilot icon in the title bar.
-3. Paste the prompt below and press Enter. If asked, allow CoPilot to create the files requested in the prompt. 
+2. Open Copilot Chat from the Copilot icon in the title bar. Notice that `</> Agent` is selected at the bottom of the chat input box by default.
+3. Paste the prompt below and press Enter. If asked, allow Copilot to create the files requested in the prompt. 
 
 ```text
 Create two files in this folder.
@@ -100,9 +100,37 @@ stats.html
 5. Click Upload CSV and choose `sample_accounts.csv` from the same folder.
 ---
 <!-- layout: title-image -->
-# Visual Studio with Copilot
+# Visual Studio Code with Copilot
 
 ![Visual Studio Code with Copilot Chat and the generated stats page](images/ch01-visual-studio-with-copilot.jpg)
+---
+# Inside the Copilot Chat Box in VS Code
+
+- **`+` (Add Context)**: Attach `#file` references, folders, or symbols to your prompt
+- **`</> Agent` (`Shift+Cmd+I` / `Ctrl+Shift+I`)**: Unified workspace agent that can answer questions, edit files, and run terminal commands
+- **`Auto | Balance`**: Selects the underlying model (or lets Copilot pick automatically)
+- **Bottom toolbar icons**: Switch between the **Harness** (`Copilot`), **Agent Mode** (speech bubble), and live session tools
+
+![Copilot Chat input controls in VS Code](images/ch01-copilot-chat-box.png)
+---
+# Choosing an Agent Mode: Interactive, Plan, or Autopilot
+
+- Click the **speech bubble icon** below the chat input box to control how Agent mode collaborates with you:
+  - **Interactive (Default)**: Step-by-step collaboration where you review diffs and approve actions as Copilot works
+  - **Plan**: Builds a step-by-step plan first and waits to execute until you are ready
+  - **Autopilot**: Works autonomously across steps within the permissions you set
+- **Permissions (`Manual`)**: Keep set to **Manual** for credit analytics so Copilot always asks before running terminal commands or touching sensitive files
+
+![Agent mode menu showing Interactive, Plan, Autopilot, and Manual Permissions](images/ch01-copilot-agent-modes.png)
+---
+# Selecting a Harness in VS Code
+
+- Click **Copilot** in the bottom-left corner of the chat panel to choose where and how the agent runs:
+  - **Copilot / Local / Cloud**: Run with GitHub Copilot in your local VS Code session or in a cloud workspace
+  - **Claude / Codex**: Switch to alternative agent harnesses if enabled for your organization
+- For all exercises in this course, keep the harness set to **Copilot** and Agent mode set to **Interactive** or **Plan**
+
+![Harness selector menu in VS Code Copilot Chat](images/ch01-copilot-harnesses.png)
 ---
 # Prevent Data Leakage in Prompts
 
@@ -126,13 +154,13 @@ stats.html
 - “Keep the cutoff as a number I can change.”
 - “List what you assumed. Do not invent columns.”
 ---
-# Do Now: Inline Completion
+# Demo: Inline Completion
 
-1. In VS Code, create a file named `fizz-buzz.js`.
-2. Type this line, add a space after the parenthesis, and pause.
+1. In VS Code, create a file named `fizz_buzz.py`.
+2. Type this line, press Enter, and pause.
 
-```javascript
-function fizzBuzz()
+```python
+def fizz_buzz(n):
 ```
 
 3. Wait for the gray ghost text.
@@ -147,7 +175,8 @@ function fizzBuzz()
 - Read the gray text before you press a key.
 - Press Tab only when you understand it and it is what you meant to write.
 - Press Esc when it is wrong, or when you do not understand it.
-- If only the start is right, accept that part and leave the rest. On a Mac, press Command+Right. On Windows, press Ctrl+Right.
+- If only the start is right, accept that part and leave the rest. On a Mac, press `Cmd+Right`. On Windows, press `Ctrl+Right`.
+- To ask for an edit right inside the file, select the lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows) to open Inline Chat (or right-click and choose Copilot, then Editor Inline Chat).
 ---
 <!-- layout: navigation -->
 # Chapter 1
@@ -173,13 +202,26 @@ function fizzBuzz()
 ### /fix
 - Paste the error and ask for a change only to the lines that failed.
 ---
-# What You Check After Each Command
+# Common Slash Commands in VS Code
 
-| Command | A good reply | Send it back when |
+| Command | What it does | When to use it |
 | :--- | :--- | :--- |
-| `/explain` | States assumptions and how blanks are treated | It only repeats the code |
-| `/tests` | Covers the cases you named | It only tests the normal case |
-| `/fix` | Changes the lines that failed | It rewrites functions that already worked |
+| `/explain` | Explains how selected code works and what it assumes | Before editing unfamiliar Python, SQL, or legacy SAS |
+| `/tests` | Generates unit tests for the selected function or file | Adding `pytest` coverage for normal and edge cases |
+| `/fix` | Proposes a targeted fix for an error or failing block | Pasting a traceback or fixing a broken calculation |
+| `/doc` | Generates docstrings and inline comments | Documenting inputs, outputs, and rules on a function |
+| `/clear` | Clears the current chat history and starts fresh | Switching tasks so old context does not pollute the next prompt |
+| `/new` | Scaffolds a new workspace, file, or notebook | Starting a new project structure or Jupyter notebook |
+| `/help` | Lists all available slash commands and chat participants | Checking exact command names and syntax in VS Code |
+---
+# Type `/` to Browse Available Commands
+
+- You do not have to memorize every slash command
+- Type `/` in the Copilot Chat input box to open the autocomplete menu with each command and its description
+- Keep typing to filter the list, or use the Up and Down arrow keys and press `Tab` or `Enter` to select one
+- Custom team prompt files (in `.github/prompts/`) also appear right in this `/` menu
+
+![Slash commands autocomplete menu in VS Code Copilot Chat](images/ch01-slash-commands-menu.png)
 ---
 <!-- layout: 2-column -->
 # Weak Prompt vs Strong Prompt
@@ -190,9 +232,9 @@ function fizzBuzz()
 - “Fix the bug.”
 
 ### Strong
-- “Read scores.csv. Each row is one student. Print the average of the score column, and skip blank scores.”
-- “Bar chart of cups sold by weekday. Weekday on the x-axis, cups on the y-axis.”
-- “average() crashes on an empty list. Return None for an empty list, and do not change any other function.”
+- “Read `sample_accounts.csv`. Each row is one credit account. Print the average of `balance`, and skip blank `utilization` rows.”
+- “Bar chart of delinquent accounts by `risk_band`. Put `risk_band` on the x-axis and account count on the y-axis.”
+- “`average()` crashes on an empty list. Return `None` for an empty list, and do not change any other function.”
 ---
 # File-Scoped Prompt You Will Reuse
 
@@ -285,8 +327,8 @@ Change only the lines that failed. An empty list should return None.
 
 - Select the function. Chat uses that selection.
 - Type `#file` and choose the file. Add the test file when you want tests.
-- Type `@workspace` only when the change needs other files.
-- `@workspace` can change files you did not name. Name the files when you can.
+- Type `@workspace` only when the question or change spans multiple files across the repo.
+- Broad workspace context can lead Copilot to touch files you did not name. Name the exact files with `#file` when you can.
 ---
 <!-- layout: 2-column -->
 # What copilot-instructions.md Is For
@@ -303,6 +345,27 @@ Change only the lines that failed. An empty list should return None.
 - State assumptions before editing
 - Leave out one-off questions, secrets, and live data
 ---
+# Example: `.github/copilot-instructions.md`
+
+- Create `.github/copilot-instructions.md` at the root of your repository so Copilot applies these rules automatically:
+
+```markdown
+# Credit Analytics Team Copilot Instructions
+
+## Coding Standards
+- Use Python 3.11, pandas, and pytest for all analytics scripts.
+- Add type hints and a short docstring to every new function.
+
+## Data and Domain Rules
+- Never include real customer PII, names, or production account IDs.
+- Exclude rows where status == 'charged_off' from delinquency rate denominators.
+- Treat delinquency_days > 365 as a data error flag, not a valid observation.
+
+## Verification Rules
+- Write pytest unit tests for every new or modified function, including empty inputs and nulls.
+- State assumptions and wait for approval before editing multiple files.
+```
+---
 <!-- layout: 2-column -->
 # Instructions vs a Prompt File
 
@@ -315,6 +378,20 @@ Change only the lines that failed. An empty list should return None.
 - One job you repeat, such as “add tests for this function”
 - You run it by typing `/` and the file name
 - It does not run until you ask for it
+---
+# Example: `.github/prompts/add-tests.prompt.md`
+
+- Save repeatable tasks under `.github/prompts/` and run them in Chat by typing `/add-tests`:
+
+```markdown
+# Prompt File: .github/prompts/add-tests.prompt.md
+
+Write pytest unit tests for the selected function or attached #file:
+1. Use synthetic credit account rows only (no real customer data).
+2. Test normal inputs across Prime, Near-Prime, and Subprime risk_band values.
+3. Test edge cases: empty DataFrame, missing utilization values, and delinquency_days = 9999.
+4. Do not modify the production function unless I explicitly ask.
+```
 ---
 # Chapter 1 Hands-On Lab
 
@@ -347,7 +424,7 @@ Change only the lines that failed. An empty list should return None.
 - Select the function when the change stays in that block
 - Add the test file with `#file` when you want tests
 - Use `@workspace` only when the change needs other files
-- `@workspace` can change files you did not name
+- Broad `@workspace` context can lead Copilot to touch files you did not name
 ---
 # Quiz 2 of 3
 

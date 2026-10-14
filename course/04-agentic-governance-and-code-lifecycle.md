@@ -141,16 +141,17 @@ def calc_delinquency(df):
 ---
 
 <!-- layout: 2-column -->
-# Unconstrained Agent Prompt vs Plan-First Agent Prompt
+# Autopilot Prompt vs Plan Mode + Interactive Prompt
 
-### Unconstrained Agent Prompt (Risky)
+### Unconstrained Autopilot Prompt (Risky)
 - “Clean up our monitoring scripts, reorganize the files, and fix any issues you see.”
-- Agent mode edits 6 files at once, renames public functions, and alters metric filters
+- Edits 6 files at once, renames public functions, and alters metric filters without pausing
 - Leaves you with a sprawling diff where a formula bug can hide inside formatting changes
 
-### Plan-First Agent Prompt (Controlled)
-- “Plan only. Read `#file risk_rollup.py` and `#file test_risk_rollup.py`. Propose a 3-step plan to extract validation guards into `validators.py`. List the files each step touches and wait for my approval. Do not edit any files yet.”
-- You review the plan, then prompt: “Execute Step 1 only and run `pytest`.”
+### Plan Mode + Interactive Prompt (Controlled)
+- Switch the Agent mode menu (speech bubble icon) to **Plan** (or keep **Interactive** with **Manual** permissions)
+- Prompt: “Read `#file risk_rollup.py` and `#file test_risk_rollup.py`. Propose a 3-step plan to extract validation guards into `validators.py`. List the files each step touches and wait for my approval.”
+- Review the plan, then execute one step at a time and run `pytest`
 
 ---
 
@@ -161,9 +162,9 @@ def calc_delinquency(df):
 
 | VS Code Agent Control | How to Use It During Review |
 | :--- | :--- |
-| File change list in Chat | Click each filename to open the side-by-side diff editor in VS Code. |
-| Inline Accept / Discard (`Keep` / `Undo`) | Keep changes file-by-file or hunk-by-hunk; click `Undo` on any file you did not authorize Copilot to touch. |
-| Terminal command approval | Read the exact terminal command Agent proposes (for example, `pytest tests/test_risk_rollup.py`) before clicking Allow. |
+| Agent mode menu (`Interactive` / `Plan`) | Use **Plan** to review the step list before any edits, and **Interactive** for step-by-step collaboration. |
+| Permissions (`Manual`) | Keep set to **Manual** so Copilot must ask before running terminal commands or modifying outside files. |
+| File change list and inline diffs (`Keep` / `Undo`) | Click each modified file to inspect the side-by-side diff; click `Undo` on any file you did not authorize Copilot to touch. |
 
 > [!IMPORTANT]
 > If Agent mode modifies a test just to make a broken formula pass, click **Undo** on the test file immediately and narrow your prompt.
@@ -183,11 +184,11 @@ def calc_delinquency(df):
 
 # Creating `.github/prompts/mrm-evidence.prompt.md`
 
+- Save this reusable prompt file in `.github/prompts/mrm-evidence.prompt.md` and run it by typing `/mrm-evidence` in Chat:
+
 ```markdown
----
-mode: ask
-description: Generate an MRM audit evidence summary from code and test files
----
+# Prompt File: .github/prompts/mrm-evidence.prompt.md
+
 Using the attached code file, test file, and pytest terminal output, generate `AUDIT_EVIDENCE.md` with:
 1. **Scope of Change**: List every function modified or added.
 2. **Formula and Denominator Parity**: State whether any filter, grain, or rate formula changed.
@@ -245,7 +246,7 @@ Do not invent any metric, date, or policy rule not present in the attached files
 
 ---
 
-# Do Now: Document and Package `risk_rollup.py` for Review
+# Demo: Document and Package `risk_rollup.py` for Review
 
 1. In VS Code, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and run:
 

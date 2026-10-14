@@ -105,7 +105,7 @@ Keep the existing null check unchanged.
 - `delinquency_days` (int): days past due (9999 indicates a data error)
 ```
 
-2. Open Copilot Chat, attach `#file schema.md`, and run this prompt:
+2. Open Copilot Chat (`</> Agent` in **Interactive** mode), attach `#file schema.md`, and run this prompt:
 
 ```text
 Using #file schema.md, create two files:
@@ -194,7 +194,7 @@ Using #file schema.md, create two files:
 
 # Demo: Generating and Refining a Two-Panel Chart
 
-1. In VS Code, open Copilot Chat and attach `#file schema.md` and `#file profile_accounts.py` from the previous demo.
+1. In VS Code, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file schema.md` and `#file profile_accounts.py` from the previous demo.
 2. Send this prompt to create a visualization script:
 
 ```text
