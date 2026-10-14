@@ -300,7 +300,7 @@ Update #file train_baseline.py so that after scoring the test set, it:
 
 # Chapter 3 Hands-On Lab
 
-- Lab: AI-Assisted Model and Strategy Validation
+- Lab: [AI-Assisted Model and Strategy Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-03-model-and-strategy-validation)
 - Time: 30 minutes
 
 ---

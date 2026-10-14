@@ -395,7 +395,7 @@ Write pytest unit tests for the selected function or attached #file:
 ---
 # Chapter 1 Hands-On Lab
 
-- Lab: Effective Prompting and Context Engineering
+- Lab: [Effective Prompting and Context Engineering](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-01-effective-prompting-and-context-engineering)
 - Time: 30 minutes
 ---
 # What You Learned

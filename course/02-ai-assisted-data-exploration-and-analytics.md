@@ -373,7 +373,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 
 # Chapter 2 Hands-On Lab
 
-- Lab: Copilot-Assisted Data Profiling and Hypothesis Generation
+- Lab: [Copilot-Assisted Data Profiling and Hypothesis Generation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-02-data-profiling-and-hypothesis-generation)
 - Time: 30 minutes
 
 ---
