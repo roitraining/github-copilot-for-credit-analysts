@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Attach schema context instead of raw data">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Attach schema context instead of raw data">
   <rect width="800" height="800" fill="#F4F6FB"/>
 
   <!-- Top Bad Box: Vague prompt or raw data -->
@@ -6,8 +6,8 @@
   <rect x="80" y="80" width="150" height="44" rx="10" fill="#DC2626"/>
   <text x="155" y="110" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">AVOID</text>
   <text x="255" y="112" fill="#7F1D1D" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Prompt with no schema</text>
-  <text x="80" y="165" fill="#991B1B" font-family="Courier New, monospace" font-size="24">"Write a script to profile my credit data"</text>
-  <text x="80" y="212" fill="#7F1D1D" font-family="Arial, Helvetica, sans-serif" font-size="24">Result: Copilot invents column names that fail at runtime</text>
+  <text x="80" y="165" fill="#991B1B" font-family="Courier New, monospace" font-size="22">"Write a script to profile my credit data"</text>
+  <text x="80" y="212" fill="#7F1D1D" font-family="Arial, Helvetica, sans-serif" font-size="22">Result: Copilot invents column names that fail</text>
 
   <!-- Arrow Down -->
   <path d="M400 265 V315" stroke="#1E2A6B" stroke-width="8" fill="none"/>
@@ -32,5 +32,5 @@
   <text x="445" y="601" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">Outlier flag rules</text>
 
   <rect x="80" y="650" width="640" height="70" rx="14" fill="#151C4A"/>
-  <text x="400" y="694" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Output: Runnable pandas code with exact column names</text>
+  <text x="400" y="693" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Output: Runnable pandas code with exact columns</text>
 </svg>

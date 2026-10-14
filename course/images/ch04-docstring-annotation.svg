@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Using /doc in Inline Chat to add Google or NumPy style docstrings">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Using /doc in Inline Chat to add Google or NumPy style docstrings">
   <rect width="800" height="800" fill="#F4F6FB"/>
 
   <!-- Editor Window -->
@@ -10,24 +10,24 @@
   <text x="400" y="80" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="24" font-weight="700">risk_rollup.py</text>
 
   <!-- Function signature -->
-  <text x="70" y="150" fill="#67E8F9" font-family="Courier New, monospace" font-size="22">def compute_segment_loss_rate(df: pd.DataFrame) -&gt; pd.DataFrame:</text>
+  <text x="70" y="150" fill="#67E8F9" font-family="Courier New, monospace" font-size="20">def compute_loss_rate(df: pd.DataFrame) -&gt; pd.DataFrame:</text>
 
   <!-- Inline Chat /doc prompt -->
   <rect x="70" y="175" width="660" height="110" rx="14" fill="#4F46E5" stroke="#A5B4FC" stroke-width="3"/>
   <text x="95" y="215" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Inline Chat (Cmd+I / Ctrl+I):</text>
-  <text x="95" y="255" fill="#FFFFFF" font-family="Courier New, monospace" font-size="22">/doc NumPy style; state grain, exclusions, and ValueError</text>
+  <text x="95" y="255" fill="#FFFFFF" font-family="Courier New, monospace" font-size="19">/doc NumPy style; state grain and ValueError</text>
 
   <!-- Generated Docstring Box -->
   <rect x="70" y="310" width="660" height="330" rx="14" fill="#155E75" stroke="#6EE7B7" stroke-width="3"/>
-  <text x="95" y="350" fill="#6EE7B7" font-family="Courier New, monospace" font-size="21">"""Compute monthly 30+ DPD rate by risk_band.</text>
-  <text x="95" y="390" fill="#FFFFFF" font-family="Courier New, monospace" font-size="20">Parameters</text>
-  <text x="95" y="420" fill="#E0E7FF" font-family="Courier New, monospace" font-size="19">df : pd.DataFrame (acct_id, perf_month, risk_band, dpd, status)</text>
-  <text x="95" y="465" fill="#FFFFFF" font-family="Courier New, monospace" font-size="20">Returns</text>
-  <text x="95" y="495" fill="#E0E7FF" font-family="Courier New, monospace" font-size="19">pd.DataFrame at (perf_month, risk_band) grain; excludes charged_off</text>
-  <text x="95" y="540" fill="#FFFFFF" font-family="Courier New, monospace" font-size="20">Raises</text>
-  <text x="95" y="570" fill="#FCA5A5" font-family="Courier New, monospace" font-size="19">ValueError : If duplicate keys exist or rate outside [0, 1]</text>
-  <text x="95" y="610" fill="#6EE7B7" font-family="Courier New, monospace" font-size="21">"""</text>
+  <text x="95" y="350" fill="#6EE7B7" font-family="Courier New, monospace" font-size="20">"""Compute monthly 30+ DPD rate by risk_band.</text>
+  <text x="95" y="390" fill="#FFFFFF" font-family="Courier New, monospace" font-size="19">Parameters</text>
+  <text x="95" y="420" fill="#E0E7FF" font-family="Courier New, monospace" font-size="18">df : DataFrame (acct_id, perf_month, risk_band, dpd)</text>
+  <text x="95" y="465" fill="#FFFFFF" font-family="Courier New, monospace" font-size="19">Returns</text>
+  <text x="95" y="495" fill="#E0E7FF" font-family="Courier New, monospace" font-size="18">DataFrame at (perf_month, risk_band) grain</text>
+  <text x="95" y="540" fill="#FFFFFF" font-family="Courier New, monospace" font-size="19">Raises</text>
+  <text x="95" y="570" fill="#FCA5A5" font-family="Courier New, monospace" font-size="18">ValueError : Duplicate keys or rate outside [0, 1]</text>
+  <text x="95" y="610" fill="#6EE7B7" font-family="Courier New, monospace" font-size="20">"""</text>
 
   <!-- Footer note -->
-  <text x="400" y="705" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Constraint: "Add docstrings only. Do not alter executable lines."</text>
+  <text x="400" y="705" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Constraint: "Add docstrings only. Do not alter code."</text>
 </svg>

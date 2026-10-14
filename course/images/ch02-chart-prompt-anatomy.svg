@@ -1,54 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Four parts of a Copilot chart prompt">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Four parts of a Copilot chart prompt">
   <rect width="1600" height="900" fill="#F4F6FB"/>
 
-  <!-- Header banner -->
-  <rect x="60" y="50" width="1480" height="110" rx="20" fill="#1E2A6B"/>
-  <text x="800" y="118" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">What Copilot Needs to Write a Plot on the First Try</text>
-
   <!-- Card 1: Library -->
-  <rect x="60" y="200" width="340" height="490" rx="24" fill="#312E81"/>
-  <text x="230" y="280" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">1. LIBRARY</text>
-  <text x="230" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Name the Tool</text>
-  <rect x="90" y="395" width="280" height="160" rx="16" fill="#1E1B4B"/>
-  <text x="230" y="455" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="28">seaborn</text>
-  <text x="230" y="510" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="28">matplotlib</text>
-  <text x="230" y="625" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="26">Stops Copilot from</text>
-  <text x="230" y="660" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="26">mixing plotting APIs</text>
+  <rect x="60" y="50" width="340" height="630" rx="24" fill="#312E81"/>
+  <text x="230" y="135" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">1. LIBRARY</text>
+  <text x="230" y="205" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Name the Tool</text>
+  <rect x="90" y="260" width="280" height="210" rx="16" fill="#1E1B4B"/>
+  <text x="230" y="345" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="30">seaborn</text>
+  <text x="230" y="405" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="30">matplotlib</text>
+  <text x="230" y="545" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="28">Stops Copilot from</text>
+  <text x="230" y="590" text-anchor="middle" fill="#C7D2FE" font-family="Arial, Helvetica, sans-serif" font-size="28">mixing plotting APIs</text>
 
   <!-- Card 2: Chart Type -->
-  <rect x="440" y="200" width="340" height="490" rx="24" fill="#4F46E5"/>
-  <text x="610" y="280" text-anchor="middle" fill="#C4B5FD" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">2. CHART TYPE</text>
-  <text x="610" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Pick the Shape</text>
-  <rect x="470" y="395" width="280" height="160" rx="16" fill="#3730A3"/>
-  <text x="610" y="445" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Line plot</text>
-  <text x="610" y="485" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Boxplot</text>
-  <text x="610" y="525" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Cohort heatmap</text>
-  <text x="610" y="625" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">Be specific about</text>
-  <text x="610" y="660" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">subplots or panels</text>
+  <rect x="440" y="50" width="340" height="630" rx="24" fill="#4F46E5"/>
+  <text x="610" y="135" text-anchor="middle" fill="#C4B5FD" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">2. CHART TYPE</text>
+  <text x="610" y="205" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Pick the Shape</text>
+  <rect x="470" y="260" width="280" height="210" rx="16" fill="#3730A3"/>
+  <text x="610" y="325" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Line plot</text>
+  <text x="610" y="375" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Boxplot</text>
+  <text x="610" y="425" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Cohort heatmap</text>
+  <text x="610" y="545" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28">Be specific about</text>
+  <text x="610" y="590" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28">subplots or panels</text>
 
   <!-- Card 3: Exact Columns -->
-  <rect x="820" y="200" width="340" height="490" rx="24" fill="#0E7490"/>
-  <text x="990" y="280" text-anchor="middle" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">3. COLUMNS</text>
-  <text x="990" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Map the Axes</text>
-  <rect x="850" y="395" width="280" height="160" rx="16" fill="#155E75"/>
-  <text x="990" y="445" text-anchor="middle" fill="#ECFEFF" font-family="Courier New, monospace" font-size="25">x = "month"</text>
-  <text x="990" y="485" text-anchor="middle" fill="#ECFEFF" font-family="Courier New, monospace" font-size="25">y = "dlq_rate"</text>
-  <text x="990" y="525" text-anchor="middle" fill="#ECFEFF" font-family="Courier New, monospace" font-size="25">hue = "risk_band"</text>
-  <text x="990" y="625" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="26">Name exact columns</text>
-  <text x="990" y="660" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="26">from your DataFrame</text>
+  <rect x="820" y="50" width="340" height="630" rx="24" fill="#0E7490"/>
+  <text x="990" y="135" text-anchor="middle" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">3. COLUMNS</text>
+  <text x="990" y="205" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Map the Axes</text>
+  <rect x="850" y="260" width="280" height="210" rx="16" fill="#155E75"/>
+  <text x="990" y="325" text-anchor="middle" fill="#ECFEFF" font-family="Courier New, monospace" font-size="26">x = "month"</text>
+  <text x="990" y="375" text-anchor="middle" fill="#ECFEFF" font-family="Courier New, monospace" font-size="26">y = "dlq_rate"</text>
+  <text x="990" y="425" text-anchor="middle" fill="#ECFEFF" font-family="Courier New, monospace" font-size="26">hue = "risk_band"</text>
+  <text x="990" y="545" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28">Name exact columns</text>
+  <text x="990" y="590" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28">from your DataFrame</text>
 
   <!-- Card 4: Output & Layout -->
-  <rect x="1200" y="200" width="340" height="490" rx="24" fill="#0F766E"/>
-  <text x="1370" y="280" text-anchor="middle" fill="#99F6E4" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">4. OUTPUT</text>
-  <text x="1370" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Set the Finish</text>
-  <rect x="1230" y="395" width="280" height="160" rx="16" fill="#115E59"/>
-  <text x="1370" y="445" text-anchor="middle" fill="#F0FDFA" font-family="Arial, Helvetica, sans-serif" font-size="26">Title and labels</text>
-  <text x="1370" y="485" text-anchor="middle" fill="#F0FDFA" font-family="Arial, Helvetica, sans-serif" font-size="26">Reference line</text>
-  <text x="1370" y="525" text-anchor="middle" fill="#F0FDFA" font-family="Courier New, monospace" font-size="24">savefig("out.png")</text>
-  <text x="1370" y="625" text-anchor="middle" fill="#CCFBF1" font-family="Arial, Helvetica, sans-serif" font-size="26">Tell it whether to</text>
-  <text x="1370" y="660" text-anchor="middle" fill="#CCFBF1" font-family="Arial, Helvetica, sans-serif" font-size="26">save or show</text>
+  <rect x="1200" y="50" width="340" height="630" rx="24" fill="#0F766E"/>
+  <text x="1370" y="135" text-anchor="middle" fill="#99F6E4" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">4. OUTPUT</text>
+  <text x="1370" y="205" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Set the Finish</text>
+  <rect x="1230" y="260" width="280" height="210" rx="16" fill="#115E59"/>
+  <text x="1370" y="325" text-anchor="middle" fill="#F0FDFA" font-family="Arial, Helvetica, sans-serif" font-size="28">Title and labels</text>
+  <text x="1370" y="375" text-anchor="middle" fill="#F0FDFA" font-family="Arial, Helvetica, sans-serif" font-size="28">Reference line</text>
+  <text x="1370" y="425" text-anchor="middle" fill="#F0FDFA" font-family="Courier New, monospace" font-size="25">savefig("out.png")</text>
+  <text x="1370" y="545" text-anchor="middle" fill="#CCFBF1" font-family="Arial, Helvetica, sans-serif" font-size="28">Tell it whether to</text>
+  <text x="1370" y="590" text-anchor="middle" fill="#CCFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28">save or show</text>
 
   <!-- Footer example bar -->
-  <rect x="60" y="730" width="1480" height="115" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
-  <text x="800" y="798" text-anchor="middle" fill="#1E2A6B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Specify all four in Chat, then use Inline Chat (Cmd+I / Ctrl+I) for small tweaks</text>
+  <rect x="60" y="725" width="1480" height="120" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="800" y="798" text-anchor="middle" fill="#1E2A6B" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">Specify all four in Chat, then use Inline Chat for small tweaks</text>
 </svg>

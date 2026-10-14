@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Extracting a Jupyter notebook into reusable Python modules with Copilot">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Extracting a Jupyter notebook into reusable Python modules with Copilot">
   <rect width="1600" height="900" fill="#F4F6FB"/>
 
   <!-- Left: Ad-hoc Notebook -->
@@ -47,5 +47,5 @@
 
   <!-- Footer -->
   <rect x="60" y="730" width="1480" height="115" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
-  <text x="800" y="798" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Select one notebook cell group, extract one function, and run /tests before moving on</text>
+  <text x="800" y="800" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">Select one cell group, extract one function, and run /tests first</text>
 </svg>
