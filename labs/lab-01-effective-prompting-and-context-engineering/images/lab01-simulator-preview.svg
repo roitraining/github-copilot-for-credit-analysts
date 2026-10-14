@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-label="Preview of the interactive credit policy cutoff simulator web page">
+  <rect width="1200" height="580" fill="#F8FAFC"/>
+  <rect x="30" y="25" width="1140" height="530" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+
+  <!-- Top header -->
+  <rect x="30" y="25" width="1140" height="70" rx="18" fill="#1E2A6B"/>
+  <text x="65" y="68" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Credit Policy Cutoff Simulator (simulator.html)</text>
+
+  <!-- Controls bar -->
+  <rect x="60" y="115" width="1080" height="95" rx="12" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2"/>
+  <rect x="85" y="138" width="180" height="48" rx="8" fill="#4F46E5"/>
+  <text x="175" y="169" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700">Upload CSV</text>
+
+  <text x="310" y="152" fill="#1E293B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Max Utilization Cutoff: 0.75</text>
+  <rect x="310" y="168" width="320" height="12" rx="6" fill="#CBD5E1"/>
+  <rect x="310" y="168" width="240" height="12" rx="6" fill="#4F46E5"/>
+  <circle cx="550" cy="174" r="11" fill="#1E2A6B"/>
+
+  <text x="700" y="152" fill="#1E293B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Max Delinquency Days: 30</text>
+  <rect x="700" y="168" width="320" height="12" rx="6" fill="#CBD5E1"/>
+  <rect x="700" y="168" width="140" height="12" rx="6" fill="#0E7490"/>
+  <circle cx="840" cy="174" r="11" fill="#0E7490"/>
+
+  <!-- KPI Cards -->
+  <rect x="60" y="235" width="340" height="105" rx="12" fill="#EEF2FF" stroke="#818CF8" stroke-width="2"/>
+  <text x="90" y="272" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Active Accounts Evaluated</text>
+  <text x="90" y="316" fill="#1E2A6B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">92 (6 charged_off excluded)</text>
+
+  <rect x="430" y="235" width="340" height="105" rx="12" fill="#ECFDF5" stroke="#34D399" stroke-width="2"/>
+  <text x="460" y="272" fill="#065F46" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Approval Rate</text>
+  <text x="460" y="316" fill="#047857" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">71.7% (66 / 92)</text>
+
+  <rect x="800" y="235" width="340" height="105" rx="12" fill="#FEF2F2" stroke="#F87171" stroke-width="2"/>
+  <text x="830" y="272" fill="#991B1B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">30+ DPD Rate (Approved)</text>
+  <text x="830" y="316" fill="#B91C1C" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">3.0%</text>
+
+  <!-- Summary Table by Risk Band -->
+  <rect x="60" y="365" width="1080" height="165" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="90" y="400" fill="#1E293B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Approval Breakdown by Risk Band</text>
+  <text x="90" y="440" fill="#334155" font-family="Courier New, monospace" font-size="19">Prime       | 38 active | 35 approved (92.1%) | Avg Util: 0.28</text>
+  <text x="90" y="475" fill="#334155" font-family="Courier New, monospace" font-size="19">Near-Prime  | 31 active | 22 approved (71.0%) | Avg Util: 0.54</text>
+  <text x="90" y="510" fill="#334155" font-family="Courier New, monospace" font-size="19">Subprime    | 23 active |  9 approved (39.1%) | Avg Util: 0.79</text>
+</svg>

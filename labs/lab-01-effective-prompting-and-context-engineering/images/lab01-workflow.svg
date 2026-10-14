@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Lab 1 workflow from copilot-instructions.md to interactive policy simulator">
+  <rect width="1200" height="420" fill="#F4F6FB"/>
+
+  <rect x="30" y="40" width="260" height="340" rx="20" fill="#1E2A6B"/>
+  <text x="160" y="105" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 1</text>
+  <text x="160" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Team Rules</text>
+  <text x="160" y="215" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="18">copilot-instructions.md</text>
+  <text x="160" y="275" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Auto-loaded on</text>
+  <text x="160" y="305" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">every chat prompt</text>
+
+  <rect x="320" y="40" width="260" height="340" rx="20" fill="#312E81"/>
+  <text x="450" y="105" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 2</text>
+  <text x="450" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Ghost + /fix</text>
+  <text x="450" y="215" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="18">credit_rules.py</text>
+  <text x="450" y="275" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Tab completions,</text>
+  <text x="450" y="305" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">/explain, and /fix</text>
+
+  <rect x="610" y="40" width="260" height="340" rx="20" fill="#4F46E5"/>
+  <text x="740" y="105" text-anchor="middle" fill="#C4B5FD" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 3</text>
+  <text x="740" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Prompt File</text>
+  <text x="740" y="215" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="18">/add-tests</text>
+  <text x="740" y="275" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Reusable slash command</text>
+  <text x="740" y="305" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">for pytest coverage</text>
+
+  <rect x="900" y="40" width="270" height="340" rx="20" fill="#0E7490"/>
+  <text x="1035" y="105" text-anchor="middle" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 4</text>
+  <text x="1035" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Web Simulator</text>
+  <text x="1035" y="215" text-anchor="middle" fill="#6EE7B7" font-family="Courier New, monospace" font-size="18">simulator.html</text>
+  <text x="1035" y="275" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="20">Interactive sliders for</text>
+  <text x="1035" y="305" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="20">credit cutoff tuning</text>
+</svg>

@@ -1,30 +1,12 @@
 # Labs
 
-Hands-on lab Markdown for this course lives in this folder.
+Hands-on lab manuals for **GitHub Copilot for Credit Analytics and Risk Modeling**:
 
-## Layout
-
-```text
-labs/
-  lab-01-short-slug/
-    lab.md         # lab manual (preferred name)
-    images/        # screenshots and diagrams
-  lab-02-…
-```
-
-## Authoring
-
-Follow the **Lab Generator** skill:
-
-- [.agents/skills/lab-generator/SKILL.md](../.agents/skills/lab-generator/SKILL.md)
-- [.agents/skills/lab-generator/examples/lab-template.md](../.agents/skills/lab-generator/examples/lab-template.md)
-
-Ask your coding agent, for example: *“Using the Lab Generator skill, write lab-02-… under labs/ for chapter 2.”*
+- `lab-01-effective-prompting-and-context-engineering/lab.md` — Effective Prompting and Context Engineering (Chapter 1)
+- `lab-02-data-profiling-and-hypothesis-generation/lab.md` — Copilot-Assisted Data Profiling and Hypothesis Generation (Chapter 2)
+- `lab-03-model-and-strategy-validation/lab.md` — AI-Assisted Model and Strategy Validation (Chapter 3)
+- `lab-04-agentic-governance-and-code-cleanup/lab.md` — Agentic Governance and Automated Code Cleanup (Chapter 4)
 
 ## Preview
 
-Use the [HTML Lab Viewer](https://labv.roitraining.com/) and paste a GitHub URL to the **lab folder**.
-
-## Sample
-
-See [lab-01-sample-lab-viewer-format](lab-01-sample-lab-viewer-format/) (`lab.md`) for a reference manual in the preferred format.
+Open [https://labv.roitraining.com/](https://labv.roitraining.com/) and paste the GitHub URL to any lab folder under `labs/`.
