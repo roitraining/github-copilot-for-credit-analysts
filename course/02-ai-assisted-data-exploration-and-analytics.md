@@ -7,28 +7,22 @@
 GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 2: AI-Assisted Data Exploration and Analytics
-
 ---
-
 # Chapter 2: Objectives
 
-- Attach schema context with `#file` so Copilot writes Python profiling and segmentation code without guessing column names
-- Prompt Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate and refine `matplotlib` and `seaborn` charts
+- Attach schema context with `#file` so Copilot writes Python code without guessing column names
+- Prompt Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate code
 - Feed table definitions to Copilot to generate SQL queries with CTEs and window functions
 - Translate legacy SAS blocks to Python using `/explain`, scoped prompts, and `/tests`
 - Use comment-driven inline completions to build feature engineering pipelines in VS Code
-
 ---
-
 <!-- layout: navigation -->
 # Chapter 2
 
 - **Prompting for Data Profiling**
 - Generating Charts with Copilot
-- SQL, SAS Migration, and Feature Pipelines
-
+- SQL, SAS Migration Pipelines
 ---
-
 # Give Copilot the Schema, Not the Data
 
 - Copilot cannot see your DataFrame columns unless you put their names in context
@@ -37,9 +31,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - You get runnable `pandas` code while keeping real customer records out of the prompt
 
 ![Attach schema context instead of raw data](images/ch02-schema-context.svg)
-
 ---
-
 <!-- layout: 3-column -->
 # Three Ways to Generate Profiling Code
 
@@ -57,9 +49,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Open the Chat sidebar and attach `#file schema.md`
 - Ask for a reusable profiling module with multiple functions
 - Best when starting a brand-new script
-
 ---
-
 <!-- layout: 2-column -->
 # Weak vs Strong Profiling Prompts
 
@@ -72,9 +62,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - “Using `#file schema.md`, write `profile_accounts(df)` in `pandas`.”
 - “Return a summary DataFrame with row count, null percent per column, and 5th, 50th, and 95th percentiles for numeric columns.”
 - “Add a separate function `flag_outliers(df)` that returns rows where `utilization > 1.0` or `delinquency_days < 0`.”
-
 ---
-
 # Iterating on `groupby` Logic with Inline Chat
 
 - Start with a working function, then use Inline Chat to add segmentation without rewriting the file
@@ -88,9 +76,7 @@ Keep the existing null check unchanged.
 
 > [!TIP]
 > Naming the function part to keep (“Keep the existing null check unchanged”) stops Copilot from deleting working code during an edit.
-
 ---
-
 # Demo: Profiling a Dataset with `#file` Schema Context
 
 1. In VS Code, open your workspace folder and create a file named `schema.md` with these contents:
@@ -118,25 +104,19 @@ Using #file schema.md, create two files:
 ```
 
 3. Run `python make_sample_data.py` and `python profile_accounts.py` in the VS Code terminal to verify the output.
-
 ---
-
 <!-- layout: navigation -->
 # Chapter 2
 
 - Prompting for Data Profiling
 - **Generating Charts with Copilot**
-- SQL, SAS Migration, and Feature Pipelines
-
+- SQL, SAS Migration Pipelines
 ---
-
 <!-- layout: title-image -->
 # Four Parts of a Chart Prompt
 
 ![Four parts of a Copilot chart prompt](images/ch02-chart-prompt-anatomy.svg)
-
 ---
-
 <!-- layout: card-layout -->
 # Prompt Patterns for Common Analytics Plots
 
@@ -151,9 +131,7 @@ Using #file schema.md, create two files:
 ### Cohort Heatmap
 - Ask Copilot to build a `pandas.pivot_table` first, then pass it to `sns.heatmap`.
 - Specify `annot=True` and `fmt=".1%"` so every cell displays its value clearly.
-
 ---
-
 # Use Inline Chat to Tweak a Chart in Place
 
 - Pasting a whole script back into the Chat sidebar just to rotate labels wastes time and can alter your data prep
@@ -161,9 +139,7 @@ Using #file schema.md, create two files:
 - Ask for the exact visual adjustment and review the highlighted diff before pressing Accept
 
 ![Inline Chat inside the editor for chart edits](images/ch02-inline-chat-chart.svg)
-
 ---
-
 <!-- layout: 2-column -->
 # Sidebar Chat vs Inline Chat for Plots
 
@@ -176,9 +152,7 @@ Using #file schema.md, create two files:
 - Rotating overlapping x-axis date labels by 45 degrees
 - Adding a horizontal threshold line or data callout to an existing axis
 - Switching a color palette or moving a legend outside the plot box
-
 ---
-
 # Fixing Broken Plot Code with `/fix`
 
 - `matplotlib` and `seaborn` often fail when column types are strings instead of dates or numbers, or when nulls break an axis
@@ -189,9 +163,7 @@ Using #file schema.md, create two files:
 | `TypeError` or `ValueError` traceback | `/fix` + paste the error line + “Cast `perf_month` to datetime before plotting.” |
 | Overlapping x-axis labels | Select the plot block in Inline Chat: “Rotate x-axis labels 45 degrees and call `plt.tight_layout()`.” |
 | Blank window or script hangs in terminal | Inline Chat: “Save the figure to `charts/delinquency_by_band.png` with `dpi=150` instead of `plt.show()`.” |
-
 ---
-
 # Demo: Generating and Refining a Two-Panel Chart
 
 1. In VS Code, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file schema.md` and `#file profile_accounts.py` from the previous demo.
@@ -213,18 +185,14 @@ Add a horizontal red dashed line at y=0.80 labeled "High Utilization Threshold" 
 ```
 
 5. Accept the diff, rerun `python plot_portfolio.py`, and watch `portfolio_summary.png` update in VS Code.
-
 ---
-
 <!-- layout: navigation -->
 # Chapter 2
 
 - Prompting for Data Profiling
 - Generating Charts with Copilot
-- **SQL, SAS Migration, and Feature Pipelines**
-
+- **SQL, SAS Migration Pipelines**
 ---
-
 <!-- layout: stacked -->
 # Attach Table Definitions Before You Ask for SQL
 
@@ -233,9 +201,7 @@ Add a horizontal red dashed line at y=0.80 labeled "High Utilization Threshold" 
 - Name the target SQL dialect (`PostgreSQL`, `Snowflake`, `T-SQL`, or `Spark SQL`) in the prompt so date functions work on the first run
 
 ![Attach SQL schema before asking Copilot for queries](images/ch02-sql-schema-to-query.svg)
-
 ---
-
 # Prompting Copilot for Multi-Step SQL Queries
 
 - Break complex analytical SQL prompts into named Common Table Expressions (CTEs) so the generated query is easy to read and verify
@@ -250,16 +216,12 @@ Do not invent columns not in schema.sql.
 
 > [!TIP]
 > Store your target SQL dialect in `.github/copilot-instructions.md` (for example, “Default SQL dialect is Snowflake SQL; prefer CTEs over nested subqueries”) so you do not have to repeat it in every prompt.
-
 ---
-
 <!-- layout: title-image -->
 # Translate Legacy SAS in Three Copilot Steps
 
 ![Three-step workflow to translate SAS to Python with Copilot](images/ch02-sas-to-python-workflow.svg)
-
 ---
-
 <!-- layout: 2-column -->
 # SAS to Python: Explain First, Then Translate
 
@@ -289,9 +251,7 @@ Ensure null dpd values produce dlq_flag = 0 (matching SAS where missing is less 
 
 > [!IMPORTANT]
 > In SAS, a missing numeric value (`.`) evaluates as less than any number, while in `pandas` `NaN` comparisons return `False`. Asking `/explain` about missing values before translating catches this difference every time.
-
 ---
-
 <!-- layout: stacked -->
 # Comment-Driven Code 
 
@@ -301,9 +261,7 @@ Ensure null dpd values produce dlq_flag = 0 (matching SAS where missing is less 
 - Press `Enter` after each comment, read the gray ghost text, and press `Tab` to accept
 
 ![Comment-driven ghost text completion in VS Code](images/ch02-comment-ghost-text.png)
-
 ---
-
 <!-- layout: 2-column -->
 # What You Type vs What Copilot Completes
 
@@ -342,9 +300,7 @@ def add_credit_features(df: pd.DataFrame) -> pd.DataFrame:
 
     return out
 ```
-
 ---
-
 # Demo: Comment-Driven Feature Engineering
 
 1. In VS Code, create a new file named `features.py` and type only the imports, function header, and comments below:
@@ -368,26 +324,20 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 2. Place your cursor on the blank line below the first comment, wait for Copilot’s gray ghost text, read it, and press `Tab` to accept.
 3. Repeat for the second and third comments.
 4. Select the entire `engineer_features` function, open Copilot Chat, and run `/tests` to generate a quick check for `available_credit` when `balance` exceeds `credit_limit`.
-
 ---
-
 # Chapter 2 Hands-On Lab
 
 - Lab: [Copilot-Assisted Data Profiling and Hypothesis Generation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-02-data-profiling-and-hypothesis-generation)
 - Time: 30 minutes
-
 ---
-
 # What You Learned
 
-- Attached schema context with `#file` so Copilot wrote Python profiling and segmentation code without guessing column names
-- Prompted Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate and refine `matplotlib` and `seaborn` charts
-- Fed table definitions to Copilot to generate SQL queries with CTEs and window functions
+- Attached schema context with `#file` so Copilot writes Python code without guessing column names
+- Prompted Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate code
+- Feed table definitions to Copilot to generate SQL queries with CTEs and window functions
 - Translated legacy SAS blocks to Python using `/explain`, scoped prompts, and `/tests`
 - Used comment-driven inline completions to build feature engineering pipelines in VS Code
-
 ---
-
 # Quiz 1 of 3
 
 **When you ask Copilot Chat to write a Python profiling script or SQL query, it keeps inventing column names that do not exist in your dataset. What is the best fix?**
@@ -396,9 +346,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 - B. Attach a schema file (`#file schema.md` or `#file schema.sql`) with the exact column names and types
 - C. Repeatedly click Regenerate until Copilot guesses the right column names
 - D. Turn off Copilot Chat and only use inline ghost text
-
 ---
-
 # Quiz 1: Answer
 
 **When you ask Copilot Chat to write a Python profiling script or SQL query, it keeps inventing column names that do not exist in your dataset. What is the best fix?**
@@ -408,9 +356,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 - Copilot cannot guess column names that are not in its active context
 - A lightweight schema file gives Copilot exact names, types, and value ranges without exposing customer PII
 - Regenerating without schema context just produces a different set of guessed names
-
 ---
-
 # Quiz 2 of 3
 
 **You already have a working 60-line Python script that loads data and builds a `seaborn` chart. You only want to rotate the x-axis labels 45 degrees and add a horizontal reference line. Which Copilot workflow is best?**
@@ -419,9 +365,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 - B. Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes
 - C. Delete the plotting code and wait for ghost text to guess the new layout
 - D. Copy the script into the Copilot mobile app
-
 ---
-
 # Quiz 2: Answer
 
 **You already have a working 60-line Python script that loads data and builds a `seaborn` chart. You only want to rotate the x-axis labels 45 degrees and add a horizontal reference line. Which Copilot workflow is best?**
@@ -431,9 +375,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 - Inline Chat scopes the edit to your highlighted lines and shows a clean in-place diff
 - Data loading and filtering above the selection stay untouched
 - Regenerating the whole file in the sidebar risks breaking working code above or below the plot
-
 ---
-
 <!-- layout: 2-column -->
 # Quiz 3 of 3: Discussion
 
@@ -444,9 +386,7 @@ A teammate needs to migrate a 400-line legacy SAS script with six `DATA` steps a
 - What typically goes wrong when you ask Copilot to translate a 400-line SAS file in a single prompt?
 - How should they use `#file`, `/explain`, and `/tests` to migrate the script safely?
 - Which SAS-to-pandas behavior differences should they explicitly mention in their prompt?
-
 ---
-
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
@@ -462,9 +402,7 @@ A teammate needs to migrate a 400-line legacy SAS script with six `DATA` steps a
 - Accepting a 400-line one-shot translation because the Python syntax looks clean
 - Ignoring how `NaN` comparisons in `pandas` differ from `.` comparisons in SAS
 - Skipping unit tests until all six steps are merged together
-
 ---
-
 <!-- layout: stacked -->
 # Questions and Answers
 

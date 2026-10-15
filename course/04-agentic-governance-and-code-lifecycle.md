@@ -7,28 +7,22 @@
 GitHub Copilot for Credit Analytics and Risk Modeling
 
 # Chapter 4: Agentic Governance and Code Lifecycle
-
 ---
-
 # Chapter 4: Objectives
 
-- Use Inline Chat (`Cmd+I` or `Ctrl+I`) and Copilot Chat to refactor, modularize, and vectorize slow Python analytics scripts
-- Prompt Copilot to add defensive runtime assertions and generate comprehensive `pytest` suites with `/tests`
-- Drive Copilot Agent mode safely using plan-first prompts, single-step approvals, and VS Code diff reviews
-- Use reusable `.github/prompts/*.prompt.md` templates to generate Model Risk Management (MRM) audit evidence
-- Generate grounded Model Cards, technical specifications, and docstrings with `#file`, `/doc`, and `/explain`
-
+- Refactor, modularize, and vectorize slow Python analytics scripts
+- Prompt Copilot to add defensive assertions and `pytest` suites with `/tests`
+- Use plan-first prompts, single-step approvals, and VS Code diff reviews
+- Build reusable `.github/prompts/*.prompt.md` templates 
+- Generate grounded Model Cards, technical specifications, and docstrings
 ---
-
 <!-- layout: navigation -->
 # Chapter 4
 
 - **AI-Powered Code Maintenance**
-- Human-in-the-Loop Governance with Agent Mode
-- Automated Documentation and Model Cards
-
+- Human-in-the-Loop 
+- Automated Documentation 
 ---
-
 # Three Copilot Workflows for Code Maintenance
 
 - Analytical scripts often start as long, single-file prototypes with slow row loops, no runtime checks, and zero tests
@@ -37,9 +31,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Use `/tests` with `#file` in Copilot Chat to generate a complete `pytest` suite that tests both normal math and every new assertion
 
 ![Three Copilot steps to refactor, add assertions, and generate pytest suites](images/ch04-maintenance-copilot-tools.svg)
-
 ---
-
 <!-- layout: 2-column -->
 # Refactoring and Optimizing with Inline Chat
 
@@ -52,9 +44,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Highlight a slow `for idx, row in df.iterrows():` block and open Inline Chat
 - Prompt: “Replace this `iterrows()` loop with vectorized `np.select` or `pandas` operations that produce identical values, including for `NaN` rows.”
 - Ask `/tests` for a parity test comparing the old function and new function on 20 synthetic rows
-
 ---
-
 <!-- layout: card-layout -->
 # Prompting Copilot for Defensive Assertions
 
@@ -69,9 +59,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 ### Statistical Output Guard
 - Place your cursor after the rate calculation and write a comment for ghost text.
 - Raise a `ValueError` if any computed delinquency or loss rate is `NaN`, below `0.0`, or above `1.0`.
-
 ---
-
 # Generating Comprehensive `pytest` Suites with `/tests`
 
 - Typing `/tests` alone often produces only one happy-path test; always pair `/tests` with explicit edge cases and `pytest` features
@@ -86,9 +74,7 @@ Create tests/test_risk_rollup.py using pytest:
 
 > [!TIP]
 > Add “Use `@pytest.fixture` with synthetic rows and `pytest.raises` for all `ValueError` guards” to `.github/copilot-instructions.md` so `/tests` follows this standard automatically.
-
 ---
-
 # Demo: Refactoring, Asserting, and Testing with Copilot
 
 1. In VS Code, create `risk_rollup.py` and paste this unguarded, loop-heavy function:
@@ -121,25 +107,19 @@ def calc_delinquency(df):
 
 3. Accept the diff, open Copilot Chat, and run `/tests #file risk_rollup.py` asking for `pytest` tests that verify both the exact rates and all `pytest.raises(ValueError)` guards.
 4. Run `pytest` in the VS Code terminal to confirm all tests pass.
-
 ---
-
 <!-- layout: navigation -->
 # Chapter 4
 
 - AI-Powered Code Maintenance
-- **Human-in-the-Loop Governance with Agent Mode**
-- Automated Documentation and Model Cards
-
+- **Human-in-the-Loop**
+- Automated Documentation 
 ---
-
 <!-- layout: title-image -->
 # Driving Copilot Agent Mode with Human Gates
 
 ![Four-step Agent mode workflow with human-in-the-loop gates in VS Code](images/ch04-agent-hitl-loop.svg)
-
 ---
-
 <!-- layout: 2-column -->
 # Autopilot Prompt vs Plan Mode + Interactive Prompt
 
@@ -152,9 +132,7 @@ def calc_delinquency(df):
 - Switch the Agent mode menu (speech bubble icon) to **Plan** (or keep **Interactive** with **Manual** permissions)
 - Prompt: “Read `#file risk_rollup.py` and `#file test_risk_rollup.py`. Propose a 3-step plan to extract validation guards into `validators.py`. List the files each step touches and wait for my approval.”
 - Review the plan, then execute one step at a time and run `pytest`
-
 ---
-
 # Using VS Code’s Review Controls in Agent Mode
 
 - When Copilot Agent edits files in your workspace, VS Code displays inline diffs and an action bar (`Keep` or `Undo`) for every modified file
@@ -168,9 +146,7 @@ def calc_delinquency(df):
 
 > [!IMPORTANT]
 > If Agent mode modifies a test just to make a broken formula pass, click **Undo** on the test file immediately and narrow your prompt.
-
 ---
-
 <!-- layout: stacked -->
 # Generating MRM Audit Evidence with a Prompt File
 
@@ -179,9 +155,7 @@ def calc_delinquency(df):
 - Attach the code file, test file, and `pytest` output, then run `/mrm-evidence` in Copilot Chat
 
 ![Prompting Copilot to generate an MRM audit trail from code, tests, and diffs](images/ch04-mrm-evidence-generator.svg)
-
 ---
-
 # Creating `.github/prompts/mrm-evidence.prompt.md`
 
 - Save this reusable prompt file in `.github/prompts/mrm-evidence.prompt.md` and run it by typing `/mrm-evidence` in Chat:
@@ -198,26 +172,20 @@ Using the attached code file, test file, and pytest terminal output, generate `A
 
 Rule: Do not invent test results or claim a model is "Approved."
 ```
-
 ---
-
 <!-- layout: navigation -->
 # Chapter 4
 
 - AI-Powered Code Maintenance
-- Human-in-the-Loop Governance with Agent Mode
-- **Automated Documentation and Model Cards**
-
+- Human-in-the-Loop 
+- **Automated Documentation** 
 ---
-
 <!-- layout: title-image -->
-# Generating Grounded Model Cards from Code and Output Files
+# Generating Grounded Model Cards from Code and Output
 
 ![Generating a Model Card from code, schema, and metrics files with Copilot](images/ch04-model-card-from-code.svg)
-
 ---
-
-# Prompting Copilot for a Model Card Without Hallucinations
+# Prompting Copilot for a Model Card
 
 - If you ask Copilot to “write a model card for our delinquency model” with no files attached, it invents feature lists, training dates, and validation numbers
 - Attach `#file schema.md`, `#file train_baseline.py`, and `#file metrics_output.json` so every technical section comes straight from your repo
@@ -233,9 +201,7 @@ create MODEL_CARD.md with these sections:
 
 Do not invent any metric, date, or policy rule not present in the attached files.
 ```
-
 ---
-
 # Using `/doc` and `/explain` to Document Complex Scripts
 
 - Highlight any function and press `Cmd+I` (Mac) or `Ctrl+I` (Windows), then type `/doc` to generate a structured docstring in place
@@ -243,10 +209,8 @@ Do not invent any metric, date, or policy rule not present in the attached files
 - Add the guardrail “Add docstrings and comments only; do not modify any executable code” so Copilot never alters a formula while documenting it
 
 ![Using /doc in Inline Chat to add Google or NumPy style docstrings](images/ch04-docstring-annotation.svg)
-
 ---
-
-# Demo: Document and Package `risk_rollup.py` for Review
+# Demo: Document and Package Code for Review
 
 1. In VS Code, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and run:
 
@@ -264,26 +228,20 @@ Generate AUDIT_EVIDENCE.md with:
 3. Table of pytest tests in test_risk_rollup.py and pass count
 4. Human sign-off section marked TODO
 ```
-
 ---
-
 # Chapter 4 Hands-On Lab
 
 - Lab: [Agentic Governance and Automated Code Cleanup](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-04-agentic-governance-and-code-cleanup)
 - Time: 30 minutes
-
 ---
-
 # What You Learned
 
-- Used Inline Chat (`Cmd+I` or `Ctrl+I`) and Copilot Chat to refactor, modularize, and vectorize slow Python analytics scripts
-- Prompted Copilot to add defensive runtime assertions and generated comprehensive `pytest` suites with `/tests`
-- Drove Copilot Agent mode safely using plan-first prompts, single-step approvals, and VS Code diff reviews
-- Used reusable `.github/prompts/*.prompt.md` templates to generate Model Risk Management (MRM) audit evidence
-- Generated grounded Model Cards, technical specifications, and docstrings with `#file`, `/doc`, and `/explain`
-
+- Refactored, modularized, and vectorized slow Python analytics scripts
+- Prompted Copilot to add defensive assertions and `pytest` suites with `/tests`
+- Used plan-first prompts, single-step approvals, and VS Code diff reviews
+- Built reusable `.github/prompts/*.prompt.md` templates 
+- Generated grounded Model Cards, technical specifications, and docstrings
 ---
-
 # Quiz 1 of 3
 
 **You want to use Copilot Agent mode in VS Code to refactor a 300-line monitoring script into separate modules (`validators.py`, `metrics.py`, and `test_metrics.py`). How should you start the session?**
@@ -292,9 +250,7 @@ Generate AUDIT_EVIDENCE.md with:
 - B. Ask Agent mode for a step-by-step plan listing which files each step will touch (“Do not edit files yet”), then approve and test one step at a time
 - C. Delete all existing unit tests first so Agent mode is not slowed down by test failures
 - D. Paste the 300-line script into the Copilot mobile app
-
 ---
-
 # Quiz 1: Answer
 
 **You want to use Copilot Agent mode in VS Code to refactor a 300-line monitoring script into separate modules (`validators.py`, `metrics.py`, and `test_metrics.py`). How should you start the session?**
@@ -304,9 +260,7 @@ Generate AUDIT_EVIDENCE.md with:
 - A plan-first prompt lets you verify the file list and module boundaries before Agent mode edits code
 - Executing one step at a time keeps each VS Code diff small enough to inspect line by line
 - Running `pytest` between steps catches any accidental formula or denominator change immediately
-
 ---
-
 # Quiz 2 of 3
 
 **When you use Copilot Inline Chat (`/doc`) to add docstrings and comments to an existing credit calculation function, what instruction should you include in your prompt?**
@@ -315,9 +269,7 @@ Generate AUDIT_EVIDENCE.md with:
 - B. “Add NumPy-style docstrings covering inputs, exclusions, and `ValueError` conditions; do not modify any executable code.”
 - C. “Invent a realistic holdout ROC AUC score and put it in the docstring.”
 - D. “Remove all `ValueError` checks so the function is shorter.”
-
 ---
-
 # Quiz 2: Answer
 
 **When you use Copilot Inline Chat (`/doc`) to add docstrings and comments to an existing credit calculation function, what instruction should you include in your prompt?**
@@ -327,9 +279,7 @@ Generate AUDIT_EVIDENCE.md with:
 - Explicitly telling Copilot not to touch executable lines prevents silent formula changes during a documentation pass
 - Always inspect the inline diff in VS Code to verify that only docstring or comment lines were added
 - Re-run `pytest` after accepting the docstring to be 100% certain runtime behavior is unchanged
-
 ---
-
 <!-- layout: 2-column -->
 # Quiz 3 of 3: Discussion
 
@@ -340,9 +290,7 @@ A teammate needs to prepare a Model Card (`MODEL_CARD.md`) and an MRM audit summ
 - What will Copilot put into `MODEL_CARD.md` when no code, schema, or metrics files are attached?
 - Which exact files should they attach with `#file` before prompting?
 - Which sections of a Model Card can Copilot populate from code, and which sections must be marked `TODO` for a human?
-
 ---
-
 <!-- layout: 2-column -->
 # Quiz 3: Discussion Points
 
@@ -358,9 +306,7 @@ A teammate needs to prepare a Model Card (`MODEL_CARD.md`) and an MRM audit summ
 - Treating fluent, AI-invented AUC or KS numbers in a Model Card as real validation results
 - Letting Copilot write “Status: Approved for Production” in the generated document
 - Forgetting to create a reusable `.github/prompts/mrm-evidence.prompt.md` file for the team
-
 ---
-
 <!-- layout: stacked -->
 # Questions and Answers
 
