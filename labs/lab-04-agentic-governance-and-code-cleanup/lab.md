@@ -85,7 +85,11 @@ if __name__ == "__main__":
     print(compute_monthly_rollup(sample_df))
 ```
 
-4. Run `python legacy_monitoring.py` in the VS Code terminal and note the output table (`Prime`, `Near-Prime`, and `Subprime` rates) so you can verify parity after refactoring.
+4. Run this command in the VS Code terminal to create a virtual environment, install `pandas`, `numpy`, and `pytest`, and run `legacy_monitoring.py` so you can note the baseline output table (`Prime`, `Near-Prime`, and `Subprime` rates):
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate && pip install -q pandas numpy pytest && python legacy_monitoring.py
+```
 
 5. In the editor, highlight only the `compute_monthly_rollup` function and press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat.
 
@@ -170,10 +174,10 @@ Create test_rollup.py using pytest with:
    - Invalid output rate outside [0.0, 1.0] passed to validate_rollup_outputs
 ```
 
-4. Run `pytest -v` in the VS Code terminal and save the test output to `pytest_run.txt` so you can attach it as audit evidence in Task 4:
+4. Run `python -m pytest -v` in the VS Code terminal and save the test output to `pytest_run.txt` so you can attach it as audit evidence in Task 4:
 
 ```bash
-pytest -v | tee pytest_run.txt
+python -m pytest -v | tee pytest_run.txt
 ```
 
 ### Task 4: Create `/mrm-evidence` and generate a Model Card and MRM Governance Portal

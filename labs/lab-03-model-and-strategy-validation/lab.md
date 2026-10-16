@@ -57,14 +57,11 @@ Using #file schema.md, create make_modeling_data.py using pandas and numpy (seed
 - Set post_decision_dpd strongly correlated with default_60d so it acts as a post-decision leak if accidentally included.
 ```
 
-6. Run the generator script in your VS Code terminal:
+6. Run this command in your VS Code terminal to create a virtual environment, install the required libraries, and generate `modeling_data.csv`:
 
 ```bash
-python make_modeling_data.py
+python3 -m venv .venv && source .venv/bin/activate && pip install -q scikit-learn pandas numpy matplotlib seaborn pytest && python make_modeling_data.py
 ```
-
-> [!IMPORTANT]
-> If `scikit-learn` is not installed in your environment, run `pip install scikit-learn pandas numpy matplotlib seaborn pytest` in the terminal.
 
 7. Next, create a file named `leaky_train.py` and paste this intentionally flawed script:
 
@@ -148,7 +145,11 @@ Create test_evaluate_model.py using pytest to verify:
 3. compute_ks raises ValueError on empty arrays, NaN probabilities, or when y_true contains all zeros.
 ```
 
-4. Run `pytest -v` in the VS Code terminal and confirm all validation unit tests pass.
+4. Run `python -m pytest -v` in the VS Code terminal and confirm all validation unit tests pass:
+
+```bash
+python -m pytest -v
+```
 
 ### Task 3: Create and refactor a Jupyter Notebook (`.ipynb`) into a reusable module
 
@@ -184,7 +185,11 @@ Step 1 (Plan only): Read #file strategy_experiment.ipynb and propose a plan to e
 Approved: create strategy_helpers.py with add_strategy_features(df) and build_segment_calibration(df, y_prob), and add pytest tests in test_strategy_helpers.py.
 ```
 
-6. Run `pytest -v` in the terminal to verify that both `test_evaluate_model.py` and `test_strategy_helpers.py` pass.
+6. Run `python -m pytest -v` in the terminal to verify that both `test_evaluate_model.py` and `test_strategy_helpers.py` pass:
+
+```bash
+python -m pytest -v
+```
 
 ### Task 4: Generate a grounded `validation_summary.md` and interactive HTML Validation Dashboard
 

@@ -58,14 +58,11 @@ Plant these exact patterns in the synthetic data:
 3. A noticeable rise in 30+ DPD (dpd >= 30 and dpd <= 365) during perf_month '2025-11' and '2025-12' concentrated in the '2025-Q3' Near-Prime and Subprime cohorts.
 ```
 
-6. Allow Copilot to create `generate_portfolio.py`, then run it in the VS Code terminal:
+6. Allow Copilot to create `generate_portfolio.py`, then run this command in the VS Code terminal to create a virtual environment, install the required libraries, and generate `portfolio_history.csv`:
 
 ```bash
-python generate_portfolio.py
+python3 -m venv .venv && source .venv/bin/activate && pip install -q pandas numpy matplotlib seaborn pytest && python generate_portfolio.py
 ```
-
-> [!IMPORTANT]
-> If `pandas`, `numpy`, `matplotlib`, or `seaborn` are not installed in your environment, run `pip install pandas numpy matplotlib seaborn pytest` in the terminal.
 
 ### Task 2: Generate a Python data profiler and hypothesis table from `#file schema.md`
 
@@ -204,7 +201,11 @@ def build_roll_flags(df: pd.DataFrame) -> pd.DataFrame:
 
 ![Comment-driven ghost text completion in VS Code](images/comment-ghost-text.png)
 
-8. Select `build_roll_flags` in `sas_migrated.py`, open Copilot Chat, and run `/tests` to create `test_sas_migrated.py` verifying that a row with `utilization = np.nan` is never misclassified as `'High'`. Run `pytest -v` in the terminal to confirm it passes.
+8. Select `build_roll_flags` in `sas_migrated.py`, open Copilot Chat, and run `/tests` to create `test_sas_migrated.py` verifying that a row with `utilization = np.nan` is never misclassified as `'High'`. Run `python -m pytest -v` in the terminal to confirm it passes:
+
+```bash
+python -m pytest -v
+```
 
 ### Bonus Task 5: Generate an interactive HTML Exploratory Data Report (`eda_report.html`)
 

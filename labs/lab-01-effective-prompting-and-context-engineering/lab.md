@@ -158,14 +158,14 @@ Create or update a pytest test file in tests/ for the specified Python file:
 /add-tests credit_rules.py
 ```
 
-5. If Copilot asks permission to create the test file and run `pytest` in the terminal, click **Allow** (or run `pytest -v` yourself in the VS Code terminal):
+5. Once Copilot creates the test file, run this command in the VS Code terminal to create a virtual environment, install `pytest`, `pandas`, and `numpy`, and execute the test suite:
 
 ```bash
-pytest -v
+python3 -m venv .venv && source .venv/bin/activate && pip install -q pytest pandas numpy && python -m pytest -v
 ```
 
-> [!IMPORTANT]
-> If `pytest` is not installed in your active Python environment, run `pip install pytest pandas numpy` in the VS Code terminal and rerun `pytest -v`.
+> [!NOTE]
+> Using `python -m pytest -v` inside `.venv` ensures `pytest` is installed cleanly and automatically adds your workspace root to Python’s import path even when tests live inside `tests/`. On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`.
 
 ### Task 4: Build an interactive Credit Policy Cutoff Simulator (`simulator.html`)
 
