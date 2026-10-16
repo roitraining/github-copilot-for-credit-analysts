@@ -134,28 +134,28 @@ In this task, you create a reusable prompt file so anyone on the team can genera
 mkdir -p .github/prompts
 ```
 
-2. Create a new file inside `.github/prompts/` at `.github/prompts/add-tests.prompt.md` and paste the following prompt template:
+2. Create a new file inside `.github/prompts/` at `.github/prompts/add-tests.prompt.md` and paste the following reusable prompt template:
 
 ```markdown
 # Prompt File: .github/prompts/add-tests.prompt.md
 
-Create or update tests/test_credit_rules.py using pytest for credit_rules.py:
+Create or update a pytest test file in tests/ for the specified Python file:
 1. Build synthetic test inputs only (never use real customer data).
-2. Write unit tests for every function in credit_rules.py.
+2. Write unit tests for every function in the target file.
 3. Explicitly test:
    - Normal inputs across Prime, Near-Prime, and Subprime accounts
    - An empty DataFrame or zero active accounts (asserting np.nan rather than ZeroDivisionError)
    - Exclusion of rows where status == 'charged_off'
    - Exclusion or flagging of rows where delinquency_days = 9999
-4. Do not modify credit_rules.py.
+4. Do not modify the production source file.
 ```
 
 3. Save `.github/prompts/add-tests.prompt.md`.
 
-4. In Copilot Chat, enter the `/add-tests` command and press `Enter`:
+4. In Copilot Chat, run your new `/add-tests` command on `credit_rules.py`:
 
 ```text
-/add-tests
+/add-tests credit_rules.py
 ```
 
 5. If Copilot asks permission to create the test file and run `pytest` in the terminal, click **Allow** (or run `pytest -v` yourself in the VS Code terminal):

@@ -191,29 +191,29 @@ mkdir -p .github/prompts
 ```markdown
 # Prompt File: .github/prompts/mrm-evidence.prompt.md
 
-Using rollup.py, validators.py, test_rollup.py, and pytest_run.txt in this workspace, generate two files:
+Using the specified source files, test file, and pytest run log, generate two files:
 
 1. `MODEL_CARD.md`
-   - **Module Overview and Intended Use**: Read from `rollup.py` and `validators.py`.
-   - **Input Schema and Grain Contract**: Exact columns and `(perf_month, risk_band)` grain.
+   - **Module Overview and Intended Use**: Read from the source modules.
+   - **Input Schema and Grain Contract**: Exact columns and output grain.
    - **Denominator and Outlier Rules**: Exact rules for `charged_off` and `dpd > 365`.
    - **Governance and Policy Sign-Off**: Mark production alert thresholds, policy owner, and MRM approval status as `TODO`.
 
 2. `AUDIT_EVIDENCE.md`
    - **Scope of Refactoring**: Functions modularized and vectorized.
-   - **Defensive Assertions Inventory**: Table of every `ValueError` guard in `validators.py`.
-   - **Pytest Verification Log**: Table of every test in `test_rollup.py` and the exact pass count from `pytest_run.txt`.
+   - **Defensive Assertions Inventory**: Table of every `ValueError` guard in the codebase.
+   - **Pytest Verification Log**: Table of every unit test and the exact pass count from the pytest output log.
    - **Reviewer Sign-Off Checklist**: Leave human reviewer name, date, and decision as `TODO`.
 
-Rule: Cite only facts and test results present in the workspace files. Do not invent metrics or mark the package as "Approved."
+Rule: Cite only facts and test results present in the specified files. Do not invent metrics or mark the package as "Approved."
 ```
 
 3. Save `.github/prompts/mrm-evidence.prompt.md`.
 
-4. In Copilot Chat, enter the `/mrm-evidence` command and press `Enter`:
+4. In Copilot Chat, run `/mrm-evidence` and pass your workspace files:
 
 ```text
-/mrm-evidence
+/mrm-evidence rollup.py validators.py test_rollup.py pytest_run.txt
 ```
 
 5. Open the generated `MODEL_CARD.md` and `AUDIT_EVIDENCE.md` files to confirm that all technical rules and test counts match your code and that policy sign-off fields are marked `TODO`.
