@@ -167,11 +167,10 @@ In this task, you use `/doc` in Inline Chat to document `rollup.py` and `validat
 
 2. Inspect the inline diff to verify that only docstring lines were added, then click **Accept**.
 
-3. Open Copilot Chat, attach `#file rollup.py` and `#file validators.py`, and run `/tests`:
+3. Open Copilot Chat, attach `#file rollup.py` and `#file validators.py`, and run this prompt to create and save `test_rollup.py`:
 
 ```text
-/tests #file rollup.py #file validators.py
-Create test_rollup.py using pytest with:
+Using #file rollup.py and #file validators.py, create and save test_rollup.py using pytest with:
 1. A @pytest.fixture returning the synthetic DataFrame from make_monitoring_sample().
 2. A test verifying exact active_accounts, mean_balance, and dlq_30_rate values for Prime, Near-Prime, and Subprime, confirming that the charged_off row is excluded.
 3. @pytest.mark.parametrize and pytest.raises(ValueError) tests covering:

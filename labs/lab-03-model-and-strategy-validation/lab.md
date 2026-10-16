@@ -151,11 +151,10 @@ Using #file train_pipeline.py and #file schema.md, create evaluate_model.py with
 .\.venv\Scripts\python evaluate_model.py
 ```
 
-3. Open `evaluate_model.py`, select `compute_ks` and `build_decile_table`, and run `/tests` in Copilot Chat:
+3. In Copilot Chat, attach `#file evaluate_model.py` and run this prompt to create and save `test_evaluate_model.py`:
 
 ```text
-/tests #file evaluate_model.py
-Create test_evaluate_model.py using pytest to verify:
+Using #file evaluate_model.py, create and save test_evaluate_model.py using pytest to verify:
 1. Perfect separation (all bads have y_prob = 0.95, all goods have y_prob = 0.05) produces compute_ks == 1.0.
 2. build_decile_table returns exactly 10 rows, decile 1 has the highest mean_predicted_prob, and account_count.sum() == len(y_true).
 3. compute_ks raises ValueError on empty arrays, NaN probabilities, or when y_true contains all zeros.

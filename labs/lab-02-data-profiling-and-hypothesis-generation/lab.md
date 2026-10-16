@@ -148,7 +148,7 @@ Keep the data loading and filtering code at the top of the file unchanged.
 
 5. Review the inline diff in `plot_diagnostics.py`, click **Accept** (or **Keep**), and rerun `plot_diagnostics.py` (`./.venv/bin/python plot_diagnostics.py` on macOS or `.\.venv\Scripts\python plot_diagnostics.py` on Windows) to see `diagnostics.png` update live in VS Code.
 
-![Preview of the 2x2 portfolio diagnostic chart](images/lab02-diagnostics-preview.svg)
+![Preview of the 2x2 portfolio diagnostic chart](images/lab02-diagnostics-preview.png)
 
 ### Task 4: Generate SQL from `#file schema.sql`, migrate legacy SAS, and use comment-driven ghost text
 
@@ -221,11 +221,20 @@ def build_roll_flags(df: pd.DataFrame) -> pd.DataFrame:
     return out
 ```
 
-7. Place your cursor under each numbered comment, wait for Copilot’s gray ghost text, and press `Tab` to complete each line.
+7. Place your cursor under each numbered comment, wait for Copilot’s gray ghost text, and press `Tab` to complete each line. Save `sas_migrated.py` (`Cmd+S` on macOS or `Ctrl+S` on Windows).
 
 ![Comment-driven ghost text completion in VS Code](images/comment-ghost-text.png)
 
-8. Select `build_roll_flags` in `sas_migrated.py`, open Copilot Chat, and run `/tests` to create `test_sas_migrated.py` verifying that a row with `utilization = np.nan` is never misclassified as `'High'`. Run `pytest` in the terminal to confirm it passes:
+8. In Copilot Chat, attach `#file sas_migrated.py` and run this prompt to create and save `test_sas_migrated.py` on disk:
+
+```text
+Using #file sas_migrated.py, create and save test_sas_migrated.py with pytest unit tests for build_roll_flags(df):
+1. Verify that rows with status == 'charged_off' or dpd > 365 are excluded.
+2. Verify that a row with utilization = np.nan is assigned util_tier == 'Missing' (and never misclassified as 'High').
+3. Verify dlq_30_flag and util_tier across Low (< 0.30), Medium (<= 0.75), and High (> 0.75) utilization values.
+```
+
+9. Confirm `test_sas_migrated.py` appears in the Explorer pane, then run `pytest` in the terminal to confirm all tests pass:
 
 **macOS / Linux:**
 
