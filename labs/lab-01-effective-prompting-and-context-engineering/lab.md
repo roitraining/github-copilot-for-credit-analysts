@@ -30,13 +30,13 @@ In this task, you open a fresh folder in VS Code, create `.github/copilot-instru
 
 2. Create a new empty folder named `lab1-copilot-basics` anywhere on your computer, and open it via **File** > **Open Folder**.
 
-3. Open the VS Code integrated terminal (**Terminal** > **New Terminal**) and create the `.github/prompts` directory structure:
+3. Open the VS Code integrated terminal (**Terminal** > **New Terminal**) and create the `.github` directory:
 
 ```bash
-mkdir -p .github/prompts
+mkdir -p .github
 ```
 
-4. Create a new file at `.github/copilot-instructions.md` and paste the following team instructions:
+4. Create a new file directly inside the `.github` folder at `.github/copilot-instructions.md` and paste the following team instructions:
 
 ```markdown
 # Credit Analytics Team Copilot Instructions
@@ -128,13 +128,19 @@ def compute_30dpd_rate(df: pd.DataFrame) -> float:
 
 In this task, you create a reusable prompt file so anyone on the team can generate standardized `pytest` unit tests by typing `/add-tests` in Copilot Chat.
 
-1. Create a new file at `.github/prompts/add-tests.prompt.md` and paste the following prompt template:
+1. In the VS Code terminal, create the `.github/prompts` directory:
+
+```bash
+mkdir -p .github/prompts
+```
+
+2. Create a new file inside `.github/prompts/` at `.github/prompts/add-tests.prompt.md` and paste the following prompt template:
 
 ```markdown
 # Prompt File: .github/prompts/add-tests.prompt.md
 
 Create or update a pytest test file for the attached #file:
-1. Build synthetic test inputs only (never use real customer PII).
+1. Build synthetic test inputs only (never use real customer data).
 2. Write unit tests for every function in the target file.
 3. Explicitly test:
    - Normal inputs across Prime, Near-Prime, and Subprime accounts
@@ -144,20 +150,20 @@ Create or update a pytest test file for the attached #file:
 4. Do not modify the production source file.
 ```
 
-2. Save `.github/prompts/add-tests.prompt.md`.
+3. Save `.github/prompts/add-tests.prompt.md`.
 
-3. Click inside the Copilot Chat input box and type `/` to open the slash commands autocomplete menu. Notice how VS Code lists built-in commands alongside your workspace prompt files.
+4. Click inside the Copilot Chat input box and type `/` to open the slash commands autocomplete menu. Notice how VS Code lists built-in commands alongside your workspace prompt files.
 
 ![Slash commands autocomplete menu in VS Code Copilot Chat](images/slash-commands-menu.png)
 
-4. Select or type `/add-tests`, attach `#file credit_rules.py`, and specify the output test file:
+5. Select or type `/add-tests`, attach `#file credit_rules.py`, and specify the output test file:
 
 ```text
 /add-tests #file credit_rules.py
 Save the generated tests to test_credit_rules.py and run pytest to verify they pass.
 ```
 
-5. If Copilot asks permission to create `test_credit_rules.py` and run `pytest` in the terminal, review the command and click **Allow** (or run `pytest` yourself in the VS Code terminal):
+6. If Copilot asks permission to create `test_credit_rules.py` and run `pytest` in the terminal, review the command and click **Allow** (or run `pytest` yourself in the VS Code terminal):
 
 ```bash
 pytest -v
