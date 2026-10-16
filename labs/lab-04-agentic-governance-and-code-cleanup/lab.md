@@ -85,10 +85,18 @@ if __name__ == "__main__":
     print(compute_monthly_rollup(sample_df))
 ```
 
-4. Run this command in the VS Code terminal to create a virtual environment, install `pandas`, `numpy`, and `pytest`, and run `legacy_monitoring.py` so you can note the baseline output table (`Prime`, `Near-Prime`, and `Subprime` rates):
+4. Run the command for your operating system in the VS Code terminal to create a virtual environment, install `pandas`, `numpy`, and `pytest`, and run `legacy_monitoring.py` so you can note the baseline output table (`Prime`, `Near-Prime`, and `Subprime` rates):
+
+**macOS / Linux:**
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate && pip install -q pandas numpy pytest && python legacy_monitoring.py
+python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pandas numpy pytest && .venv/bin/python legacy_monitoring.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pandas numpy pytest; .\.venv\Scripts\python legacy_monitoring.py
 ```
 
 5. In the editor, highlight only the `compute_monthly_rollup` function and press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat.
@@ -107,7 +115,7 @@ Refactor compute_monthly_rollup(df: pd.DataFrame) -> pd.DataFrame:
 4. Keep make_monitoring_sample() unchanged.
 ```
 
-7. Inspect the inline diff in `legacy_monitoring.py`, click **Accept** (or **Keep**), and run `python legacy_monitoring.py` in the terminal to verify that the output numbers match your original run.
+7. Inspect the inline diff in `legacy_monitoring.py`, click **Accept** (or **Keep**), and rerun `legacy_monitoring.py` (`.venv/bin/python legacy_monitoring.py` on macOS or `.\.venv\Scripts\python legacy_monitoring.py` on Windows) to verify that the output numbers match your original run.
 
 ### Task 2: Use Agent `Plan` and `Interactive` modes to modularize the codebase step by step
 
@@ -142,7 +150,7 @@ Execute Step 1 only: create validators.py with validate_monitoring_inputs(df) an
 Execute Step 2: create rollup.py containing make_monitoring_sample() and compute_monthly_rollup(df) that imports and calls validate_monitoring_inputs and validate_rollup_outputs from validators.py.
 ```
 
-7. Review the diff in `rollup.py`, click **Keep**, and run `python rollup.py` in the terminal to verify identical output.
+7. Review the diff in `rollup.py`, click **Keep**, and run `rollup.py` (`.venv/bin/python rollup.py` on macOS or `.\.venv\Scripts\python rollup.py` on Windows) in the terminal to verify identical output.
 
 > [!IMPORTANT]
 > Approving one step at a time keeps every diff small enough to inspect in 15 seconds and prevents formula changes from hiding inside file moves.
@@ -174,23 +182,27 @@ Create test_rollup.py using pytest with:
    - Invalid output rate outside [0.0, 1.0] passed to validate_rollup_outputs
 ```
 
-4. Run `python -m pytest -v` in the VS Code terminal and save the test output to `pytest_run.txt` so you can attach it as audit evidence in Task 4:
+4. Run `pytest` in the VS Code terminal and save the test output to `pytest_run.txt` so you can attach it as audit evidence in Task 4:
+
+**macOS / Linux:**
 
 ```bash
-python -m pytest -v | tee pytest_run.txt
+.venv/bin/python -m pytest -v | tee pytest_run.txt
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v | Tee-Object -FilePath pytest_run.txt
 ```
 
 ### Task 4: Create `/mrm-evidence` and generate a Model Card and MRM Governance Portal
 
 In this task, you create a reusable prompt file at `.github/prompts/mrm-evidence.prompt.md`, run `/mrm-evidence` with your code, tests, and `pytest_run.txt` attached, and build an interactive HTML Governance Portal.
 
-1. In the VS Code terminal, create the `.github/prompts` folder:
+1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press `Enter` — VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows.
 
-```bash
-mkdir -p .github/prompts
-```
-
-2. Create `.github/prompts/mrm-evidence.prompt.md` and paste the following reusable prompt template:
+2. Paste the following reusable prompt template into `.github/prompts/mrm-evidence.prompt.md`:
 
 ```markdown
 # Prompt File: .github/prompts/mrm-evidence.prompt.md
@@ -241,9 +253,9 @@ Test that your defensive test suite catches a silent denominator bug before it c
 
 1. Open `rollup.py` and temporarily delete or comment out the `status != "charged_off"` filter inside `compute_monthly_rollup`.
 
-2. Run `pytest -v` in the terminal and observe the red test failure pointing directly to the Prime delinquency rate mismatch.
+2. Run `pytest` in the terminal (`.venv/bin/python -m pytest -v` on macOS or `.\.venv\Scripts\python -m pytest -v` on Windows) and observe the red test failure pointing directly to the Prime delinquency rate mismatch.
 
-3. Select `compute_monthly_rollup` in `rollup.py`, open Copilot Chat, paste the `pytest` failure output with `/fix`, and verify that Copilot restores the `charged_off` exclusion and `pytest -v` turns green again.
+3. Select `compute_monthly_rollup` in `rollup.py`, open Copilot Chat, paste the `pytest` failure output with `/fix`, and verify that Copilot restores the `charged_off` exclusion and the test suite turns green again.
 
 ## Congratulations!
 

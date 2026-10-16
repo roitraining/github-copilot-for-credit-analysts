@@ -58,10 +58,18 @@ Plant these exact patterns in the synthetic data:
 3. A noticeable rise in 30+ DPD (dpd >= 30 and dpd <= 365) during perf_month '2025-11' and '2025-12' concentrated in the '2025-Q3' Near-Prime and Subprime cohorts.
 ```
 
-6. Allow Copilot to create `generate_portfolio.py`, then run this command in the VS Code terminal to create a virtual environment, install the required libraries, and generate `portfolio_history.csv`:
+6. Allow Copilot to create `generate_portfolio.py`, then run the command for your operating system in the VS Code terminal to create a virtual environment, install the required libraries, and generate `portfolio_history.csv`:
+
+**macOS / Linux:**
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate && pip install -q pandas numpy matplotlib seaborn pytest && python generate_portfolio.py
+python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pandas numpy matplotlib seaborn pytest && .venv/bin/python generate_portfolio.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pandas numpy matplotlib seaborn pytest; .\.venv\Scripts\python generate_portfolio.py
 ```
 
 ### Task 2: Generate a Python data profiler and hypothesis table from `#file schema.md`
@@ -80,8 +88,16 @@ Using #file schema.md, create profile_portfolio.py that loads portfolio_history.
 
 2. Run `profile_portfolio.py` in the VS Code terminal:
 
+**macOS / Linux:**
+
 ```bash
-python profile_portfolio.py
+.venv/bin/python profile_portfolio.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python profile_portfolio.py
 ```
 
 3. Open the generated `hypotheses.md` file in VS Code and confirm that each row pairs a concrete data signal from `portfolio_history.csv` with a specific verification check.
@@ -107,8 +123,16 @@ Save the figure to diagnostics.png with dpi=150 and close the plot.
 
 2. Run `plot_diagnostics.py` in the terminal and click `diagnostics.png` in the VS Code Explorer pane to view the 2x2 chart:
 
+**macOS / Linux:**
+
 ```bash
-python plot_diagnostics.py
+.venv/bin/python plot_diagnostics.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python plot_diagnostics.py
 ```
 
 3. Open `plot_diagnostics.py` in the editor, highlight only the plotting code for the top-left and top-right subplots (`ax[0, 0]` and `ax[0, 1]`), and press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat.
@@ -122,7 +146,7 @@ python plot_diagnostics.py
 Keep the data loading and filtering code at the top of the file unchanged.
 ```
 
-5. Review the inline diff in `plot_diagnostics.py`, click **Accept** (or **Keep**), and rerun `python plot_diagnostics.py` to see `diagnostics.png` update live in VS Code.
+5. Review the inline diff in `plot_diagnostics.py`, click **Accept** (or **Keep**), and rerun `plot_diagnostics.py` (`./.venv/bin/python plot_diagnostics.py` on macOS or `.\.venv\Scripts\python plot_diagnostics.py` on Windows) to see `diagnostics.png` update live in VS Code.
 
 ![Preview of the 2x2 portfolio diagnostic chart](images/lab02-diagnostics-preview.svg)
 
@@ -201,10 +225,18 @@ def build_roll_flags(df: pd.DataFrame) -> pd.DataFrame:
 
 ![Comment-driven ghost text completion in VS Code](images/comment-ghost-text.png)
 
-8. Select `build_roll_flags` in `sas_migrated.py`, open Copilot Chat, and run `/tests` to create `test_sas_migrated.py` verifying that a row with `utilization = np.nan` is never misclassified as `'High'`. Run `python -m pytest -v` in the terminal to confirm it passes:
+8. Select `build_roll_flags` in `sas_migrated.py`, open Copilot Chat, and run `/tests` to create `test_sas_migrated.py` verifying that a row with `utilization = np.nan` is never misclassified as `'High'`. Run `pytest` in the terminal to confirm it passes:
+
+**macOS / Linux:**
 
 ```bash
-python -m pytest -v
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
 ```
 
 ### Bonus Task 5: Generate an interactive HTML Exploratory Data Report (`eda_report.html`)

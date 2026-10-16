@@ -57,10 +57,18 @@ Using #file schema.md, create make_modeling_data.py using pandas and numpy (seed
 - Set post_decision_dpd strongly correlated with default_60d so it acts as a post-decision leak if accidentally included.
 ```
 
-6. Run this command in your VS Code terminal to create a virtual environment, install the required libraries, and generate `modeling_data.csv`:
+6. Run the command for your operating system in your VS Code terminal to create a virtual environment, install the required libraries, and generate `modeling_data.csv`:
+
+**macOS / Linux:**
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate && pip install -q scikit-learn pandas numpy matplotlib seaborn pytest && python make_modeling_data.py
+python3 -m venv --clear .venv && .venv/bin/python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest && .venv/bin/python make_modeling_data.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest; .\.venv\Scripts\python make_modeling_data.py
 ```
 
 7. Next, create a file named `leaky_train.py` and paste this intentionally flawed script:
@@ -86,7 +94,7 @@ probs = clf.predict_proba(X_test)[:, 1]
 print(f"Test ROC AUC: {roc_auc_score(y_test, probs):.4f}")
 ```
 
-8. Run `python leaky_train.py` in the terminal and notice the artificially inflated ROC AUC caused by the leaks.
+8. Run `leaky_train.py` in the terminal (`.venv/bin/python leaky_train.py` on macOS or `.\.venv\Scripts\python leaky_train.py` on Windows) and notice the artificially inflated ROC AUC caused by the leaks.
 
 9. Select all lines in `leaky_train.py`, open Copilot Chat, attach `#file schema.md`, and run `/explain` to audit the code **before** making any edits:
 
@@ -110,7 +118,7 @@ Using #file schema.md, create train_pipeline.py that fixes all four issues from 
 5. Fit on train only, predict probabilities on test, and print train count, test count, and holdout ROC AUC.
 ```
 
-11. Run `python train_pipeline.py` in the terminal and observe the realistic, leak-free holdout ROC AUC.
+11. Run `train_pipeline.py` in the terminal (`.venv/bin/python train_pipeline.py` on macOS or `.\.venv\Scripts\python train_pipeline.py` on Windows) and observe the realistic, leak-free holdout ROC AUC.
 
 ### Task 2: Generate credit validation metrics (`KS`, `AUC`, decile table) and verify with `/tests`
 
@@ -131,8 +139,16 @@ Using #file train_pipeline.py and #file schema.md, create evaluate_model.py with
 
 2. Run `evaluate_model.py` in the terminal to produce `metrics_output.json` and `decile_table.csv`:
 
+**macOS / Linux:**
+
 ```bash
-python evaluate_model.py
+.venv/bin/python evaluate_model.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python evaluate_model.py
 ```
 
 3. Open `evaluate_model.py`, select `compute_ks` and `build_decile_table`, and run `/tests` in Copilot Chat:
@@ -145,10 +161,18 @@ Create test_evaluate_model.py using pytest to verify:
 3. compute_ks raises ValueError on empty arrays, NaN probabilities, or when y_true contains all zeros.
 ```
 
-4. Run `python -m pytest -v` in the VS Code terminal and confirm all validation unit tests pass:
+4. Run `pytest` in the VS Code terminal and confirm all validation unit tests pass:
+
+**macOS / Linux:**
 
 ```bash
-python -m pytest -v
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
 ```
 
 ### Task 3: Create and refactor a Jupyter Notebook (`.ipynb`) into a reusable module
@@ -185,10 +209,18 @@ Step 1 (Plan only): Read #file strategy_experiment.ipynb and propose a plan to e
 Approved: create strategy_helpers.py with add_strategy_features(df) and build_segment_calibration(df, y_prob), and add pytest tests in test_strategy_helpers.py.
 ```
 
-6. Run `python -m pytest -v` in the terminal to verify that both `test_evaluate_model.py` and `test_strategy_helpers.py` pass:
+6. Run `pytest` in the terminal to verify that both `test_evaluate_model.py` and `test_strategy_helpers.py` pass:
+
+**macOS / Linux:**
 
 ```bash
-python -m pytest -v
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
 ```
 
 ### Task 4: Generate a grounded `validation_summary.md` and interactive HTML Validation Dashboard

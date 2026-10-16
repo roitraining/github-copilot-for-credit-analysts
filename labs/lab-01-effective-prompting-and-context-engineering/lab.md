@@ -30,13 +30,9 @@ In this task, you open a fresh folder in VS Code, create `.github/copilot-instru
 
 2. Create a new empty folder named `lab1-copilot-basics` anywhere on your computer, and open it via **File** > **Open Folder**.
 
-3. Open the VS Code integrated terminal (**Terminal** > **New Terminal**) and create the `.github` directory:
+3. In the VS Code Explorer pane, click the **New File** icon, type `.github/copilot-instructions.md` (including the slash), and press `Enter` — VS Code automatically creates the `.github` folder and the file on both macOS and Windows. (Alternatively, create the folder from the terminal with `mkdir -p .github` on macOS or `mkdir .github -Force` in Windows PowerShell.)
 
-```bash
-mkdir -p .github
-```
-
-4. Create a new file directly inside the `.github` folder at `.github/copilot-instructions.md` and paste the following team instructions:
+4. Paste the following team instructions into `.github/copilot-instructions.md`:
 
 ```markdown
 # Credit Analytics Team Copilot Instructions
@@ -128,13 +124,9 @@ def compute_30dpd_rate(df: pd.DataFrame) -> float:
 
 In this task, you create a reusable prompt file so anyone on the team can generate standardized `pytest` unit tests by typing `/add-tests` in Copilot Chat.
 
-1. In the VS Code terminal, create the `.github/prompts` directory:
+1. In the VS Code Explorer pane, click the blank area at the bottom of the file list (to deselect any open folder), click **New File**, type `.github/prompts/add-tests.prompt.md`, and press `Enter` — VS Code creates the `prompts` subfolder and file automatically. (Or in the terminal, run `mkdir -p .github/prompts` on macOS or `mkdir .github/prompts -Force` in Windows PowerShell.)
 
-```bash
-mkdir -p .github/prompts
-```
-
-2. Create a new file inside `.github/prompts/` at `.github/prompts/add-tests.prompt.md` and paste the following reusable prompt template:
+2. Paste the following reusable prompt template into `.github/prompts/add-tests.prompt.md`:
 
 ```markdown
 # Prompt File: .github/prompts/add-tests.prompt.md
@@ -158,14 +150,22 @@ Create or update a pytest test file in tests/ for the specified Python file:
 /add-tests credit_rules.py
 ```
 
-5. Once Copilot creates the test file, run this command in the VS Code terminal to create a virtual environment, install `pytest`, `pandas`, and `numpy`, and execute the test suite:
+5. Once Copilot creates the test file, open the VS Code terminal (**Terminal** > **New Terminal**) and run the command for your operating system to create a virtual environment, install `pytest`, `pandas`, and `numpy`, and execute the test suite:
+
+**macOS / Linux:**
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate && pip install -q pytest pandas numpy && python -m pytest -v
+python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pytest pandas numpy && .venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pytest pandas numpy; .\.venv\Scripts\python -m pytest -v
 ```
 
 > [!NOTE]
-> Using `python -m pytest -v` inside `.venv` ensures `pytest` is installed cleanly and automatically adds your workspace root to Python’s import path even when tests live inside `tests/`. On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`.
+> Calling the `.venv` Python binary with `-m pip` and `-m pytest` works even if your folder path contains spaces, and automatically adds your workspace root to Python’s import path.
 
 ### Task 4: Build an interactive Credit Policy Cutoff Simulator (`simulator.html`)
 
@@ -195,8 +195,16 @@ Create two files in this workspace:
 
 2. Allow Copilot to create both files, then run the data generator in your VS Code terminal:
 
+**macOS / Linux:**
+
 ```bash
-python generate_sample_accounts.py
+.venv/bin/python generate_sample_accounts.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python generate_sample_accounts.py
 ```
 
 3. Confirm that `sample_accounts.csv` and `simulator.html` appear in the VS Code Explorer pane.
