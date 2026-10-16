@@ -139,31 +139,26 @@ mkdir -p .github/prompts
 ```markdown
 # Prompt File: .github/prompts/add-tests.prompt.md
 
-Create or update a pytest test file for the attached #file:
+Create or update tests/test_credit_rules.py using pytest for credit_rules.py:
 1. Build synthetic test inputs only (never use real customer data).
-2. Write unit tests for every function in the target file.
+2. Write unit tests for every function in credit_rules.py.
 3. Explicitly test:
    - Normal inputs across Prime, Near-Prime, and Subprime accounts
    - An empty DataFrame or zero active accounts (asserting np.nan rather than ZeroDivisionError)
    - Exclusion of rows where status == 'charged_off'
    - Exclusion or flagging of rows where delinquency_days = 9999
-4. Do not modify the production source file.
+4. Do not modify credit_rules.py.
 ```
 
 3. Save `.github/prompts/add-tests.prompt.md`.
 
-4. Click inside the Copilot Chat input box and type `/` to open the slash commands autocomplete menu. Notice how VS Code lists built-in commands alongside your workspace prompt files.
-
-![Slash commands autocomplete menu in VS Code Copilot Chat](images/slash-commands-menu.png)
-
-5. Select or type `/add-tests`, attach `#file credit_rules.py`, and specify the output test file:
+4. In Copilot Chat, enter the `/add-tests` command and press `Enter`:
 
 ```text
-/add-tests #file credit_rules.py
-Save the generated tests to test_credit_rules.py and run pytest to verify they pass.
+/add-tests
 ```
 
-6. If Copilot asks permission to create `test_credit_rules.py` and run `pytest` in the terminal, review the command and click **Allow** (or run `pytest` yourself in the VS Code terminal):
+5. If Copilot asks permission to create the test file and run `pytest` in the terminal, click **Allow** (or run `pytest -v` yourself in the VS Code terminal):
 
 ```bash
 pytest -v

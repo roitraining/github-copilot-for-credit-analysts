@@ -191,7 +191,7 @@ mkdir -p .github/prompts
 ```markdown
 # Prompt File: .github/prompts/mrm-evidence.prompt.md
 
-Using the attached code files, test file, and pytest terminal output, generate two files:
+Using rollup.py, validators.py, test_rollup.py, and pytest_run.txt in this workspace, generate two files:
 
 1. `MODEL_CARD.md`
    - **Module Overview and Intended Use**: Read from `rollup.py` and `validators.py`.
@@ -205,15 +205,15 @@ Using the attached code files, test file, and pytest terminal output, generate t
    - **Pytest Verification Log**: Table of every test in `test_rollup.py` and the exact pass count from `pytest_run.txt`.
    - **Reviewer Sign-Off Checklist**: Leave human reviewer name, date, and decision as `TODO`.
 
-Rule: Cite only facts and test results present in the attached files. Do not invent metrics or mark the package as "Approved."
+Rule: Cite only facts and test results present in the workspace files. Do not invent metrics or mark the package as "Approved."
 ```
 
 3. Save `.github/prompts/mrm-evidence.prompt.md`.
 
-4. In Copilot Chat, type `/mrm-evidence` and attach your four workspace artifacts:
+4. In Copilot Chat, enter the `/mrm-evidence` command and press `Enter`:
 
 ```text
-/mrm-evidence #file rollup.py #file validators.py #file test_rollup.py #file pytest_run.txt
+/mrm-evidence
 ```
 
 5. Open the generated `MODEL_CARD.md` and `AUDIT_EVIDENCE.md` files to confirm that all technical rules and test counts match your code and that policy sign-off fields are marked `TODO`.
