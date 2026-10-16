@@ -213,7 +213,7 @@ Create two files in this workspace:
 
 5. Click **Upload** (or **Choose File**), select `sample_accounts.csv`, and drag the **Max Utilization Cutoff** and **Max Delinquency Days Cutoff** sliders to watch the approval rates and bad rates update in real time.
 
-![Preview of the interactive credit policy cutoff simulator](images/lab01-simulator-preview.svg)
+![Preview of the interactive credit policy cutoff simulator](images/lab01-simulator-preview.png)
 
 ### Bonus Task 5: Add a declined-accounts CSV export with Inline Chat
 
