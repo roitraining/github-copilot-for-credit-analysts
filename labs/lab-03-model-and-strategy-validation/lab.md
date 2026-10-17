@@ -6,13 +6,13 @@
 
 ## Overview
 
-In this lab, you start from an empty folder in Visual Studio Code and use GitHub Copilot to audit a flawed credit risk model script for data leakage, rebuild it as an out-of-time `scikit-learn` `Pipeline` using `#file schema.md`, generate and test credit validation metrics (`ROC AUC`, `KS statistic`, and 10-bin decile capture tables), refactor a Jupyter notebook into reusable Python modules, and build an interactive HTML Model Validation Dashboard grounded in real output files.
+In this lab, you use GitHub Copilot to audit a credit risk model for data leakage and rebuild it as an out-of-time `scikit-learn` pipeline. You also verify validation metrics with `pytest`, refactor an exploratory Jupyter notebook into a Python module, and generate an interactive HTML Validation Dashboard grounded in real model outputs.
 
 ### You learn how to:
-- Audit a flawed model script for preprocessing leakage, target leakage, and random splits using `/explain`, then repair it with `/fix` and `#file schema.md`.
-- Prompt Copilot to generate credit validation functions (`compute_ks` and `build_decile_table`) and verify their math with `/tests` in `pytest`.
-- Use Inline Chat inside a Jupyter notebook (`.ipynb`) and extract notebook cells into a tested Python module.
-- Ground Copilot with `#file metrics_output.json` and `#file decile_table.csv` to generate a zero-hallucination Markdown report and an interactive HTML Validation Dashboard.
+- Audit a model script for leakage with `/explain` and rebuild it with `/fix` and `#file schema.md`.
+- Generate `ROC AUC`, `KS`, and decile table functions and verify the math with `pytest`.
+- Use Inline Chat inside a Jupyter notebook and extract notebook cells into a Python module.
+- Ground Copilot with output files to generate a validation report and interactive HTML dashboard.
 
 ## Scenario
 
@@ -94,7 +94,19 @@ probs = clf.predict_proba(X_test)[:, 1]
 print(f"Test ROC AUC: {roc_auc_score(y_test, probs):.4f}")
 ```
 
-8. Run `leaky_train.py` in the terminal (`.venv/bin/python leaky_train.py` on macOS or `.\.venv\Scripts\python leaky_train.py` on Windows) and notice the artificially inflated ROC AUC caused by the leaks.
+8. Run `leaky_train.py` in the terminal and notice the artificially inflated ROC AUC caused by the leaks:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python leaky_train.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python leaky_train.py
+```
 
 9. Select all lines in `leaky_train.py`, open Copilot Chat, attach `#file schema.md`, and run `/explain` to audit the code **before** making any edits:
 
@@ -118,11 +130,23 @@ Using #file schema.md, create train_pipeline.py that fixes all four issues from 
 5. Fit on train only, predict probabilities on test, and print train count, test count, and holdout ROC AUC.
 ```
 
-11. Run `train_pipeline.py` in the terminal (`.venv/bin/python train_pipeline.py` on macOS or `.\.venv\Scripts\python train_pipeline.py` on Windows) and observe the realistic, leak-free holdout ROC AUC.
+11. Run `train_pipeline.py` in the terminal and observe the realistic, leak-free holdout ROC AUC:
 
-### Task 2: Generate credit validation metrics (`KS`, `AUC`, decile table) and verify with `/tests`
+**macOS / Linux:**
 
-In this task, you prompt Copilot to build `evaluate_model.py` with credit-specific validation functions (`compute_ks` and `build_decile_table`), save real holdout metrics to `metrics_output.json` and `decile_table.csv`, and verify the math with `/tests`.
+```bash
+.venv/bin/python train_pipeline.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python train_pipeline.py
+```
+
+### Task 2: Generate credit validation metrics (`KS`, `AUC`, decile table) and verify with `pytest`
+
+In this task, you prompt Copilot to build `evaluate_model.py` with credit-specific validation functions (`compute_ks` and `build_decile_table`), save real holdout metrics to `metrics_output.json` and `decile_table.csv`, and verify the math with `pytest`.
 
 1. In Copilot Chat, attach `#file schema.md` and `#file train_pipeline.py`, and run this prompt:
 
@@ -278,7 +302,7 @@ Use Inline Chat (`Cmd+I` or `Ctrl+I`) to let strategy analysts simulate approvin
 ## Congratulations!
 
 In this lab, you have:
-- Audited a flawed model script for preprocessing leakage, target leakage, and random splits using `/explain`, then repaired it with `/fix` and `#file schema.md`.
-- Prompted Copilot to generate credit validation functions (`compute_ks` and `build_decile_table`) and verified their math with `/tests` in `pytest`.
-- Used Inline Chat inside a Jupyter notebook (`.ipynb`) and extracted notebook cells into a tested Python module.
-- Grounded Copilot with `#file metrics_output.json` and `#file decile_table.csv` to generate a zero-hallucination Markdown report and an interactive HTML Validation Dashboard.
+- Audited a model script for leakage with `/explain` and rebuilt it with `/fix` and `#file schema.md`.
+- Generated `ROC AUC`, `KS`, and decile table functions and verified the math with `pytest`.
+- Used Inline Chat inside a Jupyter notebook and extracted notebook cells into a Python module.
+- Grounded Copilot with output files to generate a validation report and interactive HTML dashboard.

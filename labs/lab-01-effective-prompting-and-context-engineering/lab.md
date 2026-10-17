@@ -6,13 +6,13 @@
 
 ## Overview
 
-In this lab, you start from an empty folder in Visual Studio Code and configure GitHub Copilot so it follows your team’s credit analytics standards automatically. You create a repository instruction file, drive inline ghost text completions, audit and repair a flawed calculation with `/explain` and `/fix`, build a custom `/add-tests` prompt file, and use Agent mode to generate an interactive, browser-based Credit Policy Cutoff Simulator.
+In this lab, you configure GitHub Copilot in Visual Studio Code to follow your team’s credit analytics rules automatically. You use repository instructions, inline ghost text, slash commands, reusable prompt files, and Agent mode to build and test an interactive Credit Policy Cutoff Simulator.
 
 ### You learn how to:
-- Configure `.github/copilot-instructions.md` so Copilot applies team coding and credit domain rules on every chat.
-- Generate Python credit helpers using comment-driven ghost text and repair a buggy function using `/explain` and `/fix`.
-- Create a reusable `.github/prompts/add-tests.prompt.md` file and run it from the `/` command menu in Copilot Chat.
-- Prompt Copilot in Agent mode to generate synthetic credit data and an interactive HTML Credit Policy Cutoff Simulator.
+- Configure `.github/copilot-instructions.md` to enforce team coding and credit domain rules.
+- Generate Python credit helpers with inline ghost text and repair bugs with `/explain` and `/fix`.
+- Create a reusable `/add-tests` prompt file to generate `pytest` unit tests.
+- Use Agent mode to generate synthetic credit data and an interactive HTML cutoff simulator.
 
 ## Scenario
 
@@ -228,7 +228,7 @@ Use Inline Chat (`Cmd+I` on macOS or `Ctrl+I` on Windows) to add a new feature t
 ## Congratulations!
 
 In this lab, you have:
-- Configured `.github/copilot-instructions.md` so Copilot applied team coding and credit domain rules on every chat.
-- Generated Python credit helpers using comment-driven ghost text and repaired a buggy function using `/explain` and `/fix`.
-- Created a reusable `.github/prompts/add-tests.prompt.md` file and ran it from the `/` command menu in Copilot Chat.
-- Prompted Copilot in Agent mode to generate synthetic credit data and an interactive HTML Credit Policy Cutoff Simulator.
+- Configured `.github/copilot-instructions.md` to enforce team coding and credit domain rules.
+- Generated Python credit helpers with inline ghost text and repaired bugs with `/explain` and `/fix`.
+- Created a reusable `/add-tests` prompt file to generate `pytest` unit tests.
+- Used Agent mode to generate synthetic credit data and an interactive HTML cutoff simulator.

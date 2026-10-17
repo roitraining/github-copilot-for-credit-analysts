@@ -6,13 +6,13 @@
 
 ## Overview
 
-In this lab, you start from an empty folder in Visual Studio Code and use GitHub Copilot to transform a slow, unguarded credit monitoring prototype into a modular, tested, and documented package ready for Model Risk Management (MRM) review. You use Inline Chat (`Cmd+I` or `Ctrl+I`) to vectorize `.iterrows()` loops and add defensive `ValueError` assertions, drive Copilot Agent mode using **Plan** and **Interactive** modes with human sign-off gates, document functions in place with `/doc`, and build a reusable `/mrm-evidence` prompt file that generates a Model Card, audit trail, and interactive HTML Governance Portal.
+In this lab, you use GitHub Copilot to refactor a slow, unguarded credit monitoring script into a modular, tested, and documented package ready for Model Risk Management (MRM) review. You vectorize loops with Inline Chat, modularize code using Agent `Plan` and `Interactive` modes, add docstrings and unit tests, and generate an interactive HTML Governance Portal.
 
 ### You learn how to:
-- Use Inline Chat (`Cmd+I` or `Ctrl+I`) to replace slow `.iterrows()` loops with vectorized `pandas` operations and add runtime `ValueError` assertions.
-- Drive Copilot Agent mode safely using **Plan** mode (`Plan first, execute when ready`) and **Interactive** mode (`Keep` and `Undo` diff reviews) to modularize code step by step.
-- Generate NumPy-style docstrings with `/doc` without altering executable code and build a parametrized `pytest` suite with `/tests`.
-- Create a reusable `.github/prompts/mrm-evidence.prompt.md` file to generate grounded `MODEL_CARD.md` and `AUDIT_EVIDENCE.md` artifacts and an interactive HTML MRM Governance Portal.
+- Use Inline Chat to vectorize `.iterrows()` loops and add runtime `ValueError` guards.
+- Modularize legacy code step by step using Agent `Plan` and `Interactive` modes.
+- Generate NumPy docstrings with `/doc` and build a parametrized `pytest` suite.
+- Create a reusable `/mrm-evidence` prompt file to generate a Model Card, audit log, and HTML Governance Portal.
 
 ## Scenario
 
@@ -115,7 +115,19 @@ Refactor compute_monthly_rollup(df: pd.DataFrame) -> pd.DataFrame:
 4. Keep make_monitoring_sample() unchanged.
 ```
 
-7. Inspect the inline diff in `legacy_monitoring.py`, click **Accept** (or **Keep**), and rerun `legacy_monitoring.py` (`.venv/bin/python legacy_monitoring.py` on macOS or `.\.venv\Scripts\python legacy_monitoring.py` on Windows) to verify that the output numbers match your original run.
+7. Inspect the inline diff in `legacy_monitoring.py`, click **Accept** (or **Keep**), and rerun `legacy_monitoring.py` to verify that the output numbers match your original run:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python legacy_monitoring.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python legacy_monitoring.py
+```
 
 ### Task 2: Use Agent `Plan` and `Interactive` modes to modularize the codebase step by step
 
@@ -150,14 +162,26 @@ Execute Step 1 only: create validators.py with validate_monitoring_inputs(df) an
 Execute Step 2: create rollup.py containing make_monitoring_sample() and compute_monthly_rollup(df) that imports and calls validate_monitoring_inputs and validate_rollup_outputs from validators.py.
 ```
 
-7. Review the diff in `rollup.py`, click **Keep**, and run `rollup.py` (`.venv/bin/python rollup.py` on macOS or `.\.venv\Scripts\python rollup.py` on Windows) in the terminal to verify identical output.
+7. Review the diff in `rollup.py`, click **Keep**, and run `rollup.py` in the terminal to verify identical output:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python rollup.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python rollup.py
+```
 
 > [!IMPORTANT]
 > Approving one step at a time keeps every diff small enough to inspect in 15 seconds and prevents formula changes from hiding inside file moves.
 
-### Task 3: Add NumPy docstrings with `/doc` and expand `pytest` coverage with `/tests`
+### Task 3: Add NumPy docstrings with `/doc` and expand `pytest` coverage
 
-In this task, you use `/doc` in Inline Chat to document `rollup.py` and `validators.py` without changing runtime behavior, then use `/tests` to build a comprehensive `pytest` suite and capture the test run output for MRM audit evidence.
+In this task, you use `/doc` in Inline Chat to document `rollup.py` and `validators.py` without changing runtime behavior, then build a comprehensive `pytest` suite and capture the test run output for MRM audit evidence.
 
 1. Open `rollup.py` in the editor, select `compute_monthly_rollup`, press `Cmd+I` (macOS) or `Ctrl+I` (Windows), and run:
 
@@ -252,14 +276,26 @@ Test that your defensive test suite catches a silent denominator bug before it c
 
 1. Open `rollup.py` and temporarily delete or comment out the `status != "charged_off"` filter inside `compute_monthly_rollup`.
 
-2. Run `pytest` in the terminal (`.venv/bin/python -m pytest -v` on macOS or `.\.venv\Scripts\python -m pytest -v` on Windows) and observe the red test failure pointing directly to the Prime delinquency rate mismatch.
+2. Run `pytest` in the terminal and observe the red test failure pointing directly to the Prime delinquency rate mismatch:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
+```
 
 3. Select `compute_monthly_rollup` in `rollup.py`, open Copilot Chat, paste the `pytest` failure output with `/fix`, and verify that Copilot restores the `charged_off` exclusion and the test suite turns green again.
 
 ## Congratulations!
 
 In this lab, you have:
-- Used Inline Chat (`Cmd+I` or `Ctrl+I`) to replace slow `.iterrows()` loops with vectorized `pandas` operations and added runtime `ValueError` assertions.
-- Driven Copilot Agent mode safely using **Plan** mode (`Plan first, execute when ready`) and **Interactive** mode (`Keep` and `Undo` diff reviews) to modularize code step by step.
-- Generated NumPy-style docstrings with `/doc` without altering executable code and built a parametrized `pytest` suite with `/tests`.
-- Created a reusable `.github/prompts/mrm-evidence.prompt.md` file to generate grounded `MODEL_CARD.md` and `AUDIT_EVIDENCE.md` artifacts and an interactive HTML MRM Governance Portal.
+- Used Inline Chat to vectorize `.iterrows()` loops and add runtime `ValueError` guards.
+- Modularized legacy code step by step using Agent `Plan` and `Interactive` modes.
+- Generated NumPy docstrings with `/doc` and built a parametrized `pytest` suite.
+- Created a reusable `/mrm-evidence` prompt file to generate a Model Card, audit log, and HTML Governance Portal.

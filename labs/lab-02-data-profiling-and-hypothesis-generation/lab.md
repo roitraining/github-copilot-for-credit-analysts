@@ -6,13 +6,13 @@
 
 ## Overview
 
-In this lab, you start from an empty folder in Visual Studio Code and use `#file` schema context so GitHub Copilot generates accurate Python data profiling scripts, multi-panel `seaborn` visualizations, SQL queries, and SAS-to-Python translations without inventing column names. You also practice refining chart code in place with Inline Chat (`Cmd+I` or `Ctrl+I`) and building feature engineering functions with comment-driven ghost text.
+In this lab, you use `#file` schema context in GitHub Copilot to profile a credit portfolio, visualize delinquency trends, generate SQL queries, and translate legacy SAS code into Python without hallucinated column names.
 
 ### You learn how to:
-- Attach `#file schema.md` in Copilot Chat to generate a synthetic multi-month credit portfolio and a `pandas` profiling script.
-- Generate a 2x2 `matplotlib` and `seaborn` diagnostic figure and refine axes and threshold lines in place with Inline Chat (`Cmd+I` or `Ctrl+I`).
-- Feed `#file schema.sql` to Copilot to generate CTE-based SQL queries and translate a legacy SAS `DATA` step into Python using `/explain` and `/tests`.
-- Engineer credit risk features using comment-driven inline ghost text completions.
+- Attach `#file schema.md` to generate a synthetic credit dataset and a `pandas` profiling script.
+- Build a 2x2 `seaborn` diagnostic chart and refine it in place with Inline Chat.
+- Generate SQL queries from `#file schema.sql` and translate a legacy SAS step into tested Python.
+- Engineer credit risk features using comment-driven ghost text.
 
 ## Scenario
 
@@ -146,13 +146,25 @@ Save the figure to diagnostics.png with dpi=150 and close the plot.
 Keep the data loading and filtering code at the top of the file unchanged.
 ```
 
-5. Review the inline diff in `plot_diagnostics.py`, click **Accept** (or **Keep**), and rerun `plot_diagnostics.py` (`./.venv/bin/python plot_diagnostics.py` on macOS or `.\.venv\Scripts\python plot_diagnostics.py` on Windows) to see `diagnostics.png` update live in VS Code.
+5. Review the inline diff in `plot_diagnostics.py`, click **Accept** (or **Keep**), and rerun `plot_diagnostics.py` to see `diagnostics.png` update live in VS Code:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python plot_diagnostics.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python plot_diagnostics.py
+```
 
 ![Preview of the 2x2 portfolio diagnostic chart](images/lab02-diagnostics-preview.png)
 
 ### Task 4: Generate SQL from `#file schema.sql`, migrate legacy SAS, and use comment-driven ghost text
 
-In this task, you feed a SQL DDL file to Copilot, use `/explain` and `/tests` to safely translate a legacy SAS `DATA` step into `pandas`, and use comment-driven ghost text to engineer new credit features.
+In this task, you feed a SQL DDL file to Copilot, use `/explain` and `pytest` to safely translate a legacy SAS `DATA` step into `pandas`, and use comment-driven ghost text to engineer new credit features.
 
 1. Create a file named `schema.sql` in `lab2-profiling` and paste this table definition:
 
@@ -256,12 +268,24 @@ Use Copilot Agent mode to combine your profiling summary, hypothesis table, and 
 
 2. Prompt Copilot to create a Python script `build_html_report.py` that reads `portfolio_history.csv`, embeds `diagnostics.png` (as base64 or relative link) and the `hypotheses.md` table, and writes a self-contained `eda_report.html` page with interactive filter buttons for `All Bands`, `Prime`, `Near-Prime`, and `Subprime`.
 
-3. Run `python build_html_report.py` and open `eda_report.html` in your browser.
+3. Run `build_html_report.py` in the terminal and open `eda_report.html` in your browser:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python build_html_report.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python build_html_report.py
+```
 
 ## Congratulations!
 
 In this lab, you have:
-- Attached `#file schema.md` in Copilot Chat to generate a synthetic multi-month credit portfolio and a `pandas` profiling script.
-- Generated a 2x2 `matplotlib` and `seaborn` diagnostic figure and refined axes and threshold lines in place with Inline Chat (`Cmd+I` or `Ctrl+I`).
-- Fed `#file schema.sql` to Copilot to generate CTE-based SQL queries and translated a legacy SAS `DATA` step into Python using `/explain` and `/tests`.
-- Engineered credit risk features using comment-driven inline ghost text completions.
+- Attached `#file schema.md` to generate a synthetic credit dataset and a `pandas` profiling script.
+- Built a 2x2 `seaborn` diagnostic chart and refined it in place with Inline Chat.
+- Generated SQL queries from `#file schema.sql` and translated a legacy SAS step into tested Python.
+- Engineered credit risk features using comment-driven ghost text.
