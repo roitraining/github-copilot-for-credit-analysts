@@ -183,7 +183,7 @@ In this task, you prompt Copilot to create an exploratory Jupyter notebook, use 
 ```text
 Using #file schema.md, create a 4-cell Jupyter notebook named strategy_experiment.ipynb that:
 - Cell 1 (Markdown): Title and objective for credit utilization and balance-to-limit interaction features.
-- Cell 2 (Code): Loads modeling_data.csv and computes two ad-hoc features inline: util_to_tenure = utilization / (tenure_months + 1) and high_util_subprime = ((utilization > 0.75) & (risk_band == 'Subprime')).astype(int).
+- Cell 2 (Code): Loads modeling_data.csv and computes two ad-hoc features inline: util_to_tenure = utilization / (tenure_months + 1) and high_util_subprime = ((utilization > 0.75) & (risk_band == 'Subprime')).astype(int). Then print the null counts for utilization and util_to_tenure, and display the first 10 rows where utilization is null (do not rely only on df.head()).
 - Cell 3 (Code): Computes a calibration table by risk_band comparing mean predicted probability to actual default_60d rate.
 - Cell 4 (Code): Prints segment support counts and flags any segment with fewer than 50 accounts.
 ```
@@ -198,7 +198,7 @@ Using #file schema.md, create a 4-cell Jupyter notebook named strategy_experimen
 4. Read **Cell 1** (the Markdown title and objective cell). Then run **Cell 2**, **Cell 3**, and **Cell 4** in order by clicking into each cell and pressing `Shift+Enter` (or clicking the __Run__ button). After each code cell finishes, examine the output below it.
 
 > [!NOTE]
-> In **Cell 2**, look for `NaN` values in `util_to_tenure` wherever `utilization` was missing. That is the data-quality issue you will fix next with Inline Chat.
+> **Cell 2** should print null counts and a sample of rows with missing `utilization`. Confirm that `util_to_tenure` is also `NaN` on those rows. The first few rows of the full DataFrame often look clean because only about 40 of 1,000 utilization values are missing. That NaN propagation is the data-quality issue you will fix next with Inline Chat.
 
 5. Click inside **Cell 2** (_the first code cell_), press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat right inside the notebook cell, and prompt:
 
