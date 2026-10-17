@@ -244,7 +244,7 @@ Using #file MODEL_CARD.md, #file AUDIT_EVIDENCE.md, and #file rollup.py, create 
 
 7. Open `governance_portal.html` in your browser (**Reveal in Finder** / **Reveal in File Explorer** and double-click), review the tabs, check the sign-off boxes, and test the **Export Signed MRM Evidence JSON** button.
 
-![Preview of the MRM Governance Portal](images/lab04-portal-preview.svg)
+![Preview of the MRM Governance Portal](images/lab04-portal-preview.png)
 
 ### Bonus Task 5: Simulate a denominator regression and catch it with `pytest` and `/fix`
 
