@@ -62,13 +62,13 @@ Using #file schema.md, create make_modeling_data.py using pandas and numpy (seed
 **macOS / Linux:**
 
 ```bash
-python3 -m venv --clear .venv && .venv/bin/python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest && .venv/bin/python make_modeling_data.py
+python3 -m venv --clear .venv && .venv/bin/python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest ipykernel && .venv/bin/python make_modeling_data.py
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest; .\.venv\Scripts\python make_modeling_data.py
+python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest ipykernel; .\.venv\Scripts\python make_modeling_data.py
 ```
 
 7. Next, create a file named `leaky_train.py` and paste this intentionally flawed script:
@@ -188,27 +188,39 @@ Using #file schema.md, create a 4-cell Jupyter notebook named strategy_experimen
 - Cell 4 (Code): Prints segment support counts and flags any segment with fewer than 50 accounts.
 ```
 
-2. Open `strategy_experiment.ipynb` in VS Code. Click inside **Cell 2**, press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat right inside the notebook cell, and prompt:
+2. Open `strategy_experiment.ipynb` in VS Code. In the top-right of the notebook editor, click **Select Kernel** (or the kernel name if one is already shown).
+
+3. Choose **Python Environments…**, then select the workspace `.venv` interpreter (for example `.venv/bin/python` on macOS or `.venv\Scripts\python.exe` on Windows).
+
+> [!NOTE]
+> If VS Code prompts you to install the **Jupyter** extension or the `ipykernel` package for this environment, click **Install** (or **Install and Reload**) and wait for the install to finish before continuing. You need both the Jupyter extension and `ipykernel` in `.venv` to run notebook cells.
+
+4. Read **Cell 1** (the Markdown title and objective cell). Then run **Cell 2**, **Cell 3**, and **Cell 4** in order by clicking into each cell and pressing `Shift+Enter` (or clicking the __Run__ button). After each code cell finishes, examine the output below it.
+
+> [!NOTE]
+> In **Cell 2**, look for `NaN` values in `util_to_tenure` wherever `utilization` was missing. That is the data-quality issue you will fix next with Inline Chat.
+
+5. Click inside **Cell 2** (_the first code cell_), press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat right inside the notebook cell, and prompt:
 
 ```text
 Fill missing utilization values with 0.0 before computing util_to_tenure so no NaN values are produced.
 ```
 
-3. Accept the inline cell diff.
+6. Accept the inline cell diff, then rerun **Cell 2** (and any cells that depend on it) and confirm that `util_to_tenure` no longer contains `NaN` values from missing utilization.
 
-4. Next, instead of asking Copilot to convert the entire notebook at once, run a two-step extraction in Copilot Chat:
+7. Next, instead of asking Copilot to convert the entire notebook at once, run a two-step extraction in Copilot Chat:
 
 ```text
 Step 1 (Plan only): Read #file strategy_experiment.ipynb and propose a plan to extract the feature formulas from Cell 2 and the segment support table from Cell 3-4 into a reusable module strategy_helpers.py with type hints. Do not create files yet.
 ```
 
-5. Review Copilot’s plan, then approve extraction and unit test creation:
+8. Review Copilot’s plan, then approve extraction and unit test creation:
 
 ```text
 Approved: create strategy_helpers.py with add_strategy_features(df) and build_segment_calibration(df, y_prob), and add pytest tests in test_strategy_helpers.py.
 ```
 
-6. Run `pytest` in the terminal to verify that both `test_evaluate_model.py` and `test_strategy_helpers.py` pass:
+9. Run `pytest` in the terminal to verify that both `test_evaluate_model.py` and `test_strategy_helpers.py` pass:
 
 **macOS / Linux:**
 
