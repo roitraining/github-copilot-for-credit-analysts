@@ -263,7 +263,7 @@ Using #file metrics_output.json and #file decile_table.csv, create validation_da
 
 4. Open `validation_dashboard.html` in your browser (**Reveal in Finder** / **Reveal in File Explorer** and double-click) to inspect the interactive KS curve and decile capture table.
 
-![Preview of the interactive Model Validation Dashboard](images/lab03-dashboard-preview.svg)
+![Preview of the interactive Model Validation Dashboard](images/lab03-dashboard-preview.png)
 
 ### Bonus Task 5: Add a decile cutoff slider to `validation_dashboard.html`
 
