@@ -11,10 +11,10 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 # Chapter 2: Objectives
 
 - Attach schema context with `#file` so Copilot writes Python code without guessing column names
-- Prompt Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate code
-- Feed table definitions to Copilot to generate SQL queries with CTEs and window functions
+- Prompt Copilot Chat and Inline Chat to generate code
+- Feed table definitions to Copilot to generate SQL queries
 - Translate legacy SAS blocks to Python using `/explain`, scoped prompts, and `/tests`
-- Use comment-driven inline completions to build feature engineering pipelines in VS Code
+- Use comment-driven inline completions to build feature engineering pipelines
 ---
 <!-- layout: navigation -->
 # Chapter 2
@@ -333,10 +333,10 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 # What You Learned
 
 - Attached schema context with `#file` so Copilot writes Python code without guessing column names
-- Prompted Copilot Chat and Inline Chat (`Cmd+I` or `Ctrl+I`) to generate code
-- Feed table definitions to Copilot to generate SQL queries with CTEs and window functions
+- Prompted Copilot Chat and Inline Chat to generate code
+- Fed table definitions to Copilot to generate SQL queries
 - Translated legacy SAS blocks to Python using `/explain`, scoped prompts, and `/tests`
-- Used comment-driven inline completions to build feature engineering pipelines in VS Code
+- Used comment-driven inline completions to build feature engineering pipelines
 ---
 # Quiz 1 of 3
 
