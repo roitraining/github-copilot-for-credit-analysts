@@ -191,7 +191,7 @@ def fizz_buzz(n):
 
 ![Inline versus Chat versus Agent](images/ch01-vscode-surfaces.svg)
 ---
-<!-- layout: card-layout -->
+<!-- layout: 3-column -->
 # Three Slash Commands Worth Memorizing
 
 ### /explain
@@ -201,13 +201,14 @@ def fizz_buzz(n):
 - Name the cases, including an empty input, a missing column, and which accounts count.
 
 ### /fix
-- Paste the error and ask for a change only to the lines that failed.
+- Paste the error and ask it to change only the lines that failed.
+
 
 
 <!-- below-columns -->
 
 > [!NOTE]
-> Copilot slash commandsmay not appear when you type `/` in Chat. Availability depends on version, surface, and context. Typing a slash command (or the same request in plain English) still work. The AI treats it as a normal prompt.
+> Copilot slash commands may not appear when you type `/` in Chat. Availability depends on version, surface, and context. Typing a slash command (_or the same request in plain English_) still works. The AI treats it as a normal prompt.
 ---
 # Common Slash Commands in VS Code
 
@@ -275,7 +276,7 @@ Stop:
 <!-- below-columns -->
 
 > [!WARNING]
-> The human always has to understand and be in charge of all code changes. 
+> The human always has to understand and be in charge of all code changes.
 ---
 # Demo: Explain, Tests, and Fix
 
