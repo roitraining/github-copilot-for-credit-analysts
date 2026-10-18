@@ -8,9 +8,7 @@
 # and Risk Modeling
 
 ## One-day applied workshop for credit analysts and modelers
-
 ---
-
 <!-- layout: panel-right -->
 # Welcome!
 
@@ -22,19 +20,15 @@
 - Let’s get started!
 
 ![Welcome](images/welcome.png)
-
 ---
-
 # Course Objectives
 
 - Use GitHub Copilot in VS Code to speed up credit analytics and modeling
-- Use context scoping, chat commands, and repository instructions to direct code output
+- Use context scoping, chat commands, and instructions to direct code output
 - Prompt Copilot to translate and draft SQL and Python data scripts
 - Generate baseline machine learning model and validation code
-- Refactor, test, and document AI-assisted code using Agent mode, pytest, assertions, and Model Cards
-
+- Refactor, test, and document AI-assisted code
 ---
-
 <!-- layout: panel-left -->
 # Agenda
 
@@ -44,28 +38,23 @@
 - Chapter 4: Agentic Governance and Code Lifecycle
 
 ![Agenda](images/agenda.png)
-
 ---
-
 <!-- layout: panel-right -->
 # Who Should Attend
 
-- Credit modeling, strategy, validation, and credit tech professionals who code daily
-- Analysts and quantitative developers working in Python, SQL, and often SAS or PySpark
-- Early adopters of GitHub Copilot who want sharper VS Code habits and team practices
+- Credit modeling and tech professionals who code daily
+- Analysts and developers working in Python, SQL, SAS, or PySpark
+- Adopters of GitHub Copilot who want sharper VS Code habits and team practices
 
 ![Who Should Attend](images/who-should-attend.png)
-
 ---
-
 <!-- layout: panel-left -->
 # Prerequisites
 
-- Coding experience in SAS and/or Python and SQL
+- Coding experience in Python, SAS, and/or SQL
 - Experience with Visual Studio Code as a development environment
-- Prior self-exploration with GitHub Copilot
 - Foundational knowledge of the credit analytics lifecycle
-- VS Code and GitHub Copilot installed with an active Copilot license
-  - Disable competing AI coding extensions (such as Gemini Code Assist) so keyboard shortcuts do not conflict
+- VS Code and GitHub Copilot installed
+- An active Copilot license
 
 ![Prerequisites](images/prerequisites.png)

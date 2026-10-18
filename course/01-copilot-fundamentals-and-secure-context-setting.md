@@ -10,10 +10,9 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 ---
 # Chapter 1: Objectives
 
-- Choose where the work belongs: VS Code, the website, or the Copilot app
-- Keep live customer data out of prompts
-- Select inline, Chat, or Agent, and constrain the prompt with scope, checks, and a stop
-- Attach the smallest context that can succeed
+- Use Copilot from VS Code, the website, and the Copilot app
+- Write safe prompts and control prompt context
+- Select inline, Chat, or Agent modes when generating code
 - Store team defaults in `.github/copilot-instructions.md` and shared prompt files
 ---
 <!-- layout: navigation -->
@@ -29,10 +28,10 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 ### VS Code
 - Inline completions, Chat, and Agent mode
 - Diffs, tests, and file-scoped edits
-- This is where production changes land
+- Where production changes land
 
 ### Web
-- [github.com/copilot](https://github.com/copilot) for a quick question
+- [github.com/copilot](https://github.com/copilot) for quick questions
 - Useful before you open the repo
 - Not a place to merge code
 
@@ -44,7 +43,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 <!-- below-columns -->
 
 > [!NOTE]
-> GitHub’s policy docs call these places surfaces.
+> GitHub docs call these places "Surfaces"
 ---
 # Demo: Using the Copilot Website
 
@@ -64,7 +63,7 @@ I have a CSV of credit accounts with balance, utilization, and delinquency_days.
 ```
 
 > [!NOTE]
-> Compare the two answers. The second one should name count, missing values, min, max, and mean, and it should flag a blank utilization or a delinquency_days of 9999.
+> Compare the two answers. The second one should include count, missing values, min, max, and mean, and flag blank utilization or delinquency_days values that are obviously wrong or unusually long.
 ---
 <!-- layout: title-image -->
 # GitHub Copilot Website
@@ -73,7 +72,7 @@ I have a CSV of credit accounts with balance, utilization, and delinquency_days.
 ---
 # Demo: Using Copilot in Visual Studio Code
 
-1. Open Visual Studio Code. Choose File, then Open Folder, and open an empty folder. Just create an empty folder anywhere on your computer. 
+1. Open Visual Studio Code. Choose File> Open Folder, then open an empty folder. _Just create an empty folder anywhere on your computer_. 
 2. Open Copilot Chat from the Copilot icon in the title bar. Notice that `</> Agent` is selected at the bottom of the chat input box by default.
 3. Paste the prompt below and press Enter. If asked, allow Copilot to create the files requested in the prompt. 
 
@@ -172,11 +171,13 @@ def fizz_buzz(n):
 ---
 # Accepting an Inline Suggestion
 
-- Read the gray text before you press a key.
-- Press Tab only when you understand it and it is what you meant to write.
-- Press Esc when it is wrong, or when you do not understand it.
-- If only the start is right, accept that part and leave the rest. On a Mac, press `Cmd+Right`. On Windows, press `Ctrl+Right`.
-- To ask for an edit right inside the file, select the lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows) to open Inline Chat (or right-click and choose Copilot, then Editor Inline Chat).
+- Read the gray text before you press a key
+   - Press Tab only when you understand it and it is what you meant to write
+   - Press Esc when it is wrong, or when you do not understand it
+- If only the start is right, accept that part. On a Mac, press `Cmd+Right`; on Windows, press `Ctrl+Right`
+- To ask for an edit right inside the file, select the lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows) to open Inline Chat
+
+![fizz buzz 1](images/fizz-buzz-1.png)
 ---
 <!-- layout: navigation -->
 # Chapter 1
@@ -264,6 +265,11 @@ Stop:
 ### It made a business decision
 - It recommended a cutoff or who to decline.
 - That choice stays with you.
+
+<!-- below-columns -->
+
+> [!WARNING]
+> The human always has to understand and be in charge of all code changes. 
 ---
 # Demo: Explain, Tests, and Fix
 
@@ -400,10 +406,9 @@ Write pytest unit tests for the selected function or attached #file:
 ---
 # What You Learned
 
-- Chose where the work belongs: VS Code, the website, or the Copilot app
-- Kept live customer data out of prompts
-- Selected inline, Chat, or Agent, and constrained the prompt with scope, checks, and a stop
-- Attached the smallest context that can succeed
+- Used Copilot from VS Code, the website, and the Copilot app
+- Wrote safe prompts and controlled prompt context
+- Selected inline, Chat, or Agent modes when generating code
 - Stored team defaults in `.github/copilot-instructions.md` and shared prompt files
 ---
 # Quiz 1 of 3
