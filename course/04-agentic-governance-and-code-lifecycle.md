@@ -11,7 +11,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 # Chapter 4: Objectives
 
 - Refactor, modularize, and vectorize slow Python analytics scripts
-- Prompt Copilot to add defensive assertions and `pytest` suites with `/tests`
+- Prompt Copilot to add defensive assertions and `pytest` suites
 - Use plan-first prompts, single-step approvals, and VS Code diff reviews
 - Build reusable `.github/prompts/*.prompt.md` templates 
 - Generate grounded Model Cards, technical specifications, and docstrings
@@ -21,14 +21,14 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 - **AI-Powered Code Maintenance**
 - Human-in-the-Loop 
-- Automated Documentation 
+- Automated Documentation
 ---
 # Three Copilot Workflows for Code Maintenance
 
 - Analytical scripts often start as long, single-file prototypes with slow row loops, no runtime checks, and zero tests
-- Use Inline Chat (`Cmd+I` or `Ctrl+I`) to split monolithic functions and replace `.iterrows()` loops with vectorized `pandas` or `numpy`
+- Use Inline Chat to split monolithic functions and replace loops with vectorized `pandas` or `numpy`
 - Use Inline Chat or ghost text to insert defensive `ValueError` guards right above and below numerical calculations
-- Use `/tests` with `#file` in Copilot Chat to generate a complete `pytest` suite that tests both normal math and every new assertion
+- Use Copilot Chat to generate a complete `pytest` suite that tests both normal math and every new assertion
 
 ![Three Copilot steps to refactor, add assertions, and generate pytest suites](images/ch04-maintenance-copilot-tools.svg)
 ---
@@ -113,7 +113,7 @@ def calc_delinquency(df):
 
 - AI-Powered Code Maintenance
 - **Human-in-the-Loop**
-- Automated Documentation 
+- Automated Documentation
 ---
 <!-- layout: title-image -->
 # Driving Copilot Agent Mode with Human Gates
@@ -178,7 +178,7 @@ Rule: Do not invent test results or claim a model is "Approved."
 
 - AI-Powered Code Maintenance
 - Human-in-the-Loop 
-- **Automated Documentation** 
+- **Automated Documentation**
 ---
 <!-- layout: title-image -->
 # Generating Grounded Model Cards from Code and Output
@@ -237,7 +237,7 @@ Generate AUDIT_EVIDENCE.md with:
 # What You Learned
 
 - Refactored, modularized, and vectorized slow Python analytics scripts
-- Prompted Copilot to add defensive assertions and `pytest` suites with `/tests`
+- Prompted Copilot to add defensive assertions and `pytest` suites
 - Used plan-first prompts, single-step approvals, and VS Code diff reviews
 - Built reusable `.github/prompts/*.prompt.md` templates 
 - Generated grounded Model Cards, technical specifications, and docstrings

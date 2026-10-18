@@ -264,10 +264,10 @@ Update #file train_baseline.py so that after scoring the test set, it:
 # What You Learned
 
 - Prompted Copilot Chat to scaffold `scikit-learn` feature and model pipelines
-- Used Inline Chat (`Cmd+I` or `Ctrl+I`) and ghost text to add custom transformers and swap estimators
+- Used Inline Chat and ghost text to add custom transformers and estimators
 - Directed Copilot to generate validation scripts, then verify them with `/tests`
-- Audited AI-generated modeling code for data leakage and bugs using `/explain` and `/fix`
-- Extracted ad-hoc Jupyter notebook cells into reusable Python modules
+- Audited AI-generated modeling code for bugs using `/explain` and `/fix`
+- Extracted Jupyter notebook cells into reusable Python modules
 ---
 # Quiz 1 of 3
 
