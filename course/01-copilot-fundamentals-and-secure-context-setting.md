@@ -202,6 +202,12 @@ def fizz_buzz(n):
 
 ### /fix
 - Paste the error and ask for a change only to the lines that failed.
+
+
+<!-- below-columns -->
+
+> [!NOTE]
+> Copilot slash commandsmay not appear when you type `/` in Chat. Availability depends on version, surface, and context. Typing a slash command (or the same request in plain English) still work. The AI treats it as a normal prompt.
 ---
 # Common Slash Commands in VS Code
 

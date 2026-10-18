@@ -11,10 +11,10 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 # Chapter 3: Objectives
 
 - Prompt Copilot Chat to scaffold `scikit-learn` feature and model pipelines
-- Use Inline Chat (`Cmd+I` or `Ctrl+I`) and ghost text to add custom transformers and swap estimators
+- Use Inline Chat and ghost text to add custom transformers and estimators
 - Direct Copilot to generate validation scripts, then verify them with `/tests`
-- Audit AI-generated modeling code for data leakage and bugs using `/explain` and `/fix`
-- Extract ad-hoc Jupyter notebook cells into reusable Python modules
+- Audit AI-generated modeling code for bugs using `/explain` and `/fix`
+- Extract Jupyter notebook cells into reusable Python modules
 ---
 <!-- layout: navigation -->
 # Chapter 3
@@ -62,8 +62,8 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 ---
 # Adding a Custom Feature Step with Inline Chat
 
-- Once your baseline `Pipeline` runs, use Inline Chat (`Cmd+I` or `Ctrl+I`) to insert custom feature transformers without rewriting the script
-- Select the `ColumnTransformer` block in the editor and describe the exact transformation to add
+- Once your baseline `Pipeline` runs, use Inline Chat to insert custom feature transformers without rewriting the script
+- Select the code block in the editor and describe the exact transformation to add
 
 ```text
 Add a FunctionTransformer step before scaling that caps utilization at 1.0
@@ -72,7 +72,7 @@ Keep the existing OneHotEncoder step unchanged.
 ```
 
 > [!TIP]
-> Tell Copilot which pipeline steps must stay unchanged so your diff stays limited to the new feature logic.
+> Tell Copilot which pipeline steps must stay unchanged so your diff stays limited to the new logic.
 ---
 # Demo: Building a Baseline Pipeline via Copilot Chat
 
