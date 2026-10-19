@@ -223,7 +223,7 @@ Using #file rollup.py and #file validators.py, create and save test_rollup.py us
 
 In this task, you create a reusable prompt file at `.github/prompts/mrm-evidence.prompt.md`, run `/mrm-evidence` with your code, tests, and `pytest_run.txt` attached, and build an interactive HTML Governance Portal.
 
-1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press `Enter` — VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows.
+1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press `ENTER` — VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows.
 
 2. Paste the following reusable prompt template into `.github/prompts/mrm-evidence.prompt.md`:
 
