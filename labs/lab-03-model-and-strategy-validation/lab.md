@@ -200,7 +200,7 @@ Using #file evaluate_model.py, create and save test_evaluate_model.py using pyte
 
 ### Task 3: Create and refactor a Jupyter Notebook (`.ipynb`) into a reusable module
 
-In this task, you prompt Copilot to create an exploratory Jupyter notebook, use Inline Chat (`Cmd+I` or `Ctrl+I`) inside a notebook cell, and extract the notebook logic into a clean Python module one step at a time.
+In this task, you prompt Copilot to create an exploratory Jupyter notebook, use Inline Chat (`Cmd+I` or `CTRL+I`) inside a notebook cell, and extract the notebook logic into a clean Python module one step at a time.
 
 1. In Copilot Chat, attach `#file schema.md` and run this prompt:
 
@@ -219,12 +219,12 @@ Using #file schema.md, create a 4-cell Jupyter notebook named strategy_experimen
 > [!NOTE]
 > If VS Code prompts you to install the **Jupyter** extension or the `ipykernel` package for this environment, click **Install** (or **Install and Reload**) and wait for the install to finish before continuing. You need both the Jupyter extension and `ipykernel` in `.venv` to run notebook cells.
 
-4. Read **Cell 1** (the Markdown title and objective cell). Then run **Cell 2**, **Cell 3**, and **Cell 4** in order by clicking into each cell and pressing `Shift+Enter` (or clicking the __Run__ button). After each code cell finishes, examine the output below it.
+4. Read **Cell 1** (the Markdown title and objective cell). Then run **Cell 2**, **Cell 3**, and **Cell 4** in order by clicking into each cell and pressing `SHIFT+ENTER` (or clicking the __Run__ button). After each code cell finishes, examine the output below it.
 
 > [!NOTE]
 > **Cell 2** should print null counts and a sample of rows with missing `utilization`. Confirm that `util_to_tenure` is also `NaN` on those rows. The first few rows of the full DataFrame often look clean because only about 40 of 1,000 utilization values are missing. That NaN propagation is the data-quality issue you will fix next with Inline Chat.
 
-5. Click inside **Cell 2** (_the first code cell_), press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat right inside the notebook cell, and prompt:
+5. Click inside **Cell 2** (_the first code cell_), press `Cmd+I` (macOS) or `CTRL+I` (Windows) to open Inline Chat right inside the notebook cell, and prompt:
 
 ```text
 Fill missing utilization values with 0.0 before computing util_to_tenure so no NaN values are produced.
@@ -291,11 +291,11 @@ Using #file metrics_output.json and #file decile_table.csv, create validation_da
 
 ### Bonus Task 5: Add a decile cutoff slider to `validation_dashboard.html`
 
-Use Inline Chat (`Cmd+I` or `Ctrl+I`) to let strategy analysts simulate approving Top-N deciles inside `validation_dashboard.html`.
+Use Inline Chat (`Cmd+I` or `CTRL+I`) to let strategy analysts simulate approving Top-N deciles inside `validation_dashboard.html`.
 
 1. Open `validation_dashboard.html` in VS Code and select the KPI or table section.
 
-2. Press `Cmd+I` (macOS) or `Ctrl+I` (Windows) and ask Copilot to add a **Decline Top N Riskiest Deciles (1 to 5)** slider that highlights the declined decile rows in red and displays the resulting **Portfolio Approval Rate (%)** and **Share of Total Defaults Avoided (%)**.
+2. Press `Cmd+I` (macOS) or `CTRL+I` (Windows) and ask Copilot to add a **Decline Top N Riskiest Deciles (1 to 5)** slider that highlights the declined decile rows in red and displays the resulting **Portfolio Approval Rate (%)** and **Share of Total Defaults Avoided (%)**.
 
 3. Save the file, refresh your browser, and drag the decile slider to see the strategy trade-off in real time.
 
