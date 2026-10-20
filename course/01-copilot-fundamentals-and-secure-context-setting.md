@@ -16,7 +16,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Store team defaults, slash commands, and domain playbooks in `.github/copilot-instructions.md`, prompt files, and Agent Skills
 ---
 <!-- layout: navigation -->
-# Chapter 1
+# Chapter Concepts
 
 - **Where Copilot Runs**
 - Prompting in VS Code
@@ -72,9 +72,9 @@ I have a CSV of credit accounts with balance, utilization, and delinquency_days.
 ---
 # Demo: Using Copilot in Visual Studio Code
 
-1. Open Visual Studio Code. Choose File> Open Folder, then open an empty folder. _Just create an empty folder anywhere on your computer_. 
+1. Open Visual Studio Code. Choose **File> Open Folder**, then open an empty folder. _Just create an empty folder anywhere on your computer_. 
 2. Open Copilot Chat from the Copilot icon in the title bar. Notice that `</> Agent` is selected at the bottom of the chat input box by default.
-3. Paste the prompt below and press Enter. If asked, allow Copilot to create the files requested in the prompt. 
+3. Paste the prompt below and press ENTER. If asked, allow Copilot to create the files requested in the prompt. 
 
 ```text
 Create two files in this folder.
@@ -94,9 +94,9 @@ stats.html
 - Make the results a clear table
 ```
 
-4. In the Explorer pane on the left, right-click `stats.html`, choose Reveal in Finder or Reveal in File Explorer, and open the file in a browser.
+4. In the Explorer pane on the left, right-click `stats.html`, choose **Reveal in Finder** or **Reveal in File Explorer**, and open the file in a browser.
 
-5. Click Upload CSV and choose `sample_accounts.csv` from the same folder.
+5. Click **Upload CSV** and choose `sample_accounts.csv` from the same folder.
 ---
 <!-- layout: title-image -->
 # Visual Studio Code with Copilot
@@ -125,8 +125,8 @@ stats.html
 # Selecting a Harness in VS Code
 
 - Click **Copilot** in the bottom-left corner of the chat panel to choose where and how the agent runs:
-  - **Copilot / Local / Cloud**: Run with GitHub Copilot in your local VS Code session or in a cloud workspace
-  - **Claude / Codex**: Switch to alternative agent harnesses if enabled for your organization
+  - **Copilot/Local/Cloud**: Run with GitHub Copilot in your local VS Code session or in a cloud workspace
+  - **Claude/Codex**: Switch to alternative agent harnesses if enabled for your organization
 - For all exercises in this course, keep the harness set to **Copilot** and Agent mode set to **Interactive** or **Plan**
 
 ![Harness selector menu in VS Code Copilot Chat](images/ch01-copilot-harnesses.png)
@@ -156,14 +156,14 @@ stats.html
 # Demo: Inline Completion
 
 1. In VS Code, create a file named `fizz_buzz.py`.
-2. Type this line, press Enter, and pause.
+2. Type this line, press ENTER, and pause.
 
 ```python
 def fizz_buzz(n):
 ```
 
 3. Wait for the gray ghost text.
-4. Press Tab to accept it.
+4. Press TAB to accept it.
 5. Read the inserted code. Undo it if it is not the loop you wanted.
 
 > [!NOTE]
@@ -172,15 +172,15 @@ def fizz_buzz(n):
 # Accepting an Inline Suggestion
 
 - Read the gray text before you press a key
-   - Press Tab only when you understand it and it is what you meant to write
-   - Press Esc when it is wrong, or when you do not understand it
+   - Press TAB only when you understand it and it is what you meant to write
+   - Press ESC when it is wrong, or when you do not understand it
 - If only the start is right, accept that part. On a Mac, press `Cmd+Right`; on Windows, press `Ctrl+Right`
 - To ask for an edit right inside the file, select the lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows) to open Inline Chat
 
 ![fizz buzz 1](images/fizz-buzz-1.png)
 ---
 <!-- layout: navigation -->
-# Chapter 1
+# Chapter Concepts
 
 - Where Copilot Runs
 - **Prompting in VS Code**
@@ -226,7 +226,7 @@ def fizz_buzz(n):
 
 - You do not have to memorize every slash command
 - Type `/` in the Copilot Chat input box to open the autocomplete menu with each command and its description
-- Keep typing to filter the list, or use the Up and Down arrow keys and press `Tab` or `Enter` to select one
+- Keep typing to filter the list, or use the Up and Down arrow keys and press `TAB` or `ENTER` to select one
 - Custom team prompt files (in `.github/prompts/`) also appear right in this `/` menu
 
 ![Slash commands autocomplete menu in VS Code Copilot Chat](images/ch01-slash-commands-menu.png)
@@ -325,7 +325,7 @@ Change only the lines that failed. An empty list should return None.
 > If `python` is not found, run `python3 average.py`. If a reply ignores the function, select `average` and send the prompt again.
 ---
 <!-- layout: navigation -->
-# Chapter 1
+# Chapter Concepts
 
 - Where Copilot Runs
 - Prompting in VS Code
@@ -442,7 +442,7 @@ description: Audits credit datasets for sentinel codes, charged-off denominator 
 4. Format the output report using `./audit-report-template.md` in this skill folder.
 ```
 ---
-# Chapter 1 Hands-On Lab
+# Chapter 1: Hands-On Lab
 
 - Lab: [Effective Prompting and Context Engineering](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-01-effective-prompting-and-context-engineering)
 - Time: 30 minutes
@@ -458,10 +458,13 @@ description: Audits credit datasets for sentinel codes, charged-off denominator 
 
 **You need Copilot to change one function in VS Code. What context should you give it?**
 
-- A. `@workspace`, so it can see the whole repo
-- B. The selected function, or `#file` on that file and its test
-- C. Every file in the repo, pasted into the chat
-- D. The website, with the repo described from memory
+A. `@workspace`, so it can see the whole repo
+
+B. The selected function, or `#file` on that file and its test
+
+C. Every file in the repo, pasted into the chat
+
+D. The website, with the repo described from memory
 ---
 # Quiz 1: Answer
 
@@ -478,10 +481,14 @@ description: Audits credit datasets for sentinel codes, charged-off denominator 
 
 **The team wants the same rules on every chat, without pasting them each time. Where do the rules go?**
 
-- A. In a prompt file that someone runs with `/`
-- B. In `.github/copilot-instructions.md`
-- C. In the ghost text, so Tab inserts the rules
-- D. In one chat. Later chats will remember it
+
+A. In a prompt file that someone runs with `/`
+
+B. In `.github/copilot-instructions.md`
+
+C. In the ghost text, so Tab inserts the rules
+
+D. In one chat. Later chats will remember it
 ---
 # Quiz 2: Answer
 

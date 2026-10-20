@@ -17,7 +17,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Use comment-driven inline completions to build feature engineering pipelines
 ---
 <!-- layout: navigation -->
-# Chapter 2
+# Chapter Concepts
 
 - **Prompting for Data Profiling**
 - Generating Charts with Copilot
@@ -106,7 +106,7 @@ Using #file schema.md, create two files:
 3. Run `python make_sample_data.py` and `python profile_accounts.py` in the VS Code terminal to verify the output.
 ---
 <!-- layout: navigation -->
-# Chapter 2
+# Chapter Concepts
 
 - Prompting for Data Profiling
 - **Generating Charts with Copilot**
@@ -187,7 +187,7 @@ Add a horizontal red dashed line at y=0.80 labeled "High Utilization Threshold" 
 5. Accept the diff, rerun `python plot_portfolio.py`, and watch `portfolio_summary.png` update in VS Code.
 ---
 <!-- layout: navigation -->
-# Chapter 2
+# Chapter Concepts
 
 - Prompting for Data Profiling
 - Generating Charts with Copilot
@@ -325,7 +325,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 3. Repeat for the second and third comments.
 4. Select the entire `engineer_features` function, open Copilot Chat, and run `/tests` to generate a quick check for `available_credit` when `balance` exceeds `credit_limit`.
 ---
-# Chapter 2 Hands-On Lab
+# Chapter 2: Hands-On Lab
 
 - Lab: [Copilot-Assisted Data Profiling and Hypothesis Generation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-02-data-profiling-and-hypothesis-generation)
 - Time: 30 minutes
@@ -342,10 +342,13 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 
 **When you ask Copilot Chat to write a Python profiling script or SQL query, it keeps inventing column names that do not exist in your dataset. What is the best fix?**
 
-- A. Paste 10,000 rows of real customer production data into the Chat window
-- B. Attach a schema file (`#file schema.md` or `#file schema.sql`) with the exact column names and types
-- C. Repeatedly click Regenerate until Copilot guesses the right column names
-- D. Turn off Copilot Chat and only use inline ghost text
+A. Paste 10,000 rows of real customer production data into the Chat window
+
+B. Attach a schema file (`#file schema.md` or `#file schema.sql`) with the exact column names and types
+
+C. Repeatedly click Regenerate until Copilot guesses the right column names
+
+D. Turn off Copilot Chat and only use inline ghost text
 ---
 # Quiz 1: Answer
 
@@ -361,10 +364,13 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 
 **You already have a working 60-line Python script that loads data and builds a `seaborn` chart. You only want to rotate the x-axis labels 45 degrees and add a horizontal reference line. Which Copilot workflow is best?**
 
-- A. Ask the Chat sidebar to rewrite the entire 60-line file from scratch
-- B. Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes
-- C. Delete the plotting code and wait for ghost text to guess the new layout
-- D. Copy the script into the Copilot mobile app
+A. Ask the Chat sidebar to rewrite the entire 60-line file from scratch
+
+B. Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes
+
+C. Delete the plotting code and wait for ghost text to guess the new layout
+
+D. Copy the script into the Copilot mobile app
 ---
 # Quiz 2: Answer
 

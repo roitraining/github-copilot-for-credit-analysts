@@ -17,7 +17,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Generate grounded Model Cards, technical specifications, and docstrings
 ---
 <!-- layout: navigation -->
-# Chapter 4
+# Chapter Concepts
 
 - **AI-Powered Code Maintenance**
 - Human-in-the-Loop 
@@ -109,7 +109,7 @@ def calc_delinquency(df):
 4. Run `pytest` in the VS Code terminal to confirm all tests pass.
 ---
 <!-- layout: navigation -->
-# Chapter 4
+# Chapter Concepts
 
 - AI-Powered Code Maintenance
 - **Human-in-the-Loop**
@@ -177,7 +177,7 @@ Rule: Do not invent test results or claim a model is "Approved."
 > When an MRM workflow needs bundled Markdown templates, checklists, or validation scripts alongside instructions, package it as an Agent Skill in `.github/skills/mrm-governance/SKILL.md` so Copilot loads the playbook and templates automatically.
 ---
 <!-- layout: navigation -->
-# Chapter 4
+# Chapter Concepts
 
 - AI-Powered Code Maintenance
 - Human-in-the-Loop 
@@ -232,7 +232,7 @@ Generate AUDIT_EVIDENCE.md with:
 4. Human sign-off section marked TODO
 ```
 ---
-# Chapter 4 Hands-On Lab
+# Chapter 4: Hands-On Lab
 
 - Lab: [Agentic Governance and Automated Code Cleanup](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-04-agentic-governance-and-code-cleanup)
 - Time: 30 minutes
@@ -249,10 +249,13 @@ Generate AUDIT_EVIDENCE.md with:
 
 **You want to use Copilot Agent mode in VS Code to refactor a 300-line monitoring script into separate modules (`validators.py`, `metrics.py`, and `test_metrics.py`). How should you start the session?**
 
-- A. Prompt Agent mode to “Clean up and reorganize the whole repo however you think is best” and click Keep All
-- B. Ask Agent mode for a step-by-step plan listing which files each step will touch (“Do not edit files yet”), then approve and test one step at a time
-- C. Delete all existing unit tests first so Agent mode is not slowed down by test failures
-- D. Paste the 300-line script into the Copilot mobile app
+A. Prompt Agent mode to “Clean up and reorganize the whole repo however you think is best” and click Keep All
+
+B. Ask Agent mode for a step-by-step plan listing which files each step will touch (“Do not edit files yet”), then approve and test one step at a time
+
+C. Delete all existing unit tests first so Agent mode is not slowed down by test failures
+
+D. Paste the 300-line script into the Copilot mobile app
 ---
 # Quiz 1: Answer
 
@@ -268,10 +271,13 @@ Generate AUDIT_EVIDENCE.md with:
 
 **When you use Copilot Inline Chat (`/doc`) to add docstrings and comments to an existing credit calculation function, what instruction should you include in your prompt?**
 
-- A. “Also rewrite the formula if you think of a different way to calculate the rate.”
-- B. “Add NumPy-style docstrings covering inputs, exclusions, and `ValueError` conditions; do not modify any executable code.”
-- C. “Invent a realistic holdout ROC AUC score and put it in the docstring.”
-- D. “Remove all `ValueError` checks so the function is shorter.”
+A. “Also rewrite the formula if you think of a different way to calculate the rate.”
+
+B. “Add NumPy-style docstrings covering inputs, exclusions, and `ValueError` conditions; do not modify any executable code.”
+
+C. “Invent a realistic holdout ROC AUC score and put it in the docstring.”
+
+D. “Remove all `ValueError` checks so the function is shorter.”
 ---
 # Quiz 2: Answer
 

@@ -17,7 +17,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Extract Jupyter notebook cells into reusable Python modules
 ---
 <!-- layout: navigation -->
-# Chapter 3
+# Chapter Concepts
 
 - **Generating Model Pipelines**
 - Prompting for Validation and Tests
@@ -103,7 +103,7 @@ Using #file schema.md, create train_baseline.py.
 3. Run `python train_baseline.py` in the VS Code terminal and inspect the generated pipeline and output.
 ---
 <!-- layout: navigation -->
-# Chapter 3
+# Chapter Concepts
 
 - Generating Model Pipelines
 - **Prompting for Validation and Tests**
@@ -192,7 +192,7 @@ print("AUC:", roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1]))
 4. Run `/fix` with instructions to fix all four issues using `#file schema.md`.
 ---
 <!-- layout: navigation -->
-# Chapter 3
+# Chapter Concepts
 
 - Generating Model Pipelines
 - Prompting for Validation and Tests
@@ -256,7 +256,7 @@ Update #file train_baseline.py so that after scoring the test set, it:
 3. Run `python train_baseline.py` so `metrics_output.json` and `decile_table.csv` are created on disk.
 4. In Copilot Chat, attach `#file metrics_output.json` and `#file decile_table.csv`, and prompt Copilot to generate `validation_summary.md` using only the numbers in those two files.
 ---
-# Chapter 3 Hands-On Lab
+# Chapter 3: Hands-On Lab
 
 - Lab: [AI-Assisted Model and Strategy Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-03-model-and-strategy-validation)
 - Time: 30 minutes
@@ -273,10 +273,13 @@ Update #file train_baseline.py so that after scoring the test set, it:
 
 **When you ask Copilot Chat to generate a model training script with a vague prompt like “Train a model on my dataset,” what does Copilot typically generate?**
 
-- A. An out-of-time split with a `ColumnTransformer` tailored to your exact credit policy
-- B. A generic script with a random `train_test_split`, guessed column names, and risk of fitting preprocessors on the full dataset
-- C. A syntax error, because Copilot cannot write `scikit-learn` code
-- D. A pre-populated `metrics_output.json` file from your production database
+A. An out-of-time split with a `ColumnTransformer` tailored to your exact credit policy
+
+B. A generic script with a random `train_test_split`, guessed column names, and risk of fitting preprocessors on the full dataset
+
+C. A syntax error, because Copilot cannot write `scikit-learn` code
+
+D. A pre-populated `metrics_output.json` file from your production database
 ---
 # Quiz 1: Answer
 
@@ -292,10 +295,13 @@ Update #file train_baseline.py so that after scoring the test set, it:
 
 **You want Copilot Chat to draft a Markdown summary of your model’s holdout performance (`ROC AUC`, `KS`, and decile table) without hallucinating any numbers. How should you prompt it?**
 
-- A. Ask Copilot to estimate typical credit card AUC and KS values for a baseline logistic regression model
-- B. Attach `#file train_baseline.py` only and ask Copilot to predict what the metrics will be when the code runs
-- C. Save the actual run metrics to `metrics_output.json` and `decile_table.csv`, attach both files with `#file`, and instruct Copilot to cite only numbers from those files (marking missing items as `TODO`)
-- D. Use inline ghost text inside an empty Markdown file with no context files open
+A. Ask Copilot to estimate typical credit card AUC and KS values for a baseline logistic regression model
+
+B. Attach `#file train_baseline.py` only and ask Copilot to predict what the metrics will be when the code runs
+
+C. Save the actual run metrics to `metrics_output.json` and `decile_table.csv`, attach both files with `#file`, and instruct Copilot to cite only numbers from those files (marking missing items as `TODO`)
+
+D. Use inline ghost text inside an empty Markdown file with no context files open
 ---
 # Quiz 2: Answer
 
