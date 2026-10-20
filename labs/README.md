@@ -2,11 +2,11 @@
 
 Hands-on lab manuals for **GitHub Copilot for Credit Analytics and Risk Modeling**:
 
-- `lab-00-pre-course-validation/lab.md` — Pre-Course Environment and GitHub Copilot Validation (Setup Check)
-- `lab-01-effective-prompting-and-context-engineering/lab.md` — Effective Prompting and Context Engineering (Chapter 1)
-- `lab-02-data-profiling-and-hypothesis-generation/lab.md` — Copilot-Assisted Data Profiling and Hypothesis Generation (Chapter 2)
-- `lab-03-model-and-strategy-validation/lab.md` — AI-Assisted Model and Strategy Validation (Chapter 3)
-- `lab-04-agentic-governance-and-code-cleanup/lab.md` — Agentic Governance and Automated Code Cleanup (Chapter 4)
+- [Lab 0: Pre-Course Environment and GitHub Copilot Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-00-pre-course-validation) (`lab-00-pre-course-validation/lab.md`)
+- [Lab 1: Effective Prompting and Context Engineering](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-01-effective-prompting-and-context-engineering) (`lab-01-effective-prompting-and-context-engineering/lab.md`)
+- [Lab 2: Copilot-Assisted Data Profiling and Hypothesis Generation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-02-data-profiling-and-hypothesis-generation) (`lab-02-data-profiling-and-hypothesis-generation/lab.md`)
+- [Lab 3: AI-Assisted Model and Strategy Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-03-model-and-strategy-validation) (`lab-03-model-and-strategy-validation/lab.md`)
+- [Lab 4: Agentic Governance and Automated Code Cleanup](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-04-agentic-governance-and-code-cleanup) (`lab-04-agentic-governance-and-code-cleanup/lab.md`)
 
 ## Preview
 

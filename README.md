@@ -13,6 +13,7 @@ One-day applied workshop for credit risk analysts, data scientists, and quantita
 
 ## Hands-On Labs
 
+- [Lab 0: Pre-Course Environment and GitHub Copilot Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-00-pre-course-validation)
 - [Lab 1: Effective Prompting and Context Engineering](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-01-effective-prompting-and-context-engineering)
 - [Lab 2: Copilot-Assisted Data Profiling and Hypothesis Generation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-02-data-profiling-and-hypothesis-generation)
 - [Lab 3: AI-Assisted Model and Strategy Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-03-model-and-strategy-validation)
