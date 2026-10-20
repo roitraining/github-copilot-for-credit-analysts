@@ -68,7 +68,7 @@ Without creating any files yet, tell me what denominator rule and what delinquen
 
 ### Task 2: Drive inline ghost text and fix a deliberate bug with `/explain` and `/fix`
 
-In this task, you use comment-driven inline ghost text (`Tab`) to generate two credit helper functions, then use `/explain` and `/fix` to diagnose and repair a buggy portfolio rate function.
+In this task, you use comment-driven inline ghost text (`TAB`) to generate two credit helper functions, then use `/explain` and `/fix` to diagnose and repair a buggy portfolio rate function.
 
 1. In the VS Code Explorer pane, create a new file named `credit_rules.py` in the root of `lab1-copilot-basics`.
 
@@ -89,9 +89,9 @@ def assign_delinquency_bucket(dpd: int) -> str:
 
 3. Place your cursor on the blank line below the comment inside `calc_utilization`, press `ENTER` or add 4 spaces of indentation, and wait a moment for Copilot’s gray ghost text to appear.
 
-4. Read the suggested code and press `Tab` to accept it.
+4. Read the suggested code and press `TAB` to accept it.
 
-5. Repeat the same step inside `assign_delinquency_bucket`: place your cursor below the comment, wait for the gray ghost text, read it, and press `Tab` to accept it.
+5. Repeat the same step inside `assign_delinquency_bucket`: place your cursor below the comment, wait for the gray ghost text, read it, and press `TAB` to accept it.
 
 > [!TIP]
 > If you only want to accept the first word or phrase of an inline suggestion, press `Cmd+Right` on macOS or `CTRL+Right` on Windows.
