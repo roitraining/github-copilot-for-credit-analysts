@@ -415,7 +415,7 @@ Write pytest unit tests for the selected function or attached #file:
 # What an Agent Skill Bundles (`.github/skills/`)
 
 ### Progressive Disclosure
-- Lives in `.github/skills/<skill-name>/SKILL.md` with YAML frontmatter (`name` and `description`)
+- Lives in `.github/skills/<skill-name>/SKILL.md` with a YAML header (`name` and `description`) at the top of the file
 - Copilot scans only the lightweight `description` at session start
 - Loads the full `SKILL.md` instructions only when your prompt matches that domain workflow
 
@@ -429,7 +429,7 @@ Write pytest unit tests for the selected function or attached #file:
 - Package a multi-step domain playbook and its reference files inside `.github/skills/credit-data-audit/SKILL.md`:
 
 ```markdown
---- # YAML frontmatter (loaded at startup)
+--- # YAML header at top of file (loaded at startup)
 name: credit-data-audit
 description: Audits credit datasets for sentinel codes, charged-off denominator leaks, and vintage grain errors. Use when profiling or validating credit tables.
 --- # Full playbook below (loaded on demand)

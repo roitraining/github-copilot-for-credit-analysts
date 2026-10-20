@@ -268,7 +268,7 @@ Rule: Cite only facts and test results present in the specified files. Do not in
 - **Approval Status**: TODO: Pending Human Sign-Off
 ```
 
-5. Save `model-card-template.md`. Now create `.github/skills/mrm-governance/SKILL.md` in the same folder and paste the Agent Skill definition (using `~~~~markdown` here so you can copy the YAML frontmatter cleanly):
+5. Save `model-card-template.md`. Now create `.github/skills/mrm-governance/SKILL.md` in the same folder and paste the Agent Skill definition (using `~~~~markdown` here so you can copy the YAML header at the top of the file cleanly):
 
 ~~~~markdown
 ---
