@@ -12,7 +12,7 @@ In this lab, you use GitHub Copilot to refactor a slow, unguarded credit monitor
 - Use Inline Chat to vectorize `.iterrows()` loops and add runtime `ValueError` guards.
 - Modularize legacy code step by step using Agent `Plan` and `Interactive` modes.
 - Generate NumPy docstrings with `/doc` and build a parametrized `pytest` suite.
-- Create a reusable `/mrm-evidence` prompt file to generate a Model Card, audit log, and HTML Governance Portal.
+- Create a reusable `/mrm-evidence` prompt file and a `.github/skills/mrm-governance/` Agent Skill to generate a Model Card, audit log, and HTML Governance Portal.
 
 ## Scenario
 
@@ -219,54 +219,88 @@ Using #file rollup.py and #file validators.py, create and save test_rollup.py us
 .\.venv\Scripts\python -m pytest -v | Tee-Object -FilePath pytest_run.txt
 ```
 
-### Task 4: Create `/mrm-evidence` and generate a Model Card and MRM Governance Portal
+### Task 4: Create `/mrm-evidence` and an `mrm-governance` Agent Skill to generate the Model Card and Governance Portal
 
-In this task, you create a reusable prompt file at `.github/prompts/mrm-evidence.prompt.md`, run `/mrm-evidence` with your code, tests, and `pytest_run.txt` attached, and build an interactive HTML Governance Portal.
+In this task, you create a reusable prompt file at `.github/prompts/mrm-evidence.prompt.md`, bundle a domain playbook and template inside an Agent Skill at `.github/skills/mrm-governance/`, and generate a Model Card, audit log, and interactive HTML Governance Portal.
 
-1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press `Enter` — VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows.
+1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press `Enter` (VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows).
 
 2. Paste the following reusable prompt template into `.github/prompts/mrm-evidence.prompt.md`:
 
 ```markdown
 # Prompt File: .github/prompts/mrm-evidence.prompt.md
 
-Using the specified source files, test file, and pytest run log, generate two files:
-
-1. `MODEL_CARD.md`
-   - **Module Overview and Intended Use**: Read from the source modules.
-   - **Input Schema and Grain Contract**: Exact columns and output grain.
-   - **Denominator and Outlier Rules**: Exact rules for `charged_off` and `dpd > 365`.
-   - **Governance and Policy Sign-Off**: Mark production alert thresholds, policy owner, and MRM approval status as `TODO`.
-
-2. `AUDIT_EVIDENCE.md`
-   - **Scope of Refactoring**: Functions modularized and vectorized.
-   - **Defensive Assertions Inventory**: Table of every `ValueError` guard in the codebase.
-   - **Pytest Verification Log**: Table of every unit test and the exact pass count from the pytest output log.
-   - **Reviewer Sign-Off Checklist**: Leave human reviewer name, date, and decision as `TODO`.
+Using the specified source files, test file, and pytest run log, generate `AUDIT_EVIDENCE.md`:
+- **Scope of Refactoring**: Functions modularized and vectorized.
+- **Defensive Assertions Inventory**: Table of every `ValueError` guard in the codebase.
+- **Pytest Verification Log**: Table of every unit test and the exact pass count from the pytest output log.
+- **Reviewer Sign-Off Checklist**: Leave human reviewer name, date, and decision as `TODO`.
 
 Rule: Cite only facts and test results present in the specified files. Do not invent metrics or mark the package as "Approved."
 ```
 
-3. Save `.github/prompts/mrm-evidence.prompt.md`.
-
-4. In Copilot Chat, run `/mrm-evidence` and pass your workspace files:
+3. Save `.github/prompts/mrm-evidence.prompt.md`, then run `/mrm-evidence` in Copilot Chat with your workspace files:
 
 ```text
 /mrm-evidence rollup.py validators.py test_rollup.py pytest_run.txt
 ```
 
-5. Open the generated `MODEL_CARD.md` and `AUDIT_EVIDENCE.md` files to confirm that all technical rules and test counts match your code and that policy sign-off fields are marked `TODO`.
+4. Next, package a multi-file Agent Skill so Copilot automatically follows your team’s Model Card structure whenever someone asks for MRM governance deliverables. In the VS Code Explorer pane, click **New File**, type `.github/skills/mrm-governance/model-card-template.md`, press `Enter`, and paste this reference template:
 
-6. Finally, prompt Copilot in Chat to build a single-file interactive HTML Governance Portal (`governance_portal.html`) from your evidence files:
+```markdown
+# Model Card: {{MODULE_NAME}}
 
-```text
-Using #file MODEL_CARD.md, #file AUDIT_EVIDENCE.md, and #file rollup.py, create governance_portal.html (a self-contained single-file HTML/CSS/JS dashboard that opens directly in a browser):
-1. Header status cards showing Pytest Suite Status (exact pass count from pytest_run.txt), Active Runtime Guards Count, and MRM Status ('TODO: Pending Human Sign-Off').
-2. Tabs or side-by-side panels displaying the Grounded Model Card specification, the Defensive Assertions Inventory table, and the Pytest Verification table.
-3. An interactive Human-in-the-Loop Sign-Off form where a reviewer can check off verification items, enter Reviewer Name and Policy Alert Threshold, and click "Export Signed MRM Evidence JSON" to download a timestamped JSON sign-off record.
+## 1. Module Overview and Intended Use
+- **Primary Function**:
+- **Output Grain**:
+
+## 2. Input Schema and Exclusion Rules
+- **Required Columns**:
+- **Charged-Off and Sentinel Exclusions**:
+
+## 3. Runtime Guards and Test Verification
+- **Defensive ValueError Guards**:
+- **Pytest Suite Summary**:
+
+## 4. Governance and Policy Sign-Off
+- **Production Alert Threshold**: TODO (Human Policy Owner)
+- **Model Risk Reviewer**: TODO (Human Reviewer)
+- **Approval Status**: TODO: Pending Human Sign-Off
 ```
 
-7. Open `governance_portal.html` in your browser (**Reveal in Finder** / **Reveal in File Explorer** and double-click), review the tabs, check the sign-off boxes, and test the **Export Signed MRM Evidence JSON** button.
+5. Save `model-card-template.md`. Now create `.github/skills/mrm-governance/SKILL.md` in the same folder and paste the Agent Skill definition (using `~~~~markdown` here so you can copy the YAML frontmatter cleanly):
+
+~~~~markdown
+---
+name: mrm-governance
+description: Generates grounded Model Risk Management (MRM) Model Cards and HTML Governance Portals from Python credit monitoring modules and pytest logs.
+---
+
+# MRM Governance Skill
+
+When asked to generate a Model Card or MRM Governance Portal:
+1. Read `./model-card-template.md` in this skill folder and use its exact section structure to write `MODEL_CARD.md`.
+2. Populate technical fields strictly from the attached Python modules, test files, and `pytest_run.txt` log.
+3. Never invent validation metrics or mark a model as Approved; keep all Section 4 sign-off fields set to `TODO`.
+~~~~
+
+6. Save `.github/skills/mrm-governance/SKILL.md`.
+
+> [!NOTE]
+> Unlike `.github/copilot-instructions.md` (which loads on every chat) or a `.prompt.md` file (which you invoke manually with `/` for a single prompt), Copilot reads the `description` in `SKILL.md` and loads the full skill playbook and its bundled `model-card-template.md` on demand when your request matches MRM governance.
+
+7. In Copilot Chat (`</> Agent` in **Interactive** mode), prompt Copilot to generate `MODEL_CARD.md` and the interactive HTML Governance Portal (`governance_portal.html`):
+
+```text
+Using #file rollup.py, #file validators.py, #file test_rollup.py, #file pytest_run.txt, and #file AUDIT_EVIDENCE.md, follow our mrm-governance skill to:
+1. Generate MODEL_CARD.md using the skill's model-card-template.md structure.
+2. Create governance_portal.html (a self-contained single-file HTML/CSS/JS dashboard that opens directly in a browser) with:
+   - Header status cards showing Pytest Suite Status (exact pass count from pytest_run.txt), Active Runtime Guards Count, and MRM Status ('TODO: Pending Human Sign-Off').
+   - Tabs or side-by-side panels displaying the Grounded Model Card specification, the Defensive Assertions Inventory table, and the Pytest Verification table.
+   - An interactive Human-in-the-Loop Sign-Off form where a reviewer can check off verification items, enter Reviewer Name and Policy Alert Threshold, and click "Export Signed MRM Evidence JSON" to download a timestamped JSON sign-off record.
+```
+
+8. Open `MODEL_CARD.md` to confirm it follows `model-card-template.md` with `TODO` sign-off fields, then open `governance_portal.html` in your browser (**Reveal in Finder** / **Reveal in File Explorer** and double-click) and test the **Export Signed MRM Evidence JSON** button.
 
 ![Preview of the MRM Governance Portal](images/lab04-portal-preview.png)
 
@@ -298,4 +332,4 @@ In this lab, you have:
 - Used Inline Chat to vectorize `.iterrows()` loops and add runtime `ValueError` guards.
 - Modularized legacy code step by step using Agent `Plan` and `Interactive` modes.
 - Generated NumPy docstrings with `/doc` and built a parametrized `pytest` suite.
-- Created a reusable `/mrm-evidence` prompt file to generate a Model Card, audit log, and HTML Governance Portal.
+- Created a reusable `/mrm-evidence` prompt file and a `.github/skills/mrm-governance/` Agent Skill to generate a Model Card, audit log, and HTML Governance Portal.

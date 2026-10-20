@@ -13,7 +13,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Refactor, modularize, and vectorize slow Python analytics scripts
 - Prompt Copilot to add defensive assertions and `pytest` suites
 - Use plan-first prompts, single-step approvals, and VS Code diff reviews
-- Build reusable `.github/prompts/*.prompt.md` templates 
+- Build reusable `.github/prompts/*.prompt.md` templates and `.github/skills/` governance playbooks
 - Generate grounded Model Cards, technical specifications, and docstrings
 ---
 <!-- layout: navigation -->
@@ -172,6 +172,9 @@ Using the attached code file, test file, and pytest terminal output, generate `A
 
 Rule: Do not invent test results or claim a model is "Approved."
 ```
+
+> [!TIP]
+> When an MRM workflow needs bundled Markdown templates, checklists, or validation scripts alongside instructions, package it as an Agent Skill in `.github/skills/mrm-governance/SKILL.md` so Copilot loads the playbook and templates automatically.
 ---
 <!-- layout: navigation -->
 # Chapter 4
@@ -239,7 +242,7 @@ Generate AUDIT_EVIDENCE.md with:
 - Refactored, modularized, and vectorized slow Python analytics scripts
 - Prompted Copilot to add defensive assertions and `pytest` suites
 - Used plan-first prompts, single-step approvals, and VS Code diff reviews
-- Built reusable `.github/prompts/*.prompt.md` templates 
+- Built reusable `.github/prompts/*.prompt.md` templates and `.github/skills/` governance playbooks
 - Generated grounded Model Cards, technical specifications, and docstrings
 ---
 # Quiz 1 of 3

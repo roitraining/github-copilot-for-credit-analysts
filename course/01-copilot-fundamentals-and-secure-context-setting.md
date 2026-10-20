@@ -13,7 +13,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Use Copilot from VS Code, the website, and the Copilot app
 - Write safe prompts and control prompt context
 - Select inline, Chat, or Agent modes when generating code
-- Store team defaults in `.github/copilot-instructions.md` and shared prompt files
+- Store team defaults, slash commands, and domain playbooks in `.github/copilot-instructions.md`, prompt files, and Agent Skills
 ---
 <!-- layout: navigation -->
 # Chapter 1
@@ -43,7 +43,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 <!-- below-columns -->
 
 > [!NOTE]
-> GitHub docs call these places "Surfaces"
+> GitHub docs call these places “Surfaces”
 ---
 # Demo: Using the Copilot Website
 
@@ -379,18 +379,23 @@ Change only the lines that failed. An empty list should return None.
 - State assumptions and wait for approval before editing multiple files.
 ```
 ---
-<!-- layout: 2-column -->
-# Instructions vs a Prompt File
+<!-- layout: 3-column -->
+# Instructions vs Prompt Files vs Agent Skills
 
 ### `.github/copilot-instructions.md`
 - Loaded on every chat in the repo
-- Standing rules for the team
-- You do not choose it each time
+- Standing coding and credit domain rules
+- Keep concise so it never crowds context
 
 ### `.github/prompts/name.prompt.md`
-- One job you repeat, such as “add tests for this function”
-- You run it by typing `/` and the file name
-- It does not run until you ask for it
+- Single Markdown file for one repeatable task
+- Triggered manually by typing `/name` in Chat
+- Ideal for standardized prompts like `/add-tests`
+
+### `.github/skills/name/SKILL.md`
+- Folder bundling `SKILL.md` plus templates or scripts
+- Copilot reads YAML `description` and loads on demand
+- Ideal for multi-step domain playbooks
 ---
 # Example: `.github/prompts/add-tests.prompt.md`
 
@@ -406,6 +411,37 @@ Write pytest unit tests for the selected function or attached #file:
 4. Do not modify the production function unless I explicitly ask.
 ```
 ---
+<!-- layout: 2-column -->
+# What an Agent Skill Bundles (`.github/skills/`)
+
+### Progressive Disclosure
+- Lives in `.github/skills/<skill-name>/SKILL.md` with YAML frontmatter (`name` and `description`)
+- Copilot scans only the lightweight `description` at session start
+- Loads the full `SKILL.md` instructions only when your prompt matches that domain workflow
+
+### Supporting Files in the Folder
+- Reference templates (for example, a standard Model Card skeleton or MRM checklist)
+- Validation scripts or lookup tables that Agent mode can run or inspect
+- Keeps heavy domain playbooks out of `.github/copilot-instructions.md`
+---
+# Example: `.github/skills/credit-data-audit/SKILL.md`
+
+- Package a multi-step domain playbook and its reference files inside `.github/skills/credit-data-audit/SKILL.md`:
+
+```markdown
+--- # YAML frontmatter (loaded at startup)
+name: credit-data-audit
+description: Audits credit datasets for sentinel codes, charged-off denominator leaks, and vintage grain errors. Use when profiling or validating credit tables.
+--- # Full playbook below (loaded on demand)
+
+# Credit Data Audit Skill
+
+1. Verify primary grain is unique on `(account_id, perf_month)`.
+2. Flag sentinel values (`9999`, `-1`, `999`) in `delinquency_days` and `utilization` before computing means.
+3. Confirm `status == 'charged_off'` is excluded from active delinquency rate denominators.
+4. Format the output report using `./audit-report-template.md` in this skill folder.
+```
+---
 # Chapter 1 Hands-On Lab
 
 - Lab: [Effective Prompting and Context Engineering](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-01-effective-prompting-and-context-engineering)
@@ -416,7 +452,7 @@ Write pytest unit tests for the selected function or attached #file:
 - Used Copilot from VS Code, the website, and the Copilot app
 - Wrote safe prompts and controlled prompt context
 - Selected inline, Chat, or Agent modes when generating code
-- Stored team defaults in `.github/copilot-instructions.md` and shared prompt files
+- Stored team defaults, slash commands, and domain playbooks in `.github/copilot-instructions.md`, prompt files, and Agent Skills
 ---
 # Quiz 1 of 3
 
@@ -453,10 +489,10 @@ Write pytest unit tests for the selected function or attached #file:
 
 **Correct: B.** Copilot adds `copilot-instructions.md` to every chat in that repo.
 
-- A prompt file is one job you repeat. It does not run until you ask
+- A prompt file (`.github/prompts/*.prompt.md`) is one job you trigger manually with `/`
+- An Agent Skill (`.github/skills/<name>/SKILL.md`) is a domain playbook loaded on demand when your task matches its `description`
 - Ghost text is an inline suggestion, not a store for team rules
-- One chat does not set the default for the next chat
-- Keep the file to standing rules, such as tests and no live customer data
+- Keep `copilot-instructions.md` focused on standing rules that apply to every chat
 ---
 <!-- layout: 2-column -->
 # Quiz 3 of 3: Discussion
