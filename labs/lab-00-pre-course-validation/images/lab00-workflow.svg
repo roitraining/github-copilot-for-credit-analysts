@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Lab 0 workflow from VS Code folder setup and Copilot Chat check to Python environment and browser rendering">
+  <rect width="1200" height="420" fill="#F4F6FB"/>
+
+  <rect x="30" y="40" width="260" height="340" rx="20" fill="#1E2A6B"/>
+  <text x="160" y="105" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 1</text>
+  <text x="160" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Copilot Chat</text>
+  <text x="160" y="215" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="18">lab0-setup-check</text>
+  <text x="160" y="275" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Open folder in VS Code</text>
+  <text x="160" y="305" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">and verify Copilot sign-in</text>
+
+  <rect x="320" y="40" width="260" height="340" rx="20" fill="#312E81"/>
+  <text x="450" y="105" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 2</text>
+  <text x="450" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Python .venv</text>
+  <text x="450" y="215" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="18">check_env.py</text>
+  <text x="450" y="275" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Create virtual environment</text>
+  <text x="450" y="305" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">and verify course packages</text>
+
+  <rect x="610" y="40" width="260" height="340" rx="20" fill="#4F46E5"/>
+  <text x="740" y="105" text-anchor="middle" fill="#C4B5FD" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TASK 3</text>
+  <text x="740" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Browser Check</text>
+  <text x="740" y="215" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="18">hello.html</text>
+  <text x="740" y="275" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Generate and open a</text>
+  <text x="740" y="305" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="20">Hello World web page</text>
+
+  <rect x="900" y="40" width="270" height="340" rx="20" fill="#0E7490"/>
+  <text x="1035" y="105" text-anchor="middle" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">BONUS TASK 4</text>
+  <text x="1035" y="155" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Ghost + pytest</text>
+  <text x="1035" y="215" text-anchor="middle" fill="#6EE7B7" font-family="Courier New, monospace" font-size="18">test_setup.py</text>
+  <text x="1035" y="275" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="20">Accept Tab ghost text</text>
+  <text x="1035" y="305" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="20">and run a unit test</text>
+</svg>
