@@ -379,7 +379,7 @@ Change only the lines that failed. An empty list should return None.
 - State assumptions and wait for approval before editing multiple files.
 ```
 ---
-<!-- layout: 3-column -->
+<!-- layout: card-layout -->
 # Instructions vs Prompt Files vs Agent Skills
 
 ### `.github/copilot-instructions.md`
@@ -387,12 +387,12 @@ Change only the lines that failed. An empty list should return None.
 - Standing coding and credit domain rules
 - Keep concise so it never crowds context
 
-### `.github/prompts/name.prompt.md`
+### `.github/prompts/ name.prompt.md`
 - Single Markdown file for one repeatable task
 - Triggered manually by typing `/name` in Chat
 - Ideal for standardized prompts like `/add-tests`
 
-### `.github/skills/name/SKILL.md`
+### `.github/skills/name/ SKILL.md`
 - Folder bundling `SKILL.md` plus templates or scripts
 - Copilot reads YAML `description` and loads on demand
 - Ideal for multi-step domain playbooks
