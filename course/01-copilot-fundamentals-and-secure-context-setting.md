@@ -379,7 +379,7 @@ Change only the lines that failed. An empty list should return None.
 - State assumptions and wait for approval before editing multiple files.
 ```
 ---
-<!-- layout: 3-column -->
+<!-- layout: card-layout -->
 # Instructions vs Prompt Files vs Agent Skills
 
 ### `.github/copilot-instructions.md`
@@ -387,12 +387,12 @@ Change only the lines that failed. An empty list should return None.
 - Standing coding and credit domain rules
 - Keep concise so it never crowds context
 
-### `.github/prompts/name.prompt.md`
+### `.github/prompts/ name.prompt.md`
 - Single Markdown file for one repeatable task
 - Triggered manually by typing `/name` in Chat
 - Ideal for standardized prompts like `/add-tests`
 
-### `.github/skills/name/SKILL.md`
+### `.github/skills/name/ SKILL.md`
 - Folder bundling `SKILL.md` plus templates or scripts
 - Copilot reads YAML `description` and loads on demand
 - Ideal for multi-step domain playbooks
@@ -415,7 +415,7 @@ Write pytest unit tests for the selected function or attached #file:
 # What an Agent Skill Bundles (`.github/skills/`)
 
 ### Progressive Disclosure
-- Lives in `.github/skills/<skill-name>/SKILL.md` with YAML frontmatter (`name` and `description`)
+- Lives in `.github/skills/<skill-name>/SKILL.md` with a YAML header (`name` and `description`) at the top of the file
 - Copilot scans only the lightweight `description` at session start
 - Loads the full `SKILL.md` instructions only when your prompt matches that domain workflow
 
@@ -429,7 +429,7 @@ Write pytest unit tests for the selected function or attached #file:
 - Package a multi-step domain playbook and its reference files inside `.github/skills/credit-data-audit/SKILL.md`:
 
 ```markdown
---- # YAML frontmatter (loaded at startup)
+--- # YAML header at top of file (loaded at startup)
 name: credit-data-audit
 description: Audits credit datasets for sentinel codes, charged-off denominator leaks, and vintage grain errors. Use when profiling or validating credit tables.
 --- # Full playbook below (loaded on demand)
