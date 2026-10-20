@@ -14,12 +14,6 @@ In this short pre-course validation lab, you confirm that your computer is ready
 - Create a Python virtual environment (`.venv`), install the course packages, and run a Python check script.
 - Generate a `"Hello World"` HTML page with Copilot and open it in your web browser.
 
-## Scenario
-
-During the workshop labs, you will use GitHub Copilot in Visual Studio Code to write Python credit analytics scripts, run unit tests inside a virtual environment, and open interactive HTML dashboards in your browser. Running this quick check before class ensures that your VS Code installation, GitHub Copilot license, Python environment, and browser workflow are working smoothly.
-
-![Pre-course validation workflow overview](images/lab00-workflow.svg)
-
 ## Lab Instructions
 
 ### Task 1: Create a temporary folder, open VS Code, and test GitHub Copilot Chat
