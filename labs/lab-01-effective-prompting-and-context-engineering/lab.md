@@ -30,7 +30,7 @@ In this task, you open a fresh folder in VS Code, create `.github/copilot-instru
 
 2. Create a new empty folder named `lab1-copilot-basics` anywhere on your computer, and open it via **File** > **Open Folder**.
 
-3. In the VS Code Explorer pane, click the **New File** icon, type `.github/copilot-instructions.md` (including the slash), and press `ENTER` — VS Code automatically creates the `.github` folder and the file on both macOS and Windows. (Alternatively, create the folder from the terminal with `mkdir -p .github` on macOS or `mkdir .github -Force` in Windows PowerShell.)
+3. In the VS Code Explorer pane, click the **New File** icon, type `.github/copilot-instructions.md` (including the slash), and press ENTER — VS Code automatically creates the `.github` folder and the file on both macOS and Windows. (Alternatively, create the folder from the terminal with `mkdir -p .github` on macOS or `mkdir .github -Force` in Windows PowerShell.)
 
 4. Paste the following team instructions into `.github/copilot-instructions.md`:
 
@@ -87,14 +87,14 @@ def assign_delinquency_bucket(dpd: int) -> str:
     # Return 'Error' if dpd < 0 or dpd > 365, 'Current' if dpd == 0, '1-29 DPD' if 1 <= dpd <= 29, and '30+ DPD' if dpd >= 30
 ```
 
-3. Place your cursor on the blank line below the comment inside `calc_utilization`, press `ENTER` or add 4 spaces of indentation, and wait a moment for Copilot’s gray ghost text to appear.
+3. Place your cursor on the blank line below the comment inside `calc_utilization`, press ENTER or add 4 spaces of indentation, and wait a moment for Copilot’s gray ghost text to appear.
 
 4. Read the suggested code and press `TAB` to accept it.
 
 5. Repeat the same step inside `assign_delinquency_bucket`: place your cursor below the comment, wait for the gray ghost text, read it, and press `TAB` to accept it.
 
 > [!TIP]
-> If you only want to accept the first word or phrase of an inline suggestion, press `Cmd+Right` on macOS or `CTRL+Right` on Windows.
+> If you only want to accept the first word or phrase of an inline suggestion, press CMD+Right on macOS or CTRL+Right on Windows.
 
 6. Now paste the following deliberately flawed function at the bottom of `credit_rules.py` and save the file:
 
@@ -124,7 +124,7 @@ def compute_30dpd_rate(df: pd.DataFrame) -> float:
 
 In this task, you create a reusable prompt file so anyone on the team can generate standardized `pytest` unit tests by typing `/add-tests` in Copilot Chat.
 
-1. In the VS Code Explorer pane, click the blank area at the bottom of the file list (to deselect any open folder), click **New File**, type `.github/prompts/add-tests.prompt.md`, and press `ENTER` — VS Code creates the `prompts` subfolder and file automatically. (Or in the terminal, run `mkdir -p .github/prompts` on macOS or `mkdir .github/prompts -Force` in Windows PowerShell.)
+1. In the VS Code Explorer pane, click the blank area at the bottom of the file list (to deselect any open folder), click **New File**, type `.github/prompts/add-tests.prompt.md`, and press ENTER — VS Code creates the `prompts` subfolder and file automatically. (Or in the terminal, run `mkdir -p .github/prompts` on macOS or `mkdir .github/prompts -Force` in Windows PowerShell.)
 
 2. Paste the following reusable prompt template into `.github/prompts/add-tests.prompt.md`:
 
@@ -171,7 +171,7 @@ python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pytest pa
 
 In this task, you use Copilot Agent mode to generate a synthetic 100-row credit dataset and a single-file browser application (`simulator.html`) that lets analysts test underwriting cutoffs with live sliders.
 
-1. In Copilot Chat (`</> Agent` in **Interactive** mode), paste the following prompt and press `ENTER`:
+1. In Copilot Chat (`</> Agent` in **Interactive** mode), paste the following prompt and press ENTER:
 
 ```text
 Create two files in this workspace:
@@ -217,11 +217,11 @@ Create two files in this workspace:
 
 ### Bonus Task 5: Add a declined-accounts CSV export with Inline Chat
 
-Use Inline Chat (`Cmd+I` on macOS or `CTRL+I` on Windows) to add a new feature to `simulator.html` without regenerating the whole page.
+Use Inline Chat (CMD+I on macOS or CTRL+I on Windows) to add a new feature to `simulator.html` without regenerating the whole page.
 
 1. Open `simulator.html` in the VS Code editor and highlight the controls or summary table section.
 
-2. Press `Cmd+I` (macOS) or `CTRL+I` (Windows) - or right-click and select **Copilot** > **Editor Inline Chat** - and ask Copilot to add a **Download Declined Accounts CSV** button that exports the currently declined accounts (along with a `decline_reason` column) as a `.csv` file.
+2. Press CMD+I (macOS) or CTRL+I (Windows) - or right-click and select **Copilot** > **Editor Inline Chat** - and ask Copilot to add a **Download Declined Accounts CSV** button that exports the currently declined accounts (along with a `decline_reason` column) as a `.csv` file.
 
 3. Accept the inline diff, refresh `simulator.html` in your browser, upload `sample_accounts.csv`, and test the new download button.
 
