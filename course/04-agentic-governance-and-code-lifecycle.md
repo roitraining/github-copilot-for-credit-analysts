@@ -36,7 +36,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 # Refactoring and Optimizing with Inline Chat
 
 ### Splitting a Long Function
-- Highlight the 80-line function in VS Code and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+- Highlight the 80-line function in VS Code and press CMD+I (Mac) or CTRL+I (Windows)
 - Prompt: “Split this into `filter_active_accounts(df)` and `compute_band_rates(df)` with type hints. Do not change the math or column names.”
 - Review the side-by-side diff in the editor before clicking Accept
 
@@ -97,7 +97,7 @@ def calc_delinquency(df):
     return pd.Series(rates, name="dlq_30_rate")
 ```
 
-2. Select `calc_delinquency`, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and run this prompt:
+2. Select `calc_delinquency`, press CMD+I (Mac) or CTRL+I (Windows), and run this prompt:
 
 ```text
 1. Replace the iterrows() loop with vectorized pandas groupby operations.
@@ -207,7 +207,7 @@ Do not invent any metric, date, or policy rule not present in the attached files
 ---
 # Using `/doc` and `/explain` to Document Complex Scripts
 
-- Highlight any function and press `Cmd+I` (Mac) or `Ctrl+I` (Windows), then type `/doc` to generate a structured docstring in place
+- Highlight any function and press CMD+I (Mac) or CTRL+I (Windows), then type `/doc` to generate a structured docstring in place
 - Specify your team’s docstring format (`NumPy` or `Google` style) and require grain, exclusions, and raised exceptions
 - Add the guardrail “Add docstrings and comments only; do not modify any executable code” so Copilot never alters a formula while documenting it
 
@@ -215,7 +215,7 @@ Do not invent any metric, date, or policy rule not present in the attached files
 ---
 # Demo: Document and Package Code for Review
 
-1. In VS Code, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and run:
+1. In VS Code, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press CMD+I (Mac) or CTRL+I (Windows), and run:
 
 ```text
 /doc Add a NumPy-style docstring stating required columns, the charged_off exclusion rule, output Series format, and all ValueError conditions. Do not change any executable lines.
@@ -287,7 +287,7 @@ D. “Remove all `ValueError` checks so the function is shorter.”
 
 - Explicitly telling Copilot not to touch executable lines prevents silent formula changes during a documentation pass
 - Always inspect the inline diff in VS Code to verify that only docstring or comment lines were added
-- Re-run `pytest` after accepting the docstring to be 100% certain runtime behavior is unchanged
+- Rerun `pytest` after accepting the docstring to be 100% certain runtime behavior is unchanged
 ---
 <!-- layout: 2-column -->
 # Quiz 3 of 3: Discussion

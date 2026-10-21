@@ -12,7 +12,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 
 - Use Copilot from VS Code, the website, and the Copilot app
 - Write safe prompts and control prompt context
-- Select inline, Chat, or Agent modes when generating code
+- Select Inline, Chat, or Agent modes when generating code
 - Store team defaults, slash commands, and domain playbooks in `.github/copilot-instructions.md`, prompt files, and Agent Skills
 ---
 <!-- layout: navigation -->
@@ -106,9 +106,9 @@ stats.html
 # Inside the Copilot Chat Box in VS Code
 
 - **`+` (Add Context)**: Attach `#file` references, folders, or symbols to your prompt
-- **`</> Agent` (`Shift+Cmd+I` / `Ctrl+Shift+I`)**: Unified workspace agent that can answer questions, edit files, and run terminal commands
+- **`</> Agent` (SHIFT+CMD+I / CTRL+SHIFT+I)**: Unified workspace agent that can answer questions, edit files, and run terminal commands
 - **`Auto | Balance`**: Selects the underlying model (or lets Copilot pick automatically)
-- **Bottom toolbar icons**: Switch between the **Harness** (`Copilot`), **Agent Mode** (speech bubble), and live session tools
+- **Bottom toolbar icons**: Switch between the **Harness** (Copilot), **Agent Mode** (speech bubble), and live session tools
 
 ![Copilot Chat input controls in VS Code](images/ch01-copilot-chat-box.png)
 ---
@@ -174,8 +174,8 @@ def fizz_buzz(n):
 - Read the gray text before you press a key
    - Press TAB only when you understand it and it is what you meant to write
    - Press ESC when it is wrong, or when you do not understand it
-- If only the start is right, accept that part. On a Mac, press `Cmd+Right`; on Windows, press `Ctrl+Right`
-- To ask for an edit right inside the file, select the lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows) to open Inline Chat
+- If only the start is right, accept that part. On a Mac, press CMD+Right; on Windows, press CTRL+Right
+- To ask for an edit right inside the file, select the lines and press CMD+I (Mac) or CTRL+I (Windows) to open Inline Chat
 
 ![fizz buzz 1](images/fizz-buzz-1.png)
 ---
@@ -194,13 +194,13 @@ def fizz_buzz(n):
 <!-- layout: 3-column -->
 # Three Slash Commands Worth Memorizing
 
-### /explain
+### `/explain`
 - Select a function and ask what it assumes, including how it treats blank values.
 
-### /tests
+### `/tests`
 - Name the cases, including an empty input, a missing column, and which accounts count.
 
-### /fix
+### `/fix`
 - Paste the error and ask it to change only the lines that failed.
 
 
@@ -226,7 +226,7 @@ def fizz_buzz(n):
 
 - You do not have to memorize every slash command
 - Type `/` in the Copilot Chat input box to open the autocomplete menu with each command and its description
-- Keep typing to filter the list, or use the Up and Down arrow keys and press `TAB` or `ENTER` to select one
+- Keep typing to filter the list, or use the Up and Down arrow keys and press TAB or ENTER to select one
 - Custom team prompt files (in `.github/prompts/`) also appear right in this `/` menu
 
 ![Slash commands autocomplete menu in VS Code Copilot Chat](images/ch01-slash-commands-menu.png)
@@ -344,7 +344,7 @@ Change only the lines that failed. An empty list should return None.
 - Broad workspace context can lead Copilot to touch files you did not name. Name the exact files with `#file` when you can.
 ---
 <!-- layout: 2-column -->
-# What copilot-instructions.md Is For
+# What `copilot-instructions.md` Is For
 
 ### The file
 - It lives at `.github/copilot-instructions.md`
@@ -486,7 +486,7 @@ A. In a prompt file that someone runs with `/`
 
 B. In `.github/copilot-instructions.md`
 
-C. In the ghost text, so Tab inserts the rules
+C. In the ghost text, so TAB inserts the rules
 
 D. In one chat. Later chats will remember it
 ---

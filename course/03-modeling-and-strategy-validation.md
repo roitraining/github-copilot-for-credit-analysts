@@ -52,11 +52,11 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 - Best for scaffolding a new `Pipeline` and `ColumnTransformer` from `#file schema.md`
 - Generates the full training script and file structure in one pass
 
-### Inline Chat (`Cmd+I` / `Ctrl+I`)
-- Highlight the `Pipeline` block and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+### Inline Chat (CMD+I / CTRL+I)
+- Highlight the `Pipeline` block and press CMD+I (Mac) or CTRL+I (Windows)
 - Ask to add a `FunctionTransformer` step or swap `LogisticRegression` for `HistGradientBoostingClassifier`
 
-### Ghost Text (`Tab`)
+### Ghost Text (TAB)
 - Write a comment above a dictionary of hyperparameters or a custom feature formula
 - Press `Tab` to accept the boilerplate lines without leaving the editor
 ---
@@ -212,7 +212,7 @@ print("AUC:", roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1]))
 - Gives you a 300-line diff that is impossible to verify against the notebook
 
 ### The Staged Copilot Workflow
-- **Step 1**: Attach `#file notebook.ipynb` in Chat (or press `Cmd+I` / `Ctrl+I` inside an individual notebook cell) and ask for a module extraction plan (no code yet)
+- **Step 1**: Attach `#file notebook.ipynb` in Chat (or press CMD+I / CTRL+I inside an individual notebook cell) and ask for a module extraction plan (no code yet)
 - **Step 2**: Select one logical cell group (such as feature prep) and prompt Chat to extract it into `src/features.py` with type hints
 - **Step 3**: Run `/tests` on `src/features.py` and verify output parity before extracting the next cell group
 ---

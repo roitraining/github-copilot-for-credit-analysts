@@ -35,13 +35,13 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 <!-- layout: 3-column -->
 # Three Ways to Generate Profiling Code
 
-### Ghost Text (Tab)
+### Ghost Text `(TAB)`
 - Write a descriptive comment above a line in your `.py` file
 - Best for one check, such as a single `groupby` or null count
 - Fastest when the DataFrame is already in the file
 
-### Inline Chat (`Cmd+I` / `Ctrl+I`)
-- Select existing DataFrame lines and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+### Inline Chat (`CMD+I` / `CTRL+I`)
+- Select existing DataFrame lines and press `CMD+I` (Mac) or `CTRL+I` (Windows)
 - Ask Copilot to add a column check or summary right in the editor
 - Shows an inline diff you can Accept or Discard
 
@@ -66,7 +66,7 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 # Iterating on `groupby` Logic with Inline Chat
 
 - Start with a working function, then use Inline Chat to add segmentation without rewriting the file
-- Highlight the function in VS Code, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and state the exact grouping columns and metrics
+- Highlight the function in VS Code, press `CMD+I` (Mac) or `CTRL+I` (Windows), and state the exact grouping columns and metrics
 
 ```text
 Modify this function to group by risk_band and vintage_quarter.
@@ -135,7 +135,7 @@ Using #file schema.md, create two files:
 # Use Inline Chat to Tweak a Chart in Place
 
 - Pasting a whole script back into the Chat sidebar just to rotate labels wastes time and can alter your data prep
-- Highlight only the plotting lines in the editor and press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
+- Highlight only the plotting lines in the editor and press CMD+I (Mac) or CTRL+I (Windows)
 - Ask for the exact visual adjustment and review the highlighted diff before pressing Accept
 
 ![Inline Chat inside the editor for chart edits](images/ch02-inline-chat-chart.svg)
@@ -148,7 +148,7 @@ Using #file schema.md, create two files:
 - Combining multiple charts into a new multi-panel `plt.subplots(1, 2)` layout
 - Asking `/explain` what a complex `matplotlib` formatting block does
 
-### Use Inline Chat (`Cmd+I` / `Ctrl+I`) When
+### Use Inline Chat (CMD+I / CTRL+I) When
 - Rotating overlapping x-axis date labels by 45 degrees
 - Adding a horizontal threshold line or data callout to an existing axis
 - Switching a color palette or moving a legend outside the plot box
@@ -178,7 +178,7 @@ Save the figure to portfolio_summary.png and close the plot.
 ```
 
 3. Run `python plot_portfolio.py` and open `portfolio_summary.png` in VS Code to inspect the chart.
-4. Open `plot_portfolio.py`, select the right-panel `boxplot` code, press `Cmd+I` (Mac) or `Ctrl+I` (Windows), and type:
+4. Open `plot_portfolio.py`, select the right-panel `boxplot` code, press CMD+I (Mac) or CTRL+I (Windows), and type:
 
 ```text
 Add a horizontal red dashed line at y=0.80 labeled "High Utilization Threshold" and add data labels on top of the left panel bars.
@@ -258,7 +258,7 @@ Ensure null dpd values produce dlq_flag = 0 (matching SAS where missing is less 
 - Inline ghost text is often faster than the Chat 
 - Start with a function signature that includes type hints so Copilot knows you are working on
 - Write a numbered comment for each step in a function 
-- Press `Enter` after each comment, read the gray ghost text, and press `Tab` to accept
+- Press ENTER after each comment, read the gray ghost text, and press TAB to accept
 
 ![Comment-driven ghost text completion in VS Code](images/ch02-comment-ghost-text.png)
 ---
@@ -321,7 +321,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     return out
 ```
 
-2. Place your cursor on the blank line below the first comment, wait for Copilot’s gray ghost text, read it, and press `Tab` to accept.
+2. Place your cursor on the blank line below the first comment, wait for Copilot’s gray ghost text, read it, and press TAB to accept.
 3. Repeat for the second and third comments.
 4. Select the entire `engineer_features` function, open Copilot Chat, and run `/tests` to generate a quick check for `available_credit` when `balance` exceeds `credit_limit`.
 ---
@@ -366,7 +366,7 @@ D. Turn off Copilot Chat and only use inline ghost text
 
 A. Ask the Chat sidebar to rewrite the entire 60-line file from scratch
 
-B. Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes
+B. Select just the plotting lines in the editor, press CMD+I or CTL+I for Inline Chat, and ask for those two changes
 
 C. Delete the plotting code and wait for ghost text to guess the new layout
 
@@ -376,7 +376,7 @@ D. Copy the script into the Copilot mobile app
 
 **You already have a working 60-line Python script that loads data and builds a `seaborn` chart. You only want to rotate the x-axis labels 45 degrees and add a horizontal reference line. Which Copilot workflow is best?**
 
-**Correct: B.** Select just the plotting lines in the editor, press `Cmd+I` or `Ctrl+I` for Inline Chat, and ask for those two changes.
+**Correct: B.** Select just the plotting lines in the editor, press CMD+I or CTRL+I for Inline Chat, and ask for those two changes.
 
 - Inline Chat scopes the edit to your highlighted lines and shows a clean in-place diff
 - Data loading and filtering above the selection stay untouched
