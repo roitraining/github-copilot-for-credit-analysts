@@ -107,7 +107,7 @@ Using #file schema.md, create profile_portfolio.py that loads portfolio_history.
 
 ### Task 3: Generate a 2x2 `seaborn` diagnostic figure and refine it with Inline Chat
 
-In this task, you prompt Copilot Chat to generate a 4-panel chart (`diagnostics.png`), then use Inline Chat (`Cmd+I` or `CTRL+I`) inside the editor to add a threshold reference line, rotate labels, and annotate the Q4 spike without rewriting the data preparation code.
+In this task, you prompt Copilot Chat to generate a 4-panel chart (`diagnostics.png`), then use Inline Chat (CMD+I or CTRL+I) inside the editor to add a threshold reference line, rotate labels, and annotate the Q4 spike without rewriting the data preparation code.
 
 1. In Copilot Chat, attach `#file schema.md` and send this prompt:
 
@@ -135,7 +135,7 @@ Save the figure to diagnostics.png with dpi=150 and close the plot.
 .\.venv\Scripts\python plot_diagnostics.py
 ```
 
-3. Open `plot_diagnostics.py` in the editor, highlight only the plotting code for the top-left and top-right subplots (`ax[0, 0]` and `ax[0, 1]`), and press `Cmd+I` (macOS) or `CTRL+I` (Windows) to open Inline Chat.
+3. Open `plot_diagnostics.py` in the editor, highlight only the plotting code for the top-left and top-right subplots (`ax[0, 0]` and `ax[0, 1]`), and press CMD+I (macOS) or CTRL+I (Windows) to open Inline Chat.
 
 4. Enter this surgical refinement prompt in Inline Chat:
 
@@ -233,7 +233,7 @@ def build_roll_flags(df: pd.DataFrame) -> pd.DataFrame:
     return out
 ```
 
-7. Place your cursor under each numbered comment, wait for Copilot’s gray ghost text, and press `Tab` to complete each line. Save `sas_migrated.py` (`Cmd+S` on macOS or `CTRL+S` on Windows).
+7. Place your cursor under each numbered comment, wait for Copilot’s gray ghost text, and press `Tab` to complete each line. Save `sas_migrated.py` (CMD+S on macOS or CTRL+S on Windows).
 
 ![Comment-driven ghost text completion in VS Code](images/comment-ghost-text.png)
 
