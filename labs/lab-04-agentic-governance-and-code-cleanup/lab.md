@@ -22,9 +22,9 @@ You inherited a single-file credit portfolio monitoring script (`legacy_monitori
 
 ## Lab Instructions
 
-### Task 1: Generate a messy legacy script and refactor it with Inline Chat (`Cmd+I` or `Ctrl+I`)
+### Task 1: Generate a messy legacy script and refactor it with Inline Chat (CMD+I or CTRL+I)
 
-In this task, you open an empty folder in VS Code, create a loop-heavy legacy monitoring script, and use Inline Chat (`Cmd+I` or `Ctrl+I`) to vectorize the calculation and add four defensive `ValueError` guards.
+In this task, you open an empty folder in VS Code, create a loop-heavy legacy monitoring script, and use Inline Chat (CMD+I or CTRL+I) to vectorize the calculation and add four defensive `ValueError` guards.
 
 1. Open Visual Studio Code.
 
@@ -99,7 +99,7 @@ python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pandas numpy
 python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pandas numpy pytest; .\.venv\Scripts\python legacy_monitoring.py
 ```
 
-5. In the editor, highlight only the `compute_monthly_rollup` function and press `Cmd+I` (macOS) or `Ctrl+I` (Windows) to open Inline Chat.
+5. In the editor, highlight only the `compute_monthly_rollup` function and press CMD+I (macOS) or CTRL+I (Windows) to open Inline Chat.
 
 6. Paste the following prompt into Inline Chat:
 
@@ -183,7 +183,7 @@ Execute Step 2: create rollup.py containing make_monitoring_sample() and compute
 
 In this task, you use `/doc` in Inline Chat to document `rollup.py` and `validators.py` without changing runtime behavior, then build a comprehensive `pytest` suite and capture the test run output for MRM audit evidence.
 
-1. Open `rollup.py` in the editor, select `compute_monthly_rollup`, press `Cmd+I` (macOS) or `Ctrl+I` (Windows), and run:
+1. Open `rollup.py` in the editor, select `compute_monthly_rollup`, press CMD+I (macOS) or CTRL+I (Windows), and run:
 
 ```text
 /doc Add a NumPy-style docstring documenting the required input columns, the (perf_month, risk_band) output grain, the charged_off and dpd > 365 exclusion rule, and all ValueError conditions. Do not modify any executable code.
@@ -223,7 +223,7 @@ Using #file rollup.py and #file validators.py, create and save test_rollup.py us
 
 In this task, you create a reusable prompt file at `.github/prompts/mrm-evidence.prompt.md`, bundle a domain playbook and template inside an Agent Skill at `.github/skills/mrm-governance/`, and generate a Model Card, audit log, and interactive HTML Governance Portal.
 
-1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press `Enter` (VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows).
+1. In the VS Code Explorer pane, click the blank space at the bottom of the file list, click **New File**, type `.github/prompts/mrm-evidence.prompt.md`, and press ENTER (VS Code creates the `.github/prompts` folder and file automatically on both macOS and Windows).
 
 2. Paste the following reusable prompt template into `.github/prompts/mrm-evidence.prompt.md`:
 
@@ -245,7 +245,7 @@ Rule: Cite only facts and test results present in the specified files. Do not in
 /mrm-evidence rollup.py validators.py test_rollup.py pytest_run.txt
 ```
 
-4. Next, package a multi-file Agent Skill so Copilot automatically follows your team’s Model Card structure whenever someone asks for MRM governance deliverables. In the VS Code Explorer pane, click **New File**, type `.github/skills/mrm-governance/model-card-template.md`, press `Enter`, and paste this reference template:
+4. Next, package a multi-file Agent Skill so Copilot automatically follows your team’s Model Card structure whenever someone asks for MRM governance deliverables. In the VS Code Explorer pane, click **New File**, type `.github/skills/mrm-governance/model-card-template.md`, press ENTER, and paste this reference template:
 
 ```markdown
 # Model Card: {{MODULE_NAME}}
