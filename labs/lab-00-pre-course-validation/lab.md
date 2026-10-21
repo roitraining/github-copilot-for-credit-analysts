@@ -28,16 +28,16 @@ In this task, you create an empty folder on your computer, open it in Visual Stu
 
 4. If Visual Studio Code displays a dialog asking **Do you trust the authors of the files in this folder?**, click **Yes, I trust the authors**.
 
-5. Open the **Copilot Chat** panel by clicking the **Copilot icon** near the top center of the VS Code title bar (next to the search bar), or press `Ctrl+Alt+I` on Windows / `Ctrl+Cmd+I` on macOS.
+5. Open the **Copilot Chat** panel by clicking the **Copilot icon** near the top center of the VS Code title bar (next to the search bar), or press CTRL+ALT+I on Windows / CTRL+CMD+I on macOS.
 
 6. Look at the bottom of the Copilot Chat input box and confirm that `</> Agent` is selected.
 
 ![Copilot Chat input controls in VS Code](images/copilot-chat-box.png)
 
 > [!IMPORTANT]
-> If you see a **Sign in to use Copilot** button instead of the chat box, click it and sign in with the GitHub account that has your active GitHub Copilot license. If the Copilot icon is missing altogether, open the **Extensions** view (`Ctrl+Shift+X` on Windows or `Cmd+Shift+X` on macOS), search for `GitHub Copilot`, and click **Install**.
+> If you see a **Sign in to use Copilot** button instead of the chat box, click it and sign in with the GitHub account that has your active GitHub Copilot license. If the Copilot icon is missing altogether, open the **Extensions** view (CTRL+SHIFT+X on Windows or CMD+SHIFT+X on macOS), search for `GitHub Copilot`, and click **Install**.
 
-7. Paste the following prompt into the Copilot Chat input box and press `Enter`:
+7. Paste the following prompt into the Copilot Chat input box and press ENTER:
 
 ```text
 Reply with "GitHub Copilot is connected and ready!" and tell me in one sentence how you can help a credit analyst.
@@ -49,7 +49,7 @@ Reply with "GitHub Copilot is connected and ready!" and tell me in one sentence 
 
 In this task, you ask Copilot to create a small Python verification script (`check_env.py`), create a local Python virtual environment (`.venv`) in the VS Code terminal, install the Python libraries used in the course, and run the script.
 
-1. In the Copilot Chat input box (`</> Agent` mode), paste the following prompt and press `Enter`:
+1. In the Copilot Chat input box (`</> Agent` mode), paste the following prompt and press ENTER:
 
 ```text
 Create a file named check_env.py in this folder that:
@@ -60,9 +60,9 @@ Create a file named check_env.py in this folder that:
 
 2. If Copilot asks for permission to create or save `check_env.py`, click **Keep** (or **Accept** / **Allow**). Verify that `check_env.py` now appears in the VS Code **Explorer** pane on the left.
 
-3. Open the integrated terminal inside VS Code by clicking **Terminal** > **New Terminal** in the top menu bar (or press `` Ctrl+` `` on Windows and macOS).
+3. Open the integrated terminal inside VS Code by clicking **Terminal** > **New Terminal** in the top menu bar (or press CTRL+ on Windows and macOS).
 
-4. Copy and paste the command below for your operating system into the VS Code terminal and press `Enter` to create a `.venv` virtual environment, install the course packages, and run `check_env.py`:
+4. Copy and paste the command below for your operating system into the VS Code terminal and press ENTER to create a `.venv` virtual environment, install the course packages, and run `check_env.py`:
 
 **macOS / Linux:**
 
@@ -89,7 +89,7 @@ SUCCESS: Python environment is ready for the course labs!
 
 In this task, you ask Copilot to generate a self-contained `"Hello World"` HTML page (`hello.html`) and open it in your web browser, which is the exact workflow you will use for the interactive credit simulators and dashboards in Labs 1 through 4.
 
-1. In the Copilot Chat input box (`</> Agent` mode), paste the following prompt and press `Enter`:
+1. In the Copilot Chat input box (`</> Agent` mode), paste the following prompt and press ENTER:
 
 ```text
 Create a single-file web page named hello.html in this folder (no external servers or libraries needed) that displays:
@@ -117,9 +117,9 @@ def add_balances(bal_a: float, bal_b: float) -> float:
     # Return the sum of bal_a and bal_b rounded to 2 decimal places
 ```
 
-2. Place your cursor at the end of line 2, press `Enter`, wait a moment for Copilot’s gray inline ghost text to appear, and press `Tab` to accept the code suggestion.
+2. Place your cursor at the end of line 2, press ENTER, wait a moment for Copilot’s gray inline ghost text to appear, and press `Tab` to accept the code suggestion.
 
-3. Add a simple `pytest` unit test at the bottom of `test_setup.py` and save the file (`Cmd+S` on macOS or `Ctrl+S` on Windows):
+3. Add a simple `pytest` unit test at the bottom of `test_setup.py` and save the file (CMD+S on macOS or CTRL+S on Windows):
 
 ```python
 def test_add_balances():
