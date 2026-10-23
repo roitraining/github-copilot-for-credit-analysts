@@ -67,9 +67,11 @@ GitHub Copilot for Credit Analytics and Risk Modeling
 ```text
 /tests #file src/monitoring/risk_rollup.py
 Create tests/test_risk_rollup.py using pytest:
-1. Add a @pytest.fixture with 8 synthetic account rows covering Prime, Near-Prime, and Subprime, including 1 charged_off row and 1 null balance.
+1. Add a @pytest.fixture with 8 synthetic account rows covering Prime, Near-Prime, 
+and Subprime, including 1 charged_off row and 1 null balance.
 2. Use @pytest.mark.parametrize to test normal rate calculations across risk bands.
-3. Use pytest.raises(ValueError) to test missing required columns, duplicate (account_id, perf_month) keys, an all-charged-off denominator, and a rate outside [0, 1].
+3. Use pytest.raises(ValueError) to test missing required columns, duplicate keys, 
+and a rate outside [0, 1].
 ```
 
 > [!TIP]

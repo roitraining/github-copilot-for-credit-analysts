@@ -134,8 +134,8 @@ stats.html
 # Prevent Data Leakage in Prompts
 
 - A prompt leaves your computer. Copilot sends it to the model and stores it with the chat.
-- Do not paste names, account IDs, Social Security numbers, or real customer rows.
-- Do paste column names, a few rows you invented, and the cutoff as a parameter.
+- __Do not__ paste names, account IDs, Social Security numbers, or real customer rows.
+- __Do__ paste column names, a few rows you invented, and the cutoff as a parameter.
 - If you would not email it outside the company, do not paste it into Copilot.
 
 ![Personal records stay out of the prompt. A made-up sample may go in.](images/ch01-prompt-data-leakage.jpg)

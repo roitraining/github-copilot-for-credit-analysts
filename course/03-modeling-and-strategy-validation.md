@@ -230,7 +230,7 @@ print("AUC:", roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1]))
 ```text
 Using #file metrics_output.json, #file decile_table.csv, and #file train_baseline.py,
 create validation_summary.md with these sections:
-1. Model Overview (target column, train/test split dates, and feature list read from train_baseline.py)
+1. Model Overview (target column, train/test split dates, and feature list)
 2. Holdout Metrics (exact ROC AUC and KS from metrics_output.json)
 3. Decile Capture Table (formatted as a Markdown table from decile_table.csv)
 4. Open Questions / TODOs (leave threshold selection and business sign-off as TODO)
@@ -239,7 +239,7 @@ Rule: Do not invent any metric values. If a metric is not in metrics_output.json
 ```
 
 > [!WARNING]
-> Always compare every number in the generated Markdown table against `metrics_output.json` and `decile_table.csv` before sharing the file.
+> Always compare every number in a generated summary with its actual source data.
 ---
 # Demo: Generate and Summarize Validation Output
 
