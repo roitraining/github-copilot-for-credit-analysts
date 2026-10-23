@@ -6,19 +6,40 @@
 
 ## Overview
 
-In this short pre-course validation lab, you confirm that your computer is ready for all hands-on labs in **GitHub Copilot for Credit Analytics and Risk Modeling**. You create a temporary workspace folder, open it in Visual Studio Code, verify your GitHub Copilot license and Chat connection, create a Python virtual environment with the course packages, and open a Copilot-generated `"Hello World"` web page in your browser.
+In this lab, you confirm that Python, Visual Studio Code, GitHub Copilot, and a browser are ready for the course labs.
 
-### You learn how to:
-- Create a workspace folder and open it in Visual Studio Code.
-- Verify your GitHub Copilot sign-in and prompt Copilot Chat in `</> Agent` mode.
-- Create a Python virtual environment (`.venv`), install the course packages, and run a Python check script.
-- Generate a `"Hello World"` HTML page with Copilot and open it in your web browser.
+### You will verify the following prerequisites:
+- Python 3.10 or newer is installed and available in the terminal.
+- Visual Studio Code is installed and Copilot Chat responds.
+- A virtual environment can be created to run a Python script.
 
 ## Lab Instructions
 
-### Task 1: Create a temporary folder, open VS Code, and test GitHub Copilot Chat
+### Task 1: Verify Python is installed
 
-In this task, you create an empty folder on your computer, open it in Visual Studio Code, and confirm that GitHub Copilot Chat responds to a simple prompt.
+1. Open the **Terminal** app on macOS, or **PowerShell** on Windows.
+
+2. Run the command for your operating system:
+
+**macOS / Linux:**
+
+```bash
+python3 --version
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python --version
+```
+
+3. Continue to Task 2 if the output is `Python 3.10` or newer.
+
+4. If the command is not recognized, or the version is older than 3.10, download and install Python 3.10 or newer from [https://www.python.org/downloads/](https://www.python.org/downloads/). On Windows, check **Add python.exe to PATH** in the installer.
+
+5. Close the terminal, open a new one, and run the version command again. Continue only after it prints `Python 3.10` or newer.
+
+### Task 2: Confirm Visual Studio Code is installed and Copilot Chat responds
 
 1. Create a new empty folder named `lab0-setup-check` on your Desktop or in your Documents folder.
 
@@ -45,9 +66,7 @@ Reply with "GitHub Copilot is connected and ready!" and tell me in one sentence 
 
 8. Confirm that Copilot replies in the chat panel with the confirmation message.
 
-### Task 2: Create a Python virtual environment and run a setup check script
-
-In this task, you ask Copilot to create a small Python verification script (`check_env.py`), create a local Python virtual environment (`.venv`) in the VS Code terminal, install the Python libraries used in the course, and run the script.
+### Task 3: Create a Python virtual environment and run a setup check script
 
 1. In the Copilot Chat input box (`</> Agent` mode), paste the following prompt and press ENTER:
 
@@ -60,7 +79,7 @@ Create a file named check_env.py in this folder that:
 
 2. If Copilot asks for permission to create or save `check_env.py`, click **Keep** (or **Accept** / **Allow**). Verify that `check_env.py` now appears in the VS Code **Explorer** pane on the left.
 
-3. Open the integrated terminal inside VS Code by clicking **Terminal** > **New Terminal** in the top menu bar (or press CTRL+ on Windows and macOS).
+3. Open the integrated terminal inside VS Code by clicking **Terminal** > **New Terminal**.
 
 4. Copy and paste the command below for your operating system into the VS Code terminal and press ENTER to create a `.venv` virtual environment, install the course packages, and run `check_env.py`:
 
@@ -83,11 +102,9 @@ SUCCESS: Python environment is ready for the course labs!
 ```
 
 > [!WARNING]
-> If the terminal reports that `python3` or `python` is not found, install Python 3.10 or newer from [https://www.python.org/downloads/](https://www.python.org/downloads/) (on Windows, make sure to check **Add python.exe to PATH** during installation), restart VS Code, and run Step 4 again.
+> If the terminal reports that `python3` or `python` is not found, return to Task 1. Quit Visual Studio Code, confirm the version command in a new system terminal, then reopen VS Code and run Step 4 again.
 
-### Task 3: Generate a “Hello World” web page with Copilot and open it in your browser
-
-In this task, you ask Copilot to generate a self-contained `"Hello World"` HTML page (`hello.html`) and open it in your web browser, which is the exact workflow you will use for the interactive credit simulators and dashboards in Labs 1 through 4.
+### Task 4: Generate a “Hello World” web page with Copilot and open it in your browser
 
 1. In the Copilot Chat input box (`</> Agent` mode), paste the following prompt and press ENTER:
 
@@ -106,7 +123,7 @@ Create a single-file web page named hello.html in this folder (no external serve
 
 5. Click the **Run Quick Check** button on the page and confirm that today’s date and time appear.
 
-### Bonus Task 4: Test inline ghost text (`Tab`) and `pytest`
+### Bonus Task 5: Test inline ghost text (`Tab`) and `pytest`
 
 If you have two extra minutes, test inline ghost-text completions in the editor and confirm `pytest` runs cleanly from your virtual environment.
 
@@ -145,8 +162,8 @@ def test_add_balances():
 
 ## Congratulations!
 
-In this lab, you have:
-- Created a workspace folder and opened it in Visual Studio Code.
-- Verified your GitHub Copilot sign-in and prompted Copilot Chat in `</> Agent` mode.
-- Created a Python virtual environment (`.venv`), installed the course packages, and ran a Python check script.
-- Generated a `"Hello World"` HTML page with Copilot and opened it in your web browser.
+In this lab, you have verified:
+- Python 3.10 or newer is installed and available in the terminal.
+- Visual Studio Code is installed and Copilot Chat responds.
+- A virtual environment installs the course packages and runs a Python script.
+- A Copilot-generated HTML page opens in the browser.
