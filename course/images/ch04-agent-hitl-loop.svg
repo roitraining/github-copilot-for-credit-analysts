@@ -1,62 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Four-step Agent mode workflow with human-in-the-loop gates in VS Code">
-  <rect width="1600" height="900" fill="#F4F6FB"/>
-
   <!-- Step 1 -->
-  <rect x="50" y="50" width="340" height="630" rx="24" fill="#1E2A6B"/>
-  <text x="220" y="130" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 1: PLAN</text>
-  <text x="220" y="195" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Ask for a Plan</text>
-  <rect x="80" y="240" width="280" height="175" rx="14" fill="#151C4A"/>
-  <text x="220" y="295" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="23">"Do not edit yet."</text>
-  <text x="220" y="340" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">List files to touch</text>
-  <text x="220" y="380" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">and functions to move</text>
-  <text x="220" y="490" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">You review the file list</text>
-  <text x="220" y="530" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">before any code moves</text>
-  <text x="220" y="615" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 1: Approve plan</text>
+  <rect x="50" y="50" width="340" height="630" rx="24" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="220" y="130" text-anchor="middle" fill="#1E2A6B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 1: PLAN</text>
+  <text x="220" y="195" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Ask for a Plan</text>
+  <rect x="80" y="240" width="280" height="175" rx="14" fill="#EEF2FF" stroke="#312E81" stroke-width="3"/>
+  <text x="220" y="295" text-anchor="middle" fill="#0E7490" font-family="Courier New, monospace" font-size="23">"Do not edit yet."</text>
+  <text x="220" y="340" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">List files to touch</text>
+  <text x="220" y="380" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">and functions to move</text>
+  <text x="220" y="490" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">You review the file list</text>
+  <text x="220" y="530" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">before any code moves</text>
+  <text x="220" y="615" text-anchor="middle" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 1: Approve plan</text>
 
   <path d="M400 365 H430" stroke="#312E81" stroke-width="8" fill="none"/>
   <polygon points="445,365 422,348 422,382" fill="#312E81"/>
 
   <!-- Step 2 -->
-  <rect x="450" y="50" width="340" height="630" rx="24" fill="#3730A3"/>
-  <text x="620" y="130" text-anchor="middle" fill="#C4B5FD" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 2: ONE STEP</text>
-  <text x="620" y="195" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Scoped Edit</text>
-  <rect x="480" y="240" width="280" height="175" rx="14" fill="#1E1B4B"/>
-  <text x="620" y="295" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="23">"Execute Step 1"</text>
-  <text x="620" y="340" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">Agent edits named</text>
-  <text x="620" y="380" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">files and pauses</text>
-  <text x="620" y="490" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">Small, readable diff</text>
-  <text x="620" y="530" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">in VS Code editor</text>
-  <text x="620" y="615" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 2: Inspect diff</text>
+  <rect x="450" y="50" width="340" height="630" rx="24" fill="#EEF2FF" stroke="#4338CA" stroke-width="4"/>
+  <text x="620" y="130" text-anchor="middle" fill="#4338CA" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 2: ONE STEP</text>
+  <text x="620" y="195" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Scoped Edit</text>
+  <rect x="480" y="240" width="280" height="175" rx="14" fill="#FFFFFF" stroke="#312E81" stroke-width="3"/>
+  <text x="620" y="295" text-anchor="middle" fill="#0E7490" font-family="Courier New, monospace" font-size="23">"Execute Step 1"</text>
+  <text x="620" y="340" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">Agent edits named</text>
+  <text x="620" y="380" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">files and pauses</text>
+  <text x="620" y="490" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">Small, readable diff</text>
+  <text x="620" y="530" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">in VS Code editor</text>
+  <text x="620" y="615" text-anchor="middle" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 2: Inspect diff</text>
 
   <path d="M800 365 H830" stroke="#312E81" stroke-width="8" fill="none"/>
   <polygon points="845,365 822,348 822,382" fill="#312E81"/>
 
   <!-- Step 3 -->
-  <rect x="850" y="50" width="340" height="630" rx="24" fill="#4F46E5"/>
-  <text x="1020" y="130" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 3: VERIFY</text>
-  <text x="1020" y="195" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Run pytest</text>
-  <rect x="880" y="240" width="280" height="175" rx="14" fill="#312E81"/>
-  <text x="1020" y="295" text-anchor="middle" fill="#6EE7B7" font-family="Courier New, monospace" font-size="25">pytest -q</text>
-  <text x="1020" y="340" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">Confirm existing and</text>
-  <text x="1020" y="380" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">new tests pass</text>
-  <text x="1020" y="490" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">Approve terminal run</text>
-  <text x="1020" y="530" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="26">and read test output</text>
-  <text x="1020" y="615" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 3: Green tests</text>
+  <rect x="850" y="50" width="340" height="630" rx="24" fill="#E0E7FF" stroke="#4F46E5" stroke-width="4"/>
+  <text x="1020" y="130" text-anchor="middle" fill="#4338CA" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 3: VERIFY</text>
+  <text x="1020" y="195" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Run pytest</text>
+  <rect x="880" y="240" width="280" height="175" rx="14" fill="#FFFFFF" stroke="#4F46E5" stroke-width="3"/>
+  <text x="1020" y="295" text-anchor="middle" fill="#047857" font-family="Courier New, monospace" font-size="25">pytest -q</text>
+  <text x="1020" y="340" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">Confirm existing and</text>
+  <text x="1020" y="380" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="24">new tests pass</text>
+  <text x="1020" y="490" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">Approve terminal run</text>
+  <text x="1020" y="530" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">and read test output</text>
+  <text x="1020" y="615" text-anchor="middle" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 3: Green tests</text>
 
   <path d="M1200 365 H1230" stroke="#312E81" stroke-width="8" fill="none"/>
   <polygon points="1245,365 1222,348 1222,382" fill="#312E81"/>
 
   <!-- Step 4 -->
-  <rect x="1250" y="50" width="300" height="630" rx="24" fill="#0E7490"/>
-  <text x="1400" y="130" text-anchor="middle" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 4: DECIDE</text>
-  <text x="1400" y="195" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Keep or Undo</text>
-  <rect x="1275" y="240" width="250" height="175" rx="14" fill="#155E75"/>
-  <text x="1400" y="300" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Keep Changes</text>
-  <text x="1400" y="340" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22">or</text>
-  <text x="1400" y="380" text-anchor="middle" fill="#FCA5A5" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Undo Changes</text>
-  <text x="1400" y="490" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="25">Accept in VS Code</text>
-  <text x="1400" y="530" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="25">before Step 2 starts</text>
-  <text x="1400" y="615" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 4: Human sign-off</text>
+  <rect x="1250" y="50" width="300" height="630" rx="24" fill="#ECFEFF" stroke="#0E7490" stroke-width="4"/>
+  <text x="1400" y="130" text-anchor="middle" fill="#0E7490" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">STEP 4: DECIDE</text>
+  <text x="1400" y="195" text-anchor="middle" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Keep or Undo</text>
+  <rect x="1275" y="240" width="250" height="175" rx="14" fill="#FFFFFF" stroke="#0E7490" stroke-width="3"/>
+  <text x="1400" y="300" text-anchor="middle" fill="#047857" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Keep Changes</text>
+  <text x="1400" y="340" text-anchor="middle" fill="#155E75" font-family="Arial, Helvetica, sans-serif" font-size="22">or</text>
+  <text x="1400" y="380" text-anchor="middle" fill="#B91C1C" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Undo Changes</text>
+  <text x="1400" y="490" text-anchor="middle" fill="#155E75" font-family="Arial, Helvetica, sans-serif" font-size="25">Accept in VS Code</text>
+  <text x="1400" y="530" text-anchor="middle" fill="#155E75" font-family="Arial, Helvetica, sans-serif" font-size="25">before Step 2 starts</text>
+  <text x="1400" y="615" text-anchor="middle" fill="#047857" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Gate 4: Human sign-off</text>
 
   <!-- Bottom Banner -->
   <rect x="50" y="725" width="1500" height="120" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>

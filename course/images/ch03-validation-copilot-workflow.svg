@@ -1,49 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Three-step Copilot workflow for model validation and auditing">
-  <rect width="1600" height="900" fill="#F4F6FB"/>
-
   <!-- Card 1 -->
-  <rect x="50" y="50" width="460" height="640" rx="26" fill="#1E2A6B"/>
-  <text x="280" y="130" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">STEP 1: GENERATE METRICS</text>
-  <text x="280" y="198" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Chat + #file</text>
-  <rect x="85" y="240" width="390" height="190" rx="16" fill="#151C4A"/>
-  <text x="280" y="295" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="25">#file train_model.py</text>
-  <text x="280" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">Ask for ROC AUC, KS,</text>
-  <text x="280" y="385" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">and decile capture table</text>
-  <text x="280" y="505" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28">Specify the exact formula</text>
-  <text x="280" y="548" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28">for KS and decile bins</text>
-  <text x="280" y="625" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Outputs evaluate_model.py</text>
+  <rect x="50" y="50" width="460" height="640" rx="26" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="280" y="130" text-anchor="middle" fill="#1E2A6B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">STEP 1: GENERATE METRICS</text>
+  <text x="280" y="198" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Chat + #file</text>
+  <rect x="85" y="240" width="390" height="190" rx="16" fill="#EEF2FF" stroke="#312E81" stroke-width="3"/>
+  <text x="280" y="295" text-anchor="middle" fill="#0E7490" font-family="Courier New, monospace" font-size="25">#file train_model.py</text>
+  <text x="280" y="345" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="26">Ask for ROC AUC, KS,</text>
+  <text x="280" y="385" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="26">and decile capture table</text>
+  <text x="280" y="505" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="28">Specify the exact formula</text>
+  <text x="280" y="548" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="28">for KS and decile bins</text>
+  <text x="280" y="625" text-anchor="middle" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Outputs evaluate_model.py</text>
 
   <!-- Arrow 1 -->
   <path d="M525 370 H565" stroke="#312E81" stroke-width="10" fill="none"/>
   <polygon points="585,370 555,350 555,390" fill="#312E81"/>
 
   <!-- Card 2 -->
-  <rect x="595" y="50" width="440" height="640" rx="26" fill="#4F46E5"/>
-  <text x="815" y="130" text-anchor="middle" fill="#C4B5FD" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">STEP 2: AUDIT LOGIC</text>
-  <text x="815" y="198" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">/explain Selection</text>
-  <rect x="630" y="240" width="370" height="190" rx="16" fill="#3730A3"/>
-  <text x="815" y="295" text-anchor="middle" fill="#E0E7FF" font-family="Courier New, monospace" font-size="26">/explain</text>
-  <text x="815" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">Check fit() vs transform()</text>
-  <text x="815" y="385" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">and target leakage risk</text>
-  <text x="815" y="505" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28">Ask Copilot to list bugs</text>
-  <text x="815" y="548" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28">without editing code first</text>
-  <text x="815" y="625" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Catches fit_transform on test</text>
+  <rect x="595" y="50" width="440" height="640" rx="26" fill="#EEF2FF" stroke="#4F46E5" stroke-width="4"/>
+  <text x="815" y="130" text-anchor="middle" fill="#4338CA" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">STEP 2: AUDIT LOGIC</text>
+  <text x="815" y="198" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">/explain Selection</text>
+  <rect x="630" y="240" width="370" height="190" rx="16" fill="#FFFFFF" stroke="#4F46E5" stroke-width="3"/>
+  <text x="815" y="295" text-anchor="middle" fill="#312E81" font-family="Courier New, monospace" font-size="26">/explain</text>
+  <text x="815" y="345" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="26">Check fit() vs transform()</text>
+  <text x="815" y="385" text-anchor="middle" fill="#1E1B4B" font-family="Arial, Helvetica, sans-serif" font-size="26">and target leakage risk</text>
+  <text x="815" y="505" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="28">Ask Copilot to list bugs</text>
+  <text x="815" y="548" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="28">without editing code first</text>
+  <text x="815" y="625" text-anchor="middle" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Catches fit_transform on test</text>
 
   <!-- Arrow 2 -->
   <path d="M1050 370 H1090" stroke="#312E81" stroke-width="10" fill="none"/>
   <polygon points="1110,370 1080,350 1080,390" fill="#312E81"/>
 
   <!-- Card 3 -->
-  <rect x="1120" y="50" width="430" height="640" rx="26" fill="#0E7490"/>
-  <text x="1335" y="130" text-anchor="middle" fill="#A5F3FC" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">STEP 3: LOCK WITH TESTS</text>
-  <text x="1335" y="198" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">/tests in pytest</text>
-  <rect x="1155" y="240" width="360" height="190" rx="16" fill="#155E75"/>
-  <text x="1335" y="295" text-anchor="middle" fill="#CFFAFE" font-family="Courier New, monospace" font-size="26">/tests</text>
-  <text x="1335" y="345" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">Perfect score = 1.0</text>
-  <text x="1335" y="385" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">All-same class raises error</text>
-  <text x="1335" y="505" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="28">Run pytest in terminal</text>
-  <text x="1335" y="548" text-anchor="middle" fill="#ECFEFF" font-family="Arial, Helvetica, sans-serif" font-size="28">to verify metric math</text>
-  <text x="1335" y="625" text-anchor="middle" fill="#6EE7B7" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Outputs test_evaluate.py</text>
+  <rect x="1120" y="50" width="430" height="640" rx="26" fill="#ECFEFF" stroke="#0E7490" stroke-width="4"/>
+  <text x="1335" y="130" text-anchor="middle" fill="#0E7490" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">STEP 3: LOCK WITH TESTS</text>
+  <text x="1335" y="198" text-anchor="middle" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">/tests in pytest</text>
+  <rect x="1155" y="240" width="360" height="190" rx="16" fill="#FFFFFF" stroke="#0E7490" stroke-width="3"/>
+  <text x="1335" y="295" text-anchor="middle" fill="#155E75" font-family="Courier New, monospace" font-size="26">/tests</text>
+  <text x="1335" y="345" text-anchor="middle" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="26">Perfect score = 1.0</text>
+  <text x="1335" y="385" text-anchor="middle" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="26">All-same class raises error</text>
+  <text x="1335" y="505" text-anchor="middle" fill="#155E75" font-family="Arial, Helvetica, sans-serif" font-size="28">Run pytest in terminal</text>
+  <text x="1335" y="548" text-anchor="middle" fill="#155E75" font-family="Arial, Helvetica, sans-serif" font-size="28">to verify metric math</text>
+  <text x="1335" y="625" text-anchor="middle" fill="#047857" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Outputs test_evaluate.py</text>
 
   <!-- Bottom Banner -->
   <rect x="50" y="730" width="1500" height="115" rx="18" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>

@@ -1,47 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="650" viewBox="0 0 1600 650" role="img" aria-label="Prompting Copilot to generate an MRM audit trail from code, tests, and diffs">
-  <rect width="1600" height="650" fill="#F4F6FB"/>
-
   <!-- Left Box: Attached Artifacts -->
-  <rect x="50" y="50" width="470" height="550" rx="24" fill="#1E2A6B"/>
-  <text x="285" y="120" text-anchor="middle" fill="#A5B4FC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">1. ATTACH ARTIFACTS</text>
+  <rect x="50" y="50" width="470" height="550" rx="24" fill="#FFFFFF" stroke="#1E2A6B" stroke-width="4"/>
+  <text x="285" y="120" text-anchor="middle" fill="#1E2A6B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">1. ATTACH ARTIFACTS</text>
 
-  <rect x="85" y="155" width="400" height="120" rx="14" fill="#312E81"/>
-  <text x="285" y="202" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="26" font-weight="700">#file risk_rollup.py</text>
-  <text x="285" y="245" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Refactored production module</text>
+  <rect x="85" y="155" width="400" height="120" rx="14" fill="#EEF2FF" stroke="#312E81" stroke-width="3"/>
+  <text x="285" y="202" text-anchor="middle" fill="#0E7490" font-family="Courier New, monospace" font-size="26" font-weight="700">#file risk_rollup.py</text>
+  <text x="285" y="245" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="22">Refactored production module</text>
 
-  <rect x="85" y="295" width="400" height="120" rx="14" fill="#312E81"/>
-  <text x="285" y="342" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="26" font-weight="700">#file test_risk_rollup.py</text>
-  <text x="285" y="385" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Pytest suite + assertion tests</text>
+  <rect x="85" y="295" width="400" height="120" rx="14" fill="#EEF2FF" stroke="#312E81" stroke-width="3"/>
+  <text x="285" y="342" text-anchor="middle" fill="#0E7490" font-family="Courier New, monospace" font-size="26" font-weight="700">#file test_risk_rollup.py</text>
+  <text x="285" y="385" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="22">Pytest suite + assertion tests</text>
 
-  <rect x="85" y="435" width="400" height="120" rx="14" fill="#312E81"/>
-  <text x="285" y="482" text-anchor="middle" fill="#67E8F9" font-family="Courier New, monospace" font-size="26" font-weight="700">pytest terminal output</text>
-  <text x="285" y="525" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Exact pass count and run log</text>
+  <rect x="85" y="435" width="400" height="120" rx="14" fill="#EEF2FF" stroke="#312E81" stroke-width="3"/>
+  <text x="285" y="482" text-anchor="middle" fill="#0E7490" font-family="Courier New, monospace" font-size="26" font-weight="700">pytest terminal output</text>
+  <text x="285" y="525" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="22">Exact pass count and run log</text>
 
   <!-- Arrow 1 -->
   <path d="M540 325 H600" stroke="#1E2A6B" stroke-width="10" fill="none"/>
   <polygon points="625,325 595,305 595,345" fill="#1E2A6B"/>
 
   <!-- Middle Box: Prompt Template -->
-  <rect x="645" y="110" width="350" height="430" rx="24" fill="#4F46E5"/>
-  <text x="820" y="185" text-anchor="middle" fill="#E0E7FF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2. PROMPT FILE</text>
-  <text x="820" y="245" text-anchor="middle" fill="#FFFFFF" font-family="Courier New, monospace" font-size="24">/mrm-evidence</text>
-  <text x="820" y="315" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">Summarizes files changed,</text>
-  <text x="820" y="355" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">assertions added, and</text>
-  <text x="820" y="395" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="26">tests verified</text>
-  <text x="820" y="470" text-anchor="middle" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Leaves sign-off for human</text>
+  <rect x="645" y="110" width="350" height="430" rx="24" fill="#EEF2FF" stroke="#4F46E5" stroke-width="4"/>
+  <text x="820" y="185" text-anchor="middle" fill="#4338CA" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2. PROMPT FILE</text>
+  <text x="820" y="245" text-anchor="middle" fill="#1E1B4B" font-family="Courier New, monospace" font-size="24">/mrm-evidence</text>
+  <text x="820" y="315" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">Summarizes files changed,</text>
+  <text x="820" y="355" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">assertions added, and</text>
+  <text x="820" y="395" text-anchor="middle" fill="#312E81" font-family="Arial, Helvetica, sans-serif" font-size="26">tests verified</text>
+  <text x="820" y="470" text-anchor="middle" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Leaves sign-off for human</text>
 
   <!-- Arrow 2 -->
   <path d="M1015 325 H1075" stroke="#1E2A6B" stroke-width="10" fill="none"/>
   <polygon points="1100,325 1070,305 1070,345" fill="#1E2A6B"/>
 
   <!-- Right Box: MRM Evidence Document -->
-  <rect x="1120" y="50" width="430" height="550" rx="24" fill="#0E7490"/>
-  <text x="1335" y="120" text-anchor="middle" fill="#CFFAFE" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">3. EVIDENCE RECORD</text>
-  <rect x="1155" y="155" width="360" height="400" rx="14" fill="#155E75"/>
-  <text x="1180" y="210" fill="#6EE7B7" font-family="Courier New, monospace" font-size="24" font-weight="700">AUDIT_EVIDENCE.md</text>
-  <text x="1180" y="265" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">1. Change Summary</text>
-  <text x="1180" y="310" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">2. Formula Parity Check</text>
-  <text x="1180" y="355" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">3. Pytest Verification Table</text>
-  <text x="1180" y="400" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24">4. Reviewer Sign-Off Block</text>
-  <text x="1180" y="475" fill="#FDE68A" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Attached to PR or MRM ticket</text>
+  <rect x="1120" y="50" width="430" height="550" rx="24" fill="#ECFEFF" stroke="#0E7490" stroke-width="4"/>
+  <text x="1335" y="120" text-anchor="middle" fill="#0E7490" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">3. EVIDENCE RECORD</text>
+  <rect x="1155" y="155" width="360" height="400" rx="14" fill="#FFFFFF" stroke="#155E75" stroke-width="3"/>
+  <text x="1180" y="210" fill="#047857" font-family="Courier New, monospace" font-size="24" font-weight="700">AUDIT_EVIDENCE.md</text>
+  <text x="1180" y="265" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="24">1. Change Summary</text>
+  <text x="1180" y="310" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="24">2. Formula Parity Check</text>
+  <text x="1180" y="355" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="24">3. Pytest Verification Table</text>
+  <text x="1180" y="400" fill="#164E63" font-family="Arial, Helvetica, sans-serif" font-size="24">4. Reviewer Sign-Off Block</text>
+  <text x="1180" y="475" fill="#92400E" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Attached to PR or MRM ticket</text>
 </svg>
