@@ -79,7 +79,21 @@ Keep the existing null check unchanged.
 ---
 # Demo: Profiling a Dataset with `#file` Schema Context
 
-1. In VS Code, open your workspace folder and create a file named `schema.md` with these contents:
+1. In your terminal or PowerShell window, create a folder named `ch2-demo` inside `copilot-labs`:
+
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/ch2-demo
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\ch2-demo" -Force
+```
+
+2. Open `copilot-labs/ch2-demo` in VS Code via **File > Open Folder**, and create a file named `schema.md` with these contents:
 
 ```markdown
 # Credit Accounts Schema (sample_accounts.csv)
@@ -91,7 +105,7 @@ Keep the existing null check unchanged.
 - `delinquency_days` (int): days past due (9999 indicates a data error)
 ```
 
-2. Open Copilot Chat (`</> Agent` in **Interactive** mode), attach `#file schema.md`, and run this prompt:
+3. Open Copilot Chat (`</> Agent` in **Interactive** mode), attach `#file schema.md`, and run this prompt:
 
 ```text
 Using #file schema.md, create two files:
@@ -103,7 +117,49 @@ Using #file schema.md, create two files:
    - A groupby summary by risk_band showing account count and mean balance
 ```
 
-3. Run `python make_sample_data.py` and `python profile_accounts.py` in the VS Code terminal to verify the output.
+4. Open the VS Code terminal (**Terminal > New Terminal**) and create a `.venv` virtual environment:
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv .venv
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+```
+
+5. Install `pandas` inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install pandas
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install pandas
+```
+
+6. Run `make_sample_data.py` and `profile_accounts.py` in the VS Code terminal to verify the output:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python make_sample_data.py
+.venv/bin/python profile_accounts.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python make_sample_data.py
+.\.venv\Scripts\python profile_accounts.py
+```
 ---
 <!-- layout: navigation -->
 # Chapter Concepts
@@ -166,7 +222,7 @@ Using #file schema.md, create two files:
 ---
 # Demo: Generating and Refining a Two-Panel Chart
 
-1. In VS Code, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file schema.md` and `#file profile_accounts.py` from the previous demo.
+1. In VS Code, inside your `copilot-labs/ch2-demo` folder, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file schema.md` and `#file profile_accounts.py` from the previous demo.
 2. Send this prompt to create a visualization script:
 
 ```text
@@ -177,14 +233,53 @@ Load sample_accounts.csv, filter out rows where delinquency_days > 365, and crea
 Save the figure to portfolio_summary.png and close the plot.
 ```
 
-3. Run `python plot_portfolio.py` and open `portfolio_summary.png` in VS Code to inspect the chart.
-4. Open `plot_portfolio.py`, select the right-panel `boxplot` code, press CMD+I (Mac) or CTRL+I (Windows), and type:
+3. Install `matplotlib` and `seaborn` in your `.venv` virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install matplotlib seaborn
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install matplotlib seaborn
+```
+
+4. Run `plot_portfolio.py` and open `portfolio_summary.png` in VS Code to inspect the chart:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python plot_portfolio.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python plot_portfolio.py
+```
+
+5. Open `plot_portfolio.py`, select the right-panel `boxplot` code, press CMD+I (Mac) or CTRL+I (Windows), and type:
 
 ```text
 Add a horizontal red dashed line at y=0.80 labeled "High Utilization Threshold" and add data labels on top of the left panel bars.
 ```
 
-5. Accept the diff, rerun `python plot_portfolio.py`, and watch `portfolio_summary.png` update in VS Code.
+6. Accept the diff, rerun `plot_portfolio.py`, and watch `portfolio_summary.png` update in VS Code:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python plot_portfolio.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python plot_portfolio.py
+```
 ---
 <!-- layout: navigation -->
 # Chapter Concepts
@@ -303,7 +398,7 @@ def add_credit_features(df: pd.DataFrame) -> pd.DataFrame:
 ---
 # Demo: Comment-Driven Feature Engineering
 
-1. In VS Code, create a new file named `features.py` and type only the imports, function header, and comments below:
+1. In VS Code, inside your `copilot-labs/ch2-demo` folder, create a new file named `features.py` and type only the imports, function header, and comments below:
 
 ```python
 import numpy as np
@@ -323,7 +418,11 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 
 2. Place your cursor on the blank line below the first comment, wait for Copilot’s gray ghost text, read it, and press TAB to accept.
 3. Repeat for the second and third comments.
-4. Select the entire `engineer_features` function, open Copilot Chat, and run `/tests` to generate a quick check for `available_credit` when `balance` exceeds `credit_limit`.
+4. Select the entire `engineer_features` function, open Copilot Chat, and run this prompt:
+
+```text
+/tests Create test_features.py using pytest to verify engineer_features(df), including a check that available_credit is floored at 0 when balance exceeds credit_limit.
+```
 ---
 # Chapter 2: Hands-On Lab
 

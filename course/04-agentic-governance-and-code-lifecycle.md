@@ -79,7 +79,21 @@ and a rate outside [0, 1].
 ---
 # Demo: Refactoring, Asserting, and Testing with Copilot
 
-1. In VS Code, create `risk_rollup.py` and paste this unguarded, loop-heavy function:
+1. In your terminal or PowerShell window, create a folder named `ch4-demo` inside `copilot-labs`:
+
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/ch4-demo
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\ch4-demo" -Force
+```
+
+2. Open `copilot-labs/ch4-demo` in VS Code via **File > Open Folder**, and create `risk_rollup.py` with this unguarded, loop-heavy function:
 
 ```python
 import pandas as pd
@@ -99,7 +113,7 @@ def calc_delinquency(df):
     return pd.Series(rates, name="dlq_30_rate")
 ```
 
-2. Select `calc_delinquency`, press CMD+I (Mac) or CTRL+I (Windows), and run this prompt:
+3. Select `calc_delinquency`, press CMD+I (Mac) or CTRL+I (Windows), and run this prompt:
 
 ```text
 1. Replace the iterrows() loop with vectorized pandas groupby operations.
@@ -107,8 +121,56 @@ def calc_delinquency(df):
 3. Raise ValueError if any band has zero active accounts or if any output rate is outside [0.0, 1.0].
 ```
 
-3. Accept the diff, open Copilot Chat, and run `/tests #file risk_rollup.py` asking for `pytest` tests that verify both the exact rates and all `pytest.raises(ValueError)` guards.
-4. Run `pytest` in the VS Code terminal to confirm all tests pass.
+4. Accept the diff, open Copilot Chat, attach `#file risk_rollup.py`, and run this prompt:
+
+```text
+/tests #file risk_rollup.py
+Create and save test_risk_rollup.py using pytest with:
+1. A test verifying exact dlq_30_rate values across Prime, Near-Prime, and Subprime, confirming that status == 'charged_off' rows are excluded.
+2. pytest.raises(ValueError) tests for missing required columns, duplicate account_id values, a band with zero active accounts, and an output rate outside [0.0, 1.0].
+```
+
+5. Open the VS Code terminal (**Terminal > New Terminal**) and create a `.venv` virtual environment:
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv .venv
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+```
+
+6. Install `pandas`, `numpy`, and `pytest` inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install pandas numpy pytest
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install pandas numpy pytest
+```
+
+7. Run `pytest` in the VS Code terminal to confirm all tests pass:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
+```
 ---
 <!-- layout: navigation -->
 # Chapter Concepts
@@ -217,13 +279,26 @@ Do not invent any metric, date, or policy rule not present in the attached files
 ---
 # Demo: Document and Package Code for Review
 
-1. In VS Code, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press CMD+I (Mac) or CTRL+I (Windows), and run:
+1. In VS Code, inside your `copilot-labs/ch4-demo` folder, open `risk_rollup.py` from the earlier demo, select `calc_delinquency`, press CMD+I (Mac) or CTRL+I (Windows), and run:
 
 ```text
 /doc Add a NumPy-style docstring stating required columns, the charged_off exclusion rule, output Series format, and all ValueError conditions. Do not change any executable lines.
 ```
 
-2. Accept the docstring diff and run `pytest` in the terminal to confirm all tests still pass.
+2. Accept the docstring diff and run `pytest` in the terminal to confirm all tests still pass:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
+```
+
 3. In Copilot Chat, attach `#file risk_rollup.py` and `#file test_risk_rollup.py`, paste your `pytest` terminal output, and run:
 
 ```text

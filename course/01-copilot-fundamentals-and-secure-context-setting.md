@@ -72,9 +72,23 @@ I have a CSV of credit accounts with balance, utilization, and delinquency_days.
 ---
 # Demo: Using Copilot in Visual Studio Code
 
-1. Open Visual Studio Code. Choose **File> Open Folder**, then open an empty folder. _Just create an empty folder anywhere on your computer_. 
-2. Open Copilot Chat from the Copilot icon in the title bar. Notice that `</> Agent` is selected at the bottom of the chat input box by default.
-3. Paste the prompt below and press ENTER. If asked, allow Copilot to create the files requested in the prompt. 
+1. In your terminal or PowerShell window, create a folder named `ch1-demo` inside `copilot-labs`:
+
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/ch1-demo
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\ch1-demo" -Force
+```
+
+2. Open Visual Studio Code, choose **File > Open Folder**, and open `copilot-labs/ch1-demo`.
+3. Open Copilot Chat from the Copilot icon in the title bar. Notice that `</> Agent` is selected at the bottom of the chat input box by default.
+4. Paste the prompt below and press ENTER. If asked, allow Copilot to create the files requested in the prompt. 
 
 ```text
 Create two files in this folder.
@@ -94,9 +108,9 @@ stats.html
 - Make the results a clear table
 ```
 
-4. In the Explorer pane on the left, right-click `stats.html`, choose **Reveal in Finder** or **Reveal in File Explorer**, and open the file in a browser.
+5. In the Explorer pane on the left, right-click `stats.html`, choose **Reveal in Finder** or **Reveal in File Explorer**, and open the file in a browser.
 
-5. Click **Upload CSV** and choose `sample_accounts.csv` from the same folder.
+6. Click **Upload CSV** and choose `sample_accounts.csv` from the same folder.
 ---
 <!-- layout: title-image -->
 # Visual Studio Code with Copilot
@@ -155,7 +169,7 @@ stats.html
 ---
 # Demo: Inline Completion
 
-1. In VS Code, create a file named `fizz_buzz.py`.
+1. In VS Code, inside your `copilot-labs/ch1-demo` folder, create a file named `fizz_buzz.py`.
 2. Type this line, press ENTER, and pause.
 
 ```python
@@ -280,7 +294,7 @@ Stop:
 ---
 # Demo: Explain, Tests, and Fix
 
-1. In VS Code, create a file named `average.py`. Then, paste this code and save the file.
+1. In VS Code, inside your `copilot-labs/ch1-demo` folder, create a file named `average.py`. Then, paste this code and save the file.
 
 ```python
 def average(numbers):

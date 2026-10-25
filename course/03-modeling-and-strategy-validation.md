@@ -76,7 +76,21 @@ Keep the existing OneHotEncoder step unchanged.
 ---
 # Demo: Building a Baseline Pipeline via Copilot Chat
 
-1. In VS Code, create or update `schema.md` so it includes a binary target column and an application month:
+1. In your terminal or PowerShell window, create a folder named `ch3-demo` inside `copilot-labs`:
+
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/ch3-demo
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\ch3-demo" -Force
+```
+
+2. Open `copilot-labs/ch3-demo` in VS Code via **File > Open Folder**, and create `schema.md` so it includes a binary target column and an application month:
 
 ```markdown
 # Credit Modeling Schema (modeling_accounts.csv)
@@ -89,7 +103,7 @@ Keep the existing OneHotEncoder step unchanged.
 - `default_60d` (int): 1 if 60+ days past due within 12 months, else 0 (target)
 ```
 
-2. Open Copilot Chat (`</> Agent` in **Interactive** mode), attach `#file schema.md`, and run this prompt:
+3. Open Copilot Chat (`</> Agent` in **Interactive** mode), attach `#file schema.md`, and run this prompt:
 
 ```text
 Using #file schema.md, create train_baseline.py.
@@ -100,7 +114,47 @@ Using #file schema.md, create train_baseline.py.
 5. Fit on train, predict probabilities on test, and print train/test row counts and test ROC AUC.
 ```
 
-3. Run `python train_baseline.py` in the VS Code terminal and inspect the generated pipeline and output.
+4. Open the VS Code terminal (**Terminal > New Terminal**) and create a `.venv` virtual environment:
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv .venv
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+```
+
+5. Install `scikit-learn`, `pandas`, and `numpy` inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install scikit-learn pandas numpy
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install scikit-learn pandas numpy
+```
+
+6. Run `train_baseline.py` in the VS Code terminal and inspect the generated pipeline and output:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python train_baseline.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python train_baseline.py
+```
 ---
 <!-- layout: navigation -->
 # Chapter Concepts
@@ -162,7 +216,7 @@ Using #file train_baseline.py, create evaluate_model.py with two functions:
 ---
 # Demo: Auditing a Leaky Model Script with Copilot
 
-1. In VS Code, create `leaky_model.py` and paste this intentionally flawed script:
+1. In VS Code, inside your `copilot-labs/ch3-demo` folder, create `leaky_model.py` and paste this intentionally flawed script:
 
 ```python
 import pandas as pd
@@ -189,7 +243,29 @@ print("AUC:", roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1]))
 ```
 
 3. Review Copilot’s findings (`default_60d` inside `features`, `fit_transform` before splitting, random split instead of `application_month`, and silent `.dropna()`).
-4. Run `/fix` with instructions to fix all four issues using `#file schema.md`.
+4. Keep `leaky_model.py` selected, attach `#file schema.md`, and run this `/fix` prompt:
+
+```text
+/fix Using #file schema.md, fix all four issues in leaky_model.py:
+1. Do not call .dropna() on the DataFrame.
+2. Split out-of-time: train is application_month < '2025-10' and test is application_month >= '2025-10'.
+3. Exclude account_id, application_month, and default_60d from features.
+4. Use a scikit-learn Pipeline with ColumnTransformer (SimpleImputer(strategy='median') + StandardScaler() for numeric columns; OneHotEncoder(handle_unknown='ignore') for risk_band) and LogisticRegression().
+```
+
+5. Accept the diff and run `leaky_model.py` in the terminal to verify the leak-free AUC:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python leaky_model.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python leaky_model.py
+```
 ---
 <!-- layout: navigation -->
 # Chapter Concepts
@@ -243,7 +319,7 @@ Rule: Do not invent any metric values. If a metric is not in metrics_output.json
 ---
 # Demo: Generate and Summarize Validation Output
 
-1. In VS Code, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file train_baseline.py` from earlier.
+1. In VS Code, inside your `copilot-labs/ch3-demo` folder, open Copilot Chat (`</> Agent` in **Interactive** mode) and attach `#file train_baseline.py` from earlier.
 2. Prompt Copilot to add evaluation output saving at the bottom of `train_baseline.py`:
 
 ```text
@@ -253,8 +329,31 @@ Update #file train_baseline.py so that after scoring the test set, it:
 3. Writes the decile table to decile_table.csv.
 ```
 
-3. Run `python train_baseline.py` so `metrics_output.json` and `decile_table.csv` are created on disk.
-4. In Copilot Chat, attach `#file metrics_output.json` and `#file decile_table.csv`, and prompt Copilot to generate `validation_summary.md` using only the numbers in those two files.
+3. Run `train_baseline.py` so `metrics_output.json` and `decile_table.csv` are created on disk:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python train_baseline.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python train_baseline.py
+```
+
+4. In Copilot Chat, attach `#file metrics_output.json`, `#file decile_table.csv`, and `#file train_baseline.py`, and run this prompt:
+
+```text
+Using #file metrics_output.json, #file decile_table.csv, and #file train_baseline.py, create validation_summary.md with:
+1. Model Overview (target column, train/test split dates, and feature list)
+2. Holdout Metrics (exact train_rows, test_rows, roc_auc, and ks from metrics_output.json)
+3. Decile Capture Table (formatted as a Markdown table from decile_table.csv)
+4. Open Questions / TODOs (leave threshold selection and business sign-off as TODO)
+
+Rule: Cite only numbers present in metrics_output.json and decile_table.csv. Do not invent any metrics.
+```
 ---
 # Chapter 3: Hands-On Lab
 
