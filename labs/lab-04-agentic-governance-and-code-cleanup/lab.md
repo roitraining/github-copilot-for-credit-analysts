@@ -26,9 +26,24 @@ You inherited a single-file credit portfolio monitoring script (`legacy_monitori
 
 In this task, you open an empty folder in VS Code, create a loop-heavy legacy monitoring script, and use Inline Chat (CMD+I or CTRL+I) to vectorize the calculation and add four defensive `ValueError` guards.
 
-1. Open Visual Studio Code.
+1. In your terminal or PowerShell window, create a new local folder named `lab4-governance` inside your user home folder:
 
-2. Create a new empty folder named `lab4-governance` on your computer and open it via **File** > **Open Folder**.
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/lab4-governance
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\lab4-governance" -Force
+```
+
+> [!NOTE]
+> Creating your lab folder directly inside your user home folder (`~/copilot-labs` or `$HOME\copilot-labs`) rather than on `Desktop` or in `Documents` avoids OneDrive or iCloud folder sync, which can lock Python `.venv` files and slow down or block `pip install`.
+
+2. Open Visual Studio Code, click **File** > **Open Folder** (or **File** > **Open...** on macOS), navigate to your user home folder, select `copilot-labs/lab4-governance`, and click **Open** (or **Select Folder** on Windows).
 
 3. Create a file named `legacy_monitoring.py` in `lab4-governance` and paste this unguarded, loop-heavy script:
 
@@ -85,23 +100,51 @@ if __name__ == "__main__":
     print(compute_monthly_rollup(sample_df))
 ```
 
-4. Run the command for your operating system in the VS Code terminal to create a virtual environment, install `pandas`, `numpy`, and `pytest`, and run `legacy_monitoring.py` so you can note the baseline output table (`Prime`, `Near-Prime`, and `Subprime` rates):
+4. Open the VS Code terminal (**Terminal** > **New Terminal**) and create a `.venv` virtual environment:
 
 **macOS / Linux:**
 
 ```bash
-python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pandas numpy pytest && .venv/bin/python legacy_monitoring.py
+python3 -m venv .venv
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pandas numpy pytest; .\.venv\Scripts\python legacy_monitoring.py
+python -m venv .venv
 ```
 
-5. In the editor, highlight only the `compute_monthly_rollup` function and press CMD+I (macOS) or CTRL+I (Windows) to open Inline Chat.
+5. Install `pandas`, `numpy`, and `pytest` inside the virtual environment:
 
-6. Paste the following prompt into Inline Chat:
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install pandas numpy pytest
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install pandas numpy pytest
+```
+
+6. Run `legacy_monitoring.py` so you can note the baseline output table (`Prime`, `Near-Prime`, and `Subprime` rates):
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python legacy_monitoring.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python legacy_monitoring.py
+```
+
+7. In the editor, highlight only the `compute_monthly_rollup` function and press CMD+I (macOS) or CTRL+I (Windows) to open Inline Chat.
+
+8. Paste the following prompt into Inline Chat:
 
 ```text
 Refactor compute_monthly_rollup(df: pd.DataFrame) -> pd.DataFrame:
@@ -115,7 +158,7 @@ Refactor compute_monthly_rollup(df: pd.DataFrame) -> pd.DataFrame:
 4. Keep make_monitoring_sample() unchanged.
 ```
 
-7. Inspect the inline diff in `legacy_monitoring.py`, click **Accept** (or **Keep**), and rerun `legacy_monitoring.py` to verify that the output numbers match your original run:
+9. Inspect the inline diff in `legacy_monitoring.py`, click **Accept** (or **Keep**), and rerun `legacy_monitoring.py` to verify that the output numbers match your original run:
 
 **macOS / Linux:**
 

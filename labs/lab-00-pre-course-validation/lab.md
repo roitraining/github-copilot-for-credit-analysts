@@ -41,11 +41,26 @@ python --version
 
 ### Task 2: Confirm Visual Studio Code is installed and Copilot Chat responds
 
-1. Create a new empty folder named `lab0-setup-check` on your Desktop or in your Documents folder.
+1. In your terminal or PowerShell window, create a new local folder named `lab0-setup-check` inside your user home folder:
+
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/lab0-setup-check
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\lab0-setup-check" -Force
+```
+
+> [!NOTE]
+> Creating your lab folder directly inside your user home folder (`~/copilot-labs` or `$HOME\copilot-labs`) rather than on `Desktop` or in `Documents` avoids OneDrive or iCloud folder sync, which can lock Python `.venv` files and slow down or block `pip install`.
 
 2. Open **Visual Studio Code**.
 
-3. In the top menu bar, click **File** > **Open Folder** (or **File** > **Open...** on macOS), select your new `lab0-setup-check` folder, and click **Open** (or **Select Folder** on Windows).
+3. In the top menu bar, click **File** > **Open Folder** (or **File** > **Open...** on macOS), navigate to your user home folder, select `copilot-labs/lab0-setup-check`, and click **Open** (or **Select Folder** on Windows).
 
 4. If Visual Studio Code displays a dialog asking **Do you trust the authors of the files in this folder?**, click **Yes, I trust the authors**.
 
@@ -81,28 +96,70 @@ Create a file named check_env.py in this folder that:
 
 3. Open the integrated terminal inside VS Code by clicking **Terminal** > **New Terminal**.
 
-4. Copy and paste the command below for your operating system into the VS Code terminal and press ENTER to create a `.venv` virtual environment, install the course packages, and run `check_env.py`:
+4. Create a `.venv` virtual environment by running the command for your operating system in the VS Code terminal:
 
 **macOS / Linux:**
 
 ```bash
-python3 -m venv --clear .venv && .venv/bin/python -m pip install -q --upgrade pip && .venv/bin/python -m pip install -q pandas numpy matplotlib seaborn scikit-learn pytest ipykernel && .venv/bin/python check_env.py
+python3 -m venv .venv
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q --upgrade pip; .\.venv\Scripts\python -m pip install -q pandas numpy matplotlib seaborn scikit-learn pytest ipykernel; .\.venv\Scripts\python check_env.py
+python -m venv .venv
 ```
 
-5. Wait 30 to 60 seconds while the packages download and install. Confirm that the terminal output lists the package versions, prints the mean balance, and ends with:
+5. Upgrade `pip` inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install --upgrade pip
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install --upgrade pip
+```
+
+6. Install the course packages inside the virtual environment (you will see download and installation progress in the terminal):
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install pandas numpy matplotlib seaborn scikit-learn pytest ipykernel
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install pandas numpy matplotlib seaborn scikit-learn pytest ipykernel
+```
+
+7. Run `check_env.py` using the virtual environment’s Python interpreter:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python check_env.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python check_env.py
+```
+
+8. Confirm that the terminal output lists the package versions, prints the mean balance, and ends with:
 
 ```text
 SUCCESS: Python environment is ready for the course labs!
 ```
 
 > [!WARNING]
-> If the terminal reports that `python3` or `python` is not found, return to Task 1. Quit Visual Studio Code, confirm the version command in a new system terminal, then reopen VS Code and run Step 4 again.
+> If Step 4 reports that `python3` or `python` is not found, return to Task 1. Quit Visual Studio Code, confirm the version command in a new system terminal, then reopen VS Code and run Step 4 again.
 
 ### Task 4: Generate a “Hello World” web page with Copilot and open it in your browser
 

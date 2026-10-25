@@ -26,9 +26,24 @@ Your credit portfolio’s 30-day delinquency rate jumped in Q4. Before anyone ju
 
 In this task, you open an empty folder in VS Code, define your table schema in `schema.md`, and prompt Copilot to generate a 500-row synthetic credit dataset with planted data quality anomalies and a Q4 delinquency spike.
 
-1. Open Visual Studio Code.
+1. In your terminal or PowerShell window, create a new local folder named `lab2-profiling` inside your user home folder:
 
-2. Create a new empty folder named `lab2-profiling` on your computer and open it via **File** > **Open Folder**.
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/lab2-profiling
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\lab2-profiling" -Force
+```
+
+> [!NOTE]
+> Creating your lab folder directly inside your user home folder (`~/copilot-labs` or `$HOME\copilot-labs`) rather than on `Desktop` or in `Documents` avoids OneDrive or iCloud folder sync, which can lock Python `.venv` files and slow down or block `pip install`.
+
+2. Open Visual Studio Code, click **File** > **Open Folder** (or **File** > **Open...** on macOS), navigate to your user home folder, select `copilot-labs/lab2-profiling`, and click **Open** (or **Select Folder** on Windows).
 
 3. Create a new file named `schema.md` in `lab2-profiling` and paste the following schema definition:
 
@@ -58,18 +73,46 @@ Plant these exact patterns in the synthetic data:
 3. A noticeable rise in 30+ DPD (dpd >= 30 and dpd <= 365) during perf_month '2025-11' and '2025-12' concentrated in the '2025-Q3' Near-Prime and Subprime cohorts.
 ```
 
-6. Allow Copilot to create `generate_portfolio.py`, then run the command for your operating system in the VS Code terminal to create a virtual environment, install the required libraries, and generate `portfolio_history.csv`:
+6. Allow Copilot to create `generate_portfolio.py`, then open the VS Code terminal (**Terminal** > **New Terminal**) and create a `.venv` virtual environment:
 
 **macOS / Linux:**
 
 ```bash
-python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pandas numpy matplotlib seaborn pytest && .venv/bin/python generate_portfolio.py
+python3 -m venv .venv
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pandas numpy matplotlib seaborn pytest; .\.venv\Scripts\python generate_portfolio.py
+python -m venv .venv
+```
+
+7. Install the required libraries inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install pandas numpy matplotlib seaborn pytest
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install pandas numpy matplotlib seaborn pytest
+```
+
+8. Run `generate_portfolio.py` to generate `portfolio_history.csv`:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python generate_portfolio.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python generate_portfolio.py
 ```
 
 ### Task 2: Generate a Python data profiler and hypothesis table from `#file schema.md`

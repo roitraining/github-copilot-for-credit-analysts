@@ -26,9 +26,24 @@ Your credit analytics team uses Python and `pytest` to evaluate account populati
 
 In this task, you open a fresh folder in VS Code, create `.github/copilot-instructions.md` with your team’s standing rules, and verify that Copilot applies those rules automatically without you repeating them in the prompt.
 
-1. Open Visual Studio Code.
+1. In your terminal or PowerShell window, create a new local folder named `lab1-copilot-basics` inside your user home folder:
 
-2. Create a new empty folder named `lab1-copilot-basics` anywhere on your computer, and open it via **File** > **Open Folder**.
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/lab1-copilot-basics
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\lab1-copilot-basics" -Force
+```
+
+> [!NOTE]
+> Creating your lab folder directly inside your user home folder (`~/copilot-labs` or `$HOME\copilot-labs`) rather than on `Desktop` or in `Documents` avoids OneDrive or iCloud folder sync, which can lock Python `.venv` files and slow down or block `pip install`.
+
+2. Open Visual Studio Code, click **File** > **Open Folder** (or **File** > **Open...** on macOS), navigate to your user home folder, select `copilot-labs/lab1-copilot-basics`, and click **Open** (or **Select Folder** on Windows).
 
 3. In the VS Code Explorer pane, click the **New File** icon, type `.github/copilot-instructions.md` (including the slash), and press ENTER — VS Code automatically creates the `.github` folder and the file on both macOS and Windows. (Alternatively, create the folder from the terminal with `mkdir -p .github` on macOS or `mkdir .github -Force` in Windows PowerShell.)
 
@@ -150,18 +165,46 @@ Create or update a pytest test file in tests/ for the specified Python file:
 /add-tests credit_rules.py
 ```
 
-5. Once Copilot creates the test file, open the VS Code terminal (**Terminal** > **New Terminal**) and run the command for your operating system to create a virtual environment, install `pytest`, `pandas`, and `numpy`, and execute the test suite:
+5. Once Copilot creates the test file, open the VS Code terminal (**Terminal** > **New Terminal**) and create a `.venv` virtual environment:
 
 **macOS / Linux:**
 
 ```bash
-python3 -m venv --clear .venv && .venv/bin/python -m pip install -q pytest pandas numpy && .venv/bin/python -m pytest -v
+python3 -m venv .venv
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q pytest pandas numpy; .\.venv\Scripts\python -m pytest -v
+python -m venv .venv
+```
+
+6. Install `pytest`, `pandas`, and `numpy` inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install pytest pandas numpy
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install pytest pandas numpy
+```
+
+7. Execute the `pytest` test suite:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pytest -v
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pytest -v
 ```
 
 > [!NOTE]

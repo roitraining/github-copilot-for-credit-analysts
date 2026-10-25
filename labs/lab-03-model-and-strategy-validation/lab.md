@@ -26,9 +26,24 @@ A colleague used a generic AI prompt to draft a 60-day delinquency model and rep
 
 In this task, you open an empty folder in VS Code, create `schema.md` and a synthetic credit modeling dataset, audit an intentionally leaky script using `/explain`, and use `/fix` to convert it into a leak-free `scikit-learn` `Pipeline`.
 
-1. Open Visual Studio Code.
+1. In your terminal or PowerShell window, create a new local folder named `lab3-validation` inside your user home folder:
 
-2. Create a new empty folder named `lab3-validation` on your computer and open it via **File** > **Open Folder**.
+**macOS / Linux:**
+
+```bash
+mkdir -p ~/copilot-labs/lab3-validation
+```
+
+**Windows (PowerShell):**
+
+```powershell
+mkdir "$HOME\copilot-labs\lab3-validation" -Force
+```
+
+> [!NOTE]
+> Creating your lab folder directly inside your user home folder (`~/copilot-labs` or `$HOME\copilot-labs`) rather than on `Desktop` or in `Documents` avoids OneDrive or iCloud folder sync, which can lock Python `.venv` files and slow down or block `pip install`.
+
+2. Open Visual Studio Code, click **File** > **Open Folder** (or **File** > **Open...** on macOS), navigate to your user home folder, select `copilot-labs/lab3-validation`, and click **Open** (or **Select Folder** on Windows).
 
 3. Create a file named `schema.md` in `lab3-validation` and paste the following schema definition:
 
@@ -57,21 +72,49 @@ Using #file schema.md, create make_modeling_data.py using pandas and numpy (seed
 - Set post_decision_dpd strongly correlated with default_60d so it acts as a post-decision leak if accidentally included.
 ```
 
-6. Run the command for your operating system in your VS Code terminal to create a virtual environment, install the required libraries, and generate `modeling_data.csv`:
+6. Open the VS Code terminal (**Terminal** > **New Terminal**) and create a `.venv` virtual environment:
 
 **macOS / Linux:**
 
 ```bash
-python3 -m venv --clear .venv && .venv/bin/python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest ipykernel && .venv/bin/python make_modeling_data.py
+python3 -m venv .venv
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv --clear .venv; .\.venv\Scripts\python -m pip install -q scikit-learn pandas numpy matplotlib seaborn pytest ipykernel; .\.venv\Scripts\python make_modeling_data.py
+python -m venv .venv
 ```
 
-7. Next, create a file named `leaky_train.py` and paste this intentionally flawed script:
+7. Install the required libraries inside the virtual environment:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python -m pip install scikit-learn pandas numpy matplotlib seaborn pytest ipykernel
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python -m pip install scikit-learn pandas numpy matplotlib seaborn pytest ipykernel
+```
+
+8. Run `make_modeling_data.py` to generate `modeling_data.csv`:
+
+**macOS / Linux:**
+
+```bash
+.venv/bin/python make_modeling_data.py
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\python make_modeling_data.py
+```
+
+9. Next, create a file named `leaky_train.py` and paste this intentionally flawed script:
 
 ```python
 import pandas as pd
@@ -94,7 +137,7 @@ probs = clf.predict_proba(X_test)[:, 1]
 print(f"Test ROC AUC: {roc_auc_score(y_test, probs):.4f}")
 ```
 
-8. Run `leaky_train.py` in the terminal and notice the artificially inflated ROC AUC caused by the leaks:
+10. Run `leaky_train.py` in the terminal and notice the artificially inflated ROC AUC caused by the leaks:
 
 **macOS / Linux:**
 
@@ -108,7 +151,7 @@ print(f"Test ROC AUC: {roc_auc_score(y_test, probs):.4f}")
 .\.venv\Scripts\python leaky_train.py
 ```
 
-9. Select all lines in `leaky_train.py`, open Copilot Chat, attach `#file schema.md`, and run `/explain` to audit the code **before** making any edits:
+11. Select all lines in `leaky_train.py`, open Copilot Chat, attach `#file schema.md`, and run `/explain` to audit the code **before** making any edits:
 
 ```text
 /explain Using #file schema.md, audit this script for:
@@ -119,7 +162,7 @@ print(f"Test ROC AUC: {roc_auc_score(y_test, probs):.4f}")
 List each bug clearly. Do not rewrite the code yet.
 ```
 
-10. After reviewing Copilot’s audit list, use `/fix` (or prompt Agent mode) to create the clean pipeline in `train_pipeline.py`:
+12. After reviewing Copilot’s audit list, use `/fix` (or prompt Agent mode) to create the clean pipeline in `train_pipeline.py`:
 
 ```text
 Using #file schema.md, create train_pipeline.py that fixes all four issues from leaky_train.py:
@@ -130,7 +173,7 @@ Using #file schema.md, create train_pipeline.py that fixes all four issues from 
 5. Fit on train only, predict probabilities on test, and print train count, test count, and holdout ROC AUC.
 ```
 
-11. Run `train_pipeline.py` in the terminal and observe the realistic, leak-free holdout ROC AUC:
+13. Run `train_pipeline.py` in the terminal and observe the realistic, leak-free holdout ROC AUC:
 
 **macOS / Linux:**
 
