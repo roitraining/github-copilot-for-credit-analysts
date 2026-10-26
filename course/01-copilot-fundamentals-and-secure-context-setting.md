@@ -459,7 +459,7 @@ description: Audits credit datasets for sentinel codes, charged-off denominator 
 # Chapter 1: Hands-On Lab
 
 - Lab: [Effective Prompting and Context Engineering](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-01-effective-prompting-and-context-engineering)
-- Direct Lab Link: [https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-01-effective-prompting-and-context-engineering/lab.md](https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-01-effective-prompting-and-context-engineering/lab.md)
+- Markdown: [https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-01-effective-prompting-and-context-engineering/lab.md](https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-01-effective-prompting-and-context-engineering/lab.md)
 - Time: 30 minutes
 ---
 # What You Learned

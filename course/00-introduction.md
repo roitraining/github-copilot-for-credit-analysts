@@ -62,5 +62,5 @@
 # Pre-Course Validation: Hands-On Lab
 
 - Lab: [Pre-Course Environment and GitHub Copilot Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-00-pre-course-validation)
-- Direct Lab Link: [https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-00-pre-course-validation/lab.md](https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-00-pre-course-validation/lab.md)
+- Markdown: [https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-00-pre-course-validation/lab.md](https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-00-pre-course-validation/lab.md)
 - Time: 15 minutes
