@@ -358,6 +358,7 @@ Rule: Cite only numbers present in metrics_output.json and decile_table.csv. Do 
 # Chapter 3: Hands-On Lab
 
 - Lab: [AI-Assisted Model and Strategy Validation](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-03-model-and-strategy-validation)
+- Direct Lab Link: [https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-03-model-and-strategy-validation/lab.md](https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-03-model-and-strategy-validation/lab.md)
 - Time: 30 minutes
 ---
 # What You Learned

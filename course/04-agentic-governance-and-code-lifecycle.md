@@ -312,6 +312,7 @@ Generate AUDIT_EVIDENCE.md with:
 # Chapter 4: Hands-On Lab
 
 - Lab: [Agentic Governance and Automated Code Cleanup](https://labv.roitraining.com/?lab=https://github.com/roitraining/github-copilot-for-credit-analysts/tree/master/labs/lab-04-agentic-governance-and-code-cleanup)
+- Direct Lab Link: [https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-04-agentic-governance-and-code-cleanup/lab.md](https://github.com/roitraining/github-copilot-for-credit-analysts/blob/master/labs/lab-04-agentic-governance-and-code-cleanup/lab.md)
 - Time: 30 minutes
 ---
 # What You Learned
