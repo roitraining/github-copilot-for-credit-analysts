@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credit Approval Simulator</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5a6884;
+      --border: #d9e1f0;
+      --accent: #2b6de9;
+      --bar: #4f8cff;
+      --bar-bg: #e8eefc;
+      --danger-bg: #fff4e5;
+      --danger-border: #ffcc80;
+      --danger-text: #7a4a00;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    }
+
+    h1, h2 {
+      margin: 0 0 12px;
+      font-weight: 600;
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.1rem; }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .control {
+      display: grid;
+      gap: 6px;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .value-pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      min-width: 72px;
+      text-align: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .upload-wrap {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .upload-label {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      background: #eef4ff;
+    }
+
+    .upload-label:hover {
+      background: #e5efff;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    #fileName {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .banner {
+      border: 1px solid var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .kpi-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      background: #fcfdff;
+    }
+
+    .kpi-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .kpi-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+      padding: 8px 10px;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: #fafcff;
+    }
+
+    .chart {
+      display: grid;
+      gap: 10px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 72px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .bar-track {
+      height: 18px;
+      border-radius: 999px;
+      background: var(--bar-bg);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #669eff, var(--bar));
+      width: 0;
+      transition: width 120ms ease-in;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 800px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-row {
+        grid-template-columns: 100px 1fr 64px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Credit Approval Simulator</h1>
+
+    <div class="panel">
+      <div class="upload-wrap">
+        <label class="upload-label" for="fileInput">Upload sample_accounts.csv</label>
+        <input id="fileInput" type="file" accept=".csv,text/csv">
+        <span id="fileName" class="muted">No file uploaded.</span>
+      </div>
+      <div id="policyBanner" class="banner"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Policy Cutoffs</h2>
+      <div class="controls-grid">
+        <div class="control">
+          <div class="control-row">
+            <label for="utilizationCutoff">Max Utilization Cutoff</label>
+            <span id="utilizationValue" class="value-pill">0.75</span>
+          </div>
+          <input id="utilizationCutoff" type="range" min="0.10" max="1.00" step="0.05" value="0.75">
+        </div>
+
+        <div class="control">
+          <div class="control-row">
+            <label for="dpdCutoff">Max Delinquency Days Cutoff</label>
+            <span id="dpdValue" class="value-pill">30</span>
+          </div>
+          <input id="dpdCutoff" type="range" min="0" max="90" step="15" value="30">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Key Metrics</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Active Valid Accounts</div>
+          <div id="kpiActive" class="kpi-value">0</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Approval Rate (%)</div>
+          <div id="kpiApprovalRate" class="kpi-value">0.00%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">30+ DPD Bad Rate (%) among Approved</div>
+          <div id="kpiBadRate" class="kpi-value">0.00%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Summary by Risk Band</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Risk Band</th>
+            <th>Active Count</th>
+            <th>Approved Count</th>
+            <th>Approval Rate (%)</th>
+            <th>Mean Balance (USD)</th>
+            <th>Approved 30+ DPD Rate (%)</th>
+          </tr>
+        </thead>
+        <tbody id="summaryTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>Approval Rate by Risk Band</h2>
+      <div id="approvalChart" class="chart"></div>
+    </div>
+  </div>
+
+  <script>
+    const bands = ["Prime", "Near-Prime", "Subprime"];
+    let uploadedRows = [];
+    let activeValidRows = [];
+    let excludedCount = 0;
+
+    const fileInput = document.getElementById("fileInput");
+    const fileName = document.getElementById("fileName");
+    const policyBanner = document.getElementById("policyBanner");
+
+    const utilizationCutoff = document.getElementById("utilizationCutoff");
+    const dpdCutoff = document.getElementById("dpdCutoff");
+    const utilizationValue = document.getElementById("utilizationValue");
+    const dpdValue = document.getElementById("dpdValue");
+
+    const kpiActive = document.getElementById("kpiActive");
+    const kpiApprovalRate = document.getElementById("kpiApprovalRate");
+    const kpiBadRate = document.getElementById("kpiBadRate");
+
+    const summaryTableBody = document.getElementById("summaryTableBody");
+    const approvalChart = document.getElementById("approvalChart");
+
+    function parseCsv(text) {
+      const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+      if (lines.length < 2) {
+        return [];
+      }
+
+      const headers = lines[0].split(",").map((h) => h.trim());
+      return lines.slice(1).map((line) => {
+        const raw = line.split(",");
+        const row = {};
+        headers.forEach((header, idx) => {
+          row[header] = (raw[idx] ?? "").trim();
+        });
+        return {
+          account_id: row.account_id,
+          risk_band: row.risk_band,
+          status: row.status,
+          balance: Number(row.balance),
+          credit_limit: Number(row.credit_limit),
+          utilization: row.utilization === "" ? NaN : Number(row.utilization),
+          delinquency_days: Number(row.delinquency_days)
+        };
+      });
+    }
+
+    function formatPct(value) {
+      return `${value.toFixed(2)}%`;
+    }
+
+    function formatUsd(value) {
+      return value.toLocaleString(undefined, { maximumFractionDigits: 0 });
+    }
+
+    function safeRate(numerator, denominator) {
+      if (denominator === 0) {
+        return 0;
+      }
+      return (numerator / denominator) * 100;
+    }
+
+    function applyPolicyFilter() {
+      excludedCount = 0;
+      activeValidRows = uploadedRows.filter((row) => {
+        const excluded = row.status === "charged_off" || row.delinquency_days > 365;
+        if (excluded) {
+          excludedCount += 1;
+        }
+        return !excluded;
+      });
+    }
+
+    function computeApproved(rows, utilCutoff, maxDpd) {
+      return rows.filter(
+        (row) => Number.isFinite(row.utilization)
+          && row.utilization <= utilCutoff
+          && row.delinquency_days <= maxDpd
+      );
+    }
+
+    function renderKpis(approvedRows) {
+      const activeCount = activeValidRows.length;
+      const approvedCount = approvedRows.length;
+      const badApprovedCount = approvedRows.filter((row) => row.delinquency_days >= 30).length;
+
+      kpiActive.textContent = String(activeCount);
+      kpiApprovalRate.textContent = formatPct(safeRate(approvedCount, activeCount));
+      kpiBadRate.textContent = formatPct(safeRate(badApprovedCount, approvedCount));
+    }
+
+    function summarizeByBand(approvedRows) {
+      const approvedSet = new Set(approvedRows.map((row) => row.account_id));
+
+      return bands.map((band) => {
+        const activeBandRows = activeValidRows.filter((row) => row.risk_band === band);
+        const approvedBandRows = activeBandRows.filter((row) => approvedSet.has(row.account_id));
+        const approvedBadBandRows = approvedBandRows.filter((row) => row.delinquency_days >= 30);
+
+        const meanBalance = activeBandRows.length === 0
+          ? 0
+          : activeBandRows.reduce((sum, row) => sum + row.balance, 0) / activeBandRows.length;
+
+        return {
+          riskBand: band,
+          activeCount: activeBandRows.length,
+          approvedCount: approvedBandRows.length,
+          approvalRate: safeRate(approvedBandRows.length, activeBandRows.length),
+          meanBalance,
+          approvedBadRate: safeRate(approvedBadBandRows.length, approvedBandRows.length)
+        };
+      });
+    }
+
+    function renderSummaryTable(summaryRows) {
+      summaryTableBody.innerHTML = "";
+      summaryRows.forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.riskBand}</td>
+          <td>${row.activeCount}</td>
+          <td>${row.approvedCount}</td>
+          <td>${formatPct(row.approvalRate)}</td>
+          <td>${formatUsd(Math.round(row.meanBalance))}</td>
+          <td>${formatPct(row.approvedBadRate)}</td>
+        `;
+        summaryTableBody.appendChild(tr);
+      });
+    }
+
+    function renderApprovalChart(summaryRows) {
+      approvalChart.innerHTML = "";
+      summaryRows.forEach((row) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "bar-row";
+        wrapper.innerHTML = `
+          <div>${row.riskBand}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${Math.max(0, Math.min(100, row.approvalRate)).toFixed(2)}%"></div>
+          </div>
+          <div>${formatPct(row.approvalRate)}</div>
+        `;
+        approvalChart.appendChild(wrapper);
+      });
+    }
+
+    function renderPolicyBanner() {
+      if (uploadedRows.length === 0) {
+        policyBanner.style.display = "none";
+        return;
+      }
+      policyBanner.style.display = "block";
+      policyBanner.textContent = `Team policy excluded ${excludedCount} of ${uploadedRows.length} rows (status = charged_off or delinquency_days > 365).`;
+    }
+
+    function recomputeAndRender() {
+      utilizationValue.textContent = Number(utilizationCutoff.value).toFixed(2);
+      dpdValue.textContent = String(Number(dpdCutoff.value));
+
+      const approvedRows = computeApproved(
+        activeValidRows,
+        Number(utilizationCutoff.value),
+        Number(dpdCutoff.value)
+      );
+      renderKpis(approvedRows);
+      const summaryRows = summarizeByBand(approvedRows);
+      renderSummaryTable(summaryRows);
+      renderApprovalChart(summaryRows);
+      renderPolicyBanner();
+    }
+
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
+      }
+
+      fileName.textContent = file.name;
+      const reader = new FileReader();
+      reader.onload = () => {
+        uploadedRows = parseCsv(String(reader.result ?? ""));
+        applyPolicyFilter();
+        recomputeAndRender();
+      };
+      reader.readAsText(file);
+    });
+
+    utilizationCutoff.addEventListener("input", recomputeAndRender);
+    dpdCutoff.addEventListener("input", recomputeAndRender);
+
+    recomputeAndRender();
+  </script>
+</body>
+</html>

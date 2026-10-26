@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validation Dashboard</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent2: #f59e0b;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --grid: #334155;
+      --highlight: #a78bfa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #020617, var(--bg));
+      color: var(--text);
+      padding: 24px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: linear-gradient(180deg, #1f2937, #111827);
+      border: 1px solid #374151;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .kpi-label {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .kpi-sub {
+      margin-top: 6px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    h1, h2 {
+      margin: 0 0 12px 0;
+      font-weight: 700;
+    }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; color: #f8fafc; }
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    #tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: rgba(2, 6, 23, 0.96);
+      border: 1px solid #475569;
+      color: #f1f5f9;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.35;
+      display: none;
+      z-index: 10;
+      white-space: nowrap;
+    }
+    .chart-note {
+      color: #cbd5e1;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    th, td {
+      border-bottom: 1px solid #334155;
+      padding: 9px 8px;
+      text-align: right;
+      font-size: 13px;
+    }
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+    th {
+      background: #0b1220;
+      color: #cbd5e1;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .progress-wrap {
+      display: inline-flex;
+      align-items: center;
+      width: 180px;
+      gap: 8px;
+    }
+    .progress {
+      width: 120px;
+      height: 10px;
+      background: #1e293b;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .progress > span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+    }
+    .bad-bar { background: linear-gradient(90deg, #f97316, #ef4444); }
+    .capture-bar { background: linear-gradient(90deg, #06b6d4, #22c55e); }
+    .legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <h1>Model Validation Dashboard</h1>
+      <div class="subtitle">Embedded holdout metrics and decile outputs from model validation artifacts.</div>
+    </div>
+
+    <section class="kpi-grid" id="kpis"></section>
+
+    <section class="panel">
+      <h2>Cumulative Capture by Decile</h2>
+      <svg id="ksChart" viewBox="0 0 980 360" width="100%" height="360" role="img" aria-label="Cumulative bad and good capture by decile"></svg>
+      <div class="legend">
+        <span><span class="dot" style="background: var(--accent);"></span>Cumulative Bad Capture</span>
+        <span><span class="dot" style="background: var(--accent2);"></span>Cumulative Good Capture</span>
+        <span><span class="dot" style="background: var(--highlight);"></span>Max KS Separation</span>
+      </div>
+      <div class="chart-note" id="ksNote"></div>
+    </section>
+
+    <section class="panel">
+      <h2>10-Bin Decile Capture Table</h2>
+      <div style="overflow-x:auto;">
+        <table id="decileTable">
+          <thead>
+            <tr>
+              <th>Decile</th>
+              <th>Account Count</th>
+              <th>Bad Count</th>
+              <th>Actual Bad Rate (%)</th>
+              <th>Mean Predicted Prob</th>
+              <th>Cumulative Bad Capture (%)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <div id="tooltip"></div>
+
+  <script>
+    const metrics = {
+      train_rows: 751,
+      test_rows: 249,
+      roc_auc: 0.7794670846394984,
+      ks: 0.5021943573667712,
+      brier_score: 0.09188261281696718
+    };
+
+    const decileData = [
+      { decile: 1, account_count: 25, bad_count: 9, actual_bad_rate: 0.36, mean_predicted_prob: 0.29614707976776145, cum_bad_capture_rate: 0.3103448275862069 },
+      { decile: 2, account_count: 25, bad_count: 7, actual_bad_rate: 0.28, mean_predicted_prob: 0.20559958823533045, cum_bad_capture_rate: 0.5517241379310345 },
+      { decile: 3, account_count: 25, bad_count: 3, actual_bad_rate: 0.12, mean_predicted_prob: 0.15171173860591533, cum_bad_capture_rate: 0.6551724137931034 },
+      { decile: 4, account_count: 25, bad_count: 4, actual_bad_rate: 0.16, mean_predicted_prob: 0.12004036838809196, cum_bad_capture_rate: 0.7931034482758621 },
+      { decile: 5, account_count: 25, bad_count: 3, actual_bad_rate: 0.12, mean_predicted_prob: 0.0872628340662902, cum_bad_capture_rate: 0.896551724137931 },
+      { decile: 6, account_count: 25, bad_count: 0, actual_bad_rate: 0.0, mean_predicted_prob: 0.06420630522014671, cum_bad_capture_rate: 0.896551724137931 },
+      { decile: 7, account_count: 25, bad_count: 1, actual_bad_rate: 0.04, mean_predicted_prob: 0.050040606641864036, cum_bad_capture_rate: 0.9310344827586207 },
+      { decile: 8, account_count: 25, bad_count: 0, actual_bad_rate: 0.0, mean_predicted_prob: 0.03806383317235808, cum_bad_capture_rate: 0.9310344827586207 },
+      { decile: 9, account_count: 25, bad_count: 2, actual_bad_rate: 0.08, mean_predicted_prob: 0.029937076328705556, cum_bad_capture_rate: 1.0 },
+      { decile: 10, account_count: 24, bad_count: 0, actual_bad_rate: 0.0, mean_predicted_prob: 0.02169001551242385, cum_bad_capture_rate: 1.0 }
+    ];
+
+    const fmtPct = (x, d = 1) => `${(x * 100).toFixed(d)}%`;
+    const fmtNum = (x, d = 4) => Number(x).toFixed(d);
+
+    function renderKpis() {
+      const kpis = [
+        { label: "Holdout ROC AUC", value: fmtNum(metrics.roc_auc, 4), sub: "" },
+        { label: "Holdout KS Statistic", value: fmtNum(metrics.ks, 4), sub: "" },
+        { label: "Brier Score", value: fmtNum(metrics.brier_score, 4), sub: "" },
+        { label: "Train / Test Rows", value: `${metrics.train_rows} / ${metrics.test_rows}`, sub: "train_rows / test_rows" }
+      ];
+      const root = document.getElementById("kpis");
+      root.innerHTML = kpis.map(k => `
+        <article class="card">
+          <div class="kpi-label">${k.label}</div>
+          <div class="kpi-value">${k.value}</div>
+          <div class="kpi-sub">${k.sub}</div>
+        </article>
+      `).join("");
+    }
+
+    function computeCumGoodCapture() {
+      const totalGood = decileData.reduce((s, r) => s + (r.account_count - r.bad_count), 0);
+      let cumGood = 0;
+      return decileData.map(r => {
+        cumGood += (r.account_count - r.bad_count);
+        return cumGood / totalGood;
+      });
+    }
+
+    function renderChart() {
+      const svg = document.getElementById("ksChart");
+      const tooltip = document.getElementById("tooltip");
+      const W = 980, H = 360;
+      const pad = { l: 70, r: 22, t: 20, b: 46 };
+      const w = W - pad.l - pad.r;
+      const h = H - pad.t - pad.b;
+
+      const x = d => pad.l + ((d - 1) / 9) * w;
+      const y = v => pad.t + (1 - v) * h;
+
+      const cumBad = decileData.map(d => d.cum_bad_capture_rate);
+      const cumGood = computeCumGoodCapture();
+      const ksDiff = cumBad.map((b, i) => Math.abs(b - cumGood[i]));
+      const maxIdx = ksDiff.indexOf(Math.max(...ksDiff));
+
+      const grid = [];
+      for (let i = 0; i <= 10; i += 1) {
+        const yy = y(i / 10);
+        grid.push(`<line x1="${pad.l}" y1="${yy}" x2="${W - pad.r}" y2="${yy}" stroke="var(--grid)" stroke-width="1" />`);
+        grid.push(`<text x="${pad.l - 10}" y="${yy + 4}" fill="#94a3b8" font-size="11" text-anchor="end">${i * 10}%</text>`);
+      }
+      for (let d = 1; d <= 10; d += 1) {
+        const xx = x(d);
+        grid.push(`<line x1="${xx}" y1="${pad.t}" x2="${xx}" y2="${H - pad.b}" stroke="#1f2937" stroke-width="1" />`);
+        grid.push(`<text x="${xx}" y="${H - 18}" fill="#94a3b8" font-size="12" text-anchor="middle">${d}</text>`);
+      }
+
+      const pathFor = (arr, color) => {
+        const d = arr.map((v, i) => `${i === 0 ? "M" : "L"} ${x(i + 1)} ${y(v)}`).join(" ");
+        return `<path d="${d}" fill="none" stroke="${color}" stroke-width="3" />`;
+      };
+
+      const pointFor = (arr, color, label) => arr.map((v, i) => {
+        const cx = x(i + 1), cy = y(v);
+        return `<circle class="pt" data-kind="${label}" data-decile="${i + 1}" data-value="${v}" cx="${cx}" cy="${cy}" r="5" fill="${color}" stroke="#0b1220" stroke-width="1.5" />`;
+      }).join("");
+
+      const ksX = x(maxIdx + 1);
+      const ksY1 = y(cumBad[maxIdx]);
+      const ksY2 = y(cumGood[maxIdx]);
+
+      svg.innerHTML = `
+        <rect x="0" y="0" width="${W}" height="${H}" fill="#0b1220" rx="8" />
+        ${grid.join("")}
+        <line x1="${pad.l}" y1="${H - pad.b}" x2="${W - pad.r}" y2="${H - pad.b}" stroke="#64748b" stroke-width="1.5" />
+        <line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H - pad.b}" stroke="#64748b" stroke-width="1.5" />
+        <text x="${W / 2}" y="${H - 4}" fill="#cbd5e1" font-size="12" text-anchor="middle">Decile (1 = Highest Risk)</text>
+        <text x="16" y="${H / 2}" fill="#cbd5e1" font-size="12" transform="rotate(-90 16 ${H / 2})" text-anchor="middle">Cumulative Capture</text>
+        ${pathFor(cumBad, "var(--accent)")}
+        ${pathFor(cumGood, "var(--accent2)")}
+        <line x1="${ksX}" y1="${ksY1}" x2="${ksX}" y2="${ksY2}" stroke="var(--highlight)" stroke-width="4" stroke-dasharray="5 4" />
+        <text x="${ksX + 8}" y="${(ksY1 + ksY2) / 2 - 6}" fill="#ddd6fe" font-size="12">Max KS ${(ksDiff[maxIdx]).toFixed(4)}</text>
+        ${pointFor(cumBad, "var(--accent)", "Bad Capture")}
+        ${pointFor(cumGood, "var(--accent2)", "Good Capture")}
+      `;
+
+      document.getElementById("ksNote").textContent =
+        `Maximum KS separation occurs at decile ${maxIdx + 1}: ` +
+        `Bad Capture ${fmtPct(cumBad[maxIdx], 2)} vs Good Capture ${fmtPct(cumGood[maxIdx], 2)} ` +
+        `(difference ${(ksDiff[maxIdx] * 100).toFixed(2)}%).`;
+
+      svg.querySelectorAll(".pt").forEach(el => {
+        el.addEventListener("mousemove", ev => {
+          const decile = el.getAttribute("data-decile");
+          const kind = el.getAttribute("data-kind");
+          const value = Number(el.getAttribute("data-value"));
+          tooltip.style.display = "block";
+          tooltip.style.left = `${ev.clientX + 12}px`;
+          tooltip.style.top = `${ev.clientY + 12}px`;
+          tooltip.innerHTML = `<strong>${kind}</strong><br/>Decile ${decile}<br/>${fmtPct(value, 2)}`;
+        });
+        el.addEventListener("mouseleave", () => {
+          tooltip.style.display = "none";
+        });
+      });
+    }
+
+    function renderTable() {
+      const tbody = document.querySelector("#decileTable tbody");
+      tbody.innerHTML = decileData.map(r => {
+        const badPct = r.actual_bad_rate * 100;
+        const capturePct = r.cum_bad_capture_rate * 100;
+        return `
+          <tr>
+            <td>${r.decile}</td>
+            <td>${r.account_count}</td>
+            <td>${r.bad_count}</td>
+            <td>
+              <span class="progress-wrap">
+                <span class="progress"><span class="bad-bar" style="width:${Math.max(0, Math.min(100, badPct))}%"></span></span>
+                <span>${badPct.toFixed(2)}%</span>
+              </span>
+            </td>
+            <td>${fmtNum(r.mean_predicted_prob, 6)}</td>
+            <td>
+              <span class="progress-wrap">
+                <span class="progress"><span class="capture-bar" style="width:${Math.max(0, Math.min(100, capturePct))}%"></span></span>
+                <span>${capturePct.toFixed(2)}%</span>
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    renderKpis();
+    renderChart();
+    renderTable();
+  </script>
+</body>
+</html>

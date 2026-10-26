@@ -1,0 +1,10 @@
+data roll_flags;
+  set credit.portfolio_history;
+  where status ne 'charged_off' and dpd <= 365;
+  util_ratio = balance / credit_limit;
+  if dpd >= 30 then dlq_30_flag = 1;
+  else dlq_30_flag = 0;
+  if utilization < 0.30 then util_tier = 'Low';
+  else if utilization <= 0.75 then util_tier = 'Medium';
+  else util_tier = 'High';
+run;

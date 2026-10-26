@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSV Stats</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      margin: 2rem;
+      line-height: 1.4;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .controls {
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.55rem 0.9rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    #summary {
+      margin: 0.75rem 0 1rem;
+      font-weight: 600;
+    }
+    table {
+      border-collapse: collapse;
+      min-width: 760px;
+      max-width: 100%;
+    }
+    th, td {
+      border: 1px solid #8a8a8a;
+      padding: 0.5rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: rgba(127, 127, 127, 0.2);
+    }
+    td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .hint {
+      margin-top: 0.75rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSV Column Statistics</h1>
+  <div class="controls">
+    <button id="uploadBtn" type="button">Upload CSV</button>
+    <input id="fileInput" type="file" accept=".csv,text/csv" hidden />
+  </div>
+  <div id="summary">No file loaded.</div>
+  <table aria-label="CSV stats table">
+    <thead>
+      <tr>
+        <th>Column</th>
+        <th>Missing Values</th>
+        <th>Numeric?</th>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Mean</th>
+      </tr>
+    </thead>
+    <tbody id="statsBody">
+      <tr><td colspan="6">Upload a CSV file to see results.</td></tr>
+    </tbody>
+  </table>
+  <div class="hint">Missing means empty cells. Numeric stats ignore missing values.</div>
+
+  <script>
+    const uploadBtn = document.getElementById("uploadBtn");
+    const fileInput = document.getElementById("fileInput");
+    const summary = document.getElementById("summary");
+    const statsBody = document.getElementById("statsBody");
+
+    uploadBtn.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const text = await file.text();
+      const records = parseCsv(text);
+      if (records.length === 0) {
+        renderError("CSV appears to be empty.");
+        return;
+      }
+
+      const headers = records[0].map((h) => h.trim());
+      const dataRows = records.slice(1).filter((row) => row.some((cell) => String(cell).trim() !== ""));
+
+      summary.textContent = `Row count: ${dataRows.length}`;
+      renderStats(headers, dataRows);
+    });
+
+    function renderError(message) {
+      summary.textContent = message;
+      statsBody.innerHTML = "";
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 6;
+      td.textContent = message;
+      tr.appendChild(td);
+      statsBody.appendChild(tr);
+    }
+
+    function renderStats(headers, rows) {
+      statsBody.innerHTML = "";
+
+      headers.forEach((header, colIndex) => {
+        let missing = 0;
+        const nonMissingValues = [];
+
+        rows.forEach((row) => {
+          const value = (row[colIndex] ?? "").trim();
+          if (value === "") {
+            missing += 1;
+          } else {
+            nonMissingValues.push(value);
+          }
+        });
+
+        const numericValues = [];
+        let isNumeric = nonMissingValues.length > 0;
+        for (const value of nonMissingValues) {
+          const n = Number(value);
+          if (!Number.isFinite(n)) {
+            isNumeric = false;
+            break;
+          }
+          numericValues.push(n);
+        }
+
+        const tr = document.createElement("tr");
+        tr.appendChild(cell(header));
+        tr.appendChild(cell(String(missing), true));
+        tr.appendChild(cell(isNumeric ? "Yes" : "No"));
+
+        if (isNumeric && numericValues.length > 0) {
+          const min = Math.min(...numericValues);
+          const max = Math.max(...numericValues);
+          const mean = numericValues.reduce((sum, v) => sum + v, 0) / numericValues.length;
+          tr.appendChild(cell(formatNumber(min), true));
+          tr.appendChild(cell(formatNumber(max), true));
+          tr.appendChild(cell(formatNumber(mean), true));
+        } else {
+          tr.appendChild(cell("—"));
+          tr.appendChild(cell("—"));
+          tr.appendChild(cell("—"));
+        }
+
+        statsBody.appendChild(tr);
+      });
+    }
+
+    function cell(text, numeric = false) {
+      const td = document.createElement("td");
+      td.textContent = text;
+      if (numeric) td.className = "num";
+      return td;
+    }
+
+    function formatNumber(value) {
+      return Number.isInteger(value) ? String(value) : value.toFixed(2);
+    }
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let value = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i += 1) {
+        const c = text[i];
+
+        if (inQuotes) {
+          if (c === '"') {
+            if (text[i + 1] === '"') {
+              value += '"';
+              i += 1;
+            } else {
+              inQuotes = false;
+            }
+          } else {
+            value += c;
+          }
+          continue;
+        }
+
+        if (c === '"') {
+          inQuotes = true;
+        } else if (c === ",") {
+          row.push(value);
+          value = "";
+        } else if (c === "\n") {
+          row.push(value);
+          rows.push(row);
+          row = [];
+          value = "";
+        } else if (c === "\r") {
+          // Ignore carriage return.
+        } else {
+          value += c;
+        }
+      }
+
+      if (value.length > 0 || row.length > 0) {
+        row.push(value);
+        rows.push(row);
+      }
+
+      return rows;
+    }
+  </script>
+</body>
+</html>

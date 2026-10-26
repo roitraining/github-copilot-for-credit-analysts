@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MRM Governance Portal</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --muted: #94a3b8;
+      --border: #334155;
+      --text: #e5e7eb;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow: rgba(15, 23, 42, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 0.95rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 10px 18px var(--shadow);
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .value {
+      font-size: clamp(1.2rem, 2vw, 1.9rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .status-good { color: var(--accent-2); }
+    .status-warning { color: var(--warning); }
+    .status-danger { color: var(--danger); }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px 10px 0 0;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #06213d;
+      border-color: var(--accent);
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 0 12px 12px 12px;
+      padding: 20px;
+      box-shadow: 0 10px 18px var(--shadow);
+    }
+
+    .panel[hidden] { display: none; }
+
+    h2, h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .model-card {
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .model-card h3 {
+      margin-top: 18px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+
+    .model-card ul {
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(148, 163, 184, 0.08);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .signoff {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr);
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"], input[type="number"], input[type="datetime-local"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text);
+    }
+
+    .checkbox-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px 18px;
+      margin-top: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(148, 163, 184, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    input[type="checkbox"] {
+      accent-color: var(--accent-2);
+      width: 18px;
+      height: 18px;
+    }
+
+    button.primary {
+      background: var(--accent-2);
+      color: #06213d;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .stats, .signoff {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1 class="title">MRM Governance Portal</h1>
+        <div class="subtitle">Grounded evidence from the rolling monitoring refactor and pytest verification log.</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="card">
+        <span class="label">Pytest Suite Status</span>
+        <div id="pytestStatus" class="value status-good">6 passed in 0.26s</div>
+      </div>
+      <div class="card">
+        <span class="label">Active Runtime Guards Count</span>
+        <div id="guardCount" class="value status-warning">5</div>
+      </div>
+      <div class="card">
+        <span class="label">MRM Status</span>
+        <div class="value status-warning">TODO: Pending Human Sign-Off</div>
+      </div>
+    </div>
+
+    <div class="tabs" aria-label="Governance tabs">
+      <button class="tab-btn active" data-tab="model-card">Grounded Model Card</button>
+      <button class="tab-btn" data-tab="guards">Defensive Assertions</button>
+      <button class="tab-btn" data-tab="pytest">Pytest Verification</button>
+      <button class="tab-btn" data-tab="signoff">Human Sign-Off</button>
+    </div>
+
+    <div id="model-card" class="panel">
+      <div class="model-card">
+        <h2>Model Card: monitoring_rollup</h2>
+
+        <h3>1. Module Overview and Intended Use</h3>
+        <ul>
+          <li><strong>Primary Function</strong>: Monthly delinquency rollup for monitoring data, computed from the account-level input frame and aggregated to the <code>(perf_month, risk_band)</code> grain.</li>
+          <li><strong>Output Grain</strong>: <code>perf_month</code>, <code>risk_band</code>, <code>active_accounts</code>, <code>mean_balance</code>, and <code>dlq_30_rate</code>.</li>
+        </ul>
+
+        <h3>2. Input Schema and Exclusion Rules</h3>
+        <ul>
+          <li><strong>Required Columns</strong>: <code>account_id</code>, <code>perf_month</code>, <code>risk_band</code>, <code>status</code>, <code>balance</code>, and <code>dpd</code>.</li>
+          <li><strong>Charged-Off and Sentinel Exclusions</strong>: Rows with <code>status == 'charged_off'</code> are excluded before aggregation, and rows with <code>dpd > 365</code> are also excluded. The remaining rows are used to compute <code>active_accounts</code>, <code>mean_balance</code>, and <code>dlq_30_rate</code>; <code>bad_30</code> is defined as <code>dpd >= 30</code>.</li>
+        </ul>
+
+        <h3>3. Runtime Guards and Test Verification</h3>
+        <ul>
+          <li><strong>Defensive ValueError Guards</strong>:
+            <ul>
+              <li><code>Missing required columns: {missing_cols}</code> when required columns are missing.</li>
+              <li><code>Input DataFrame is empty</code> when the input DataFrame is empty.</li>
+              <li><code>Duplicate (account_id, perf_month) keys found</code> when duplicate <code>(account_id, perf_month)</code> keys are present.</li>
+              <li><code>Zero active valid rows after filtering status == 'charged_off' and dpd > 365</code> when no rows remain after applying the active-valid filter.</li>
+              <li><code>Invalid dlq_30_rate detected; values must be within [0.0, 1.0]</code> when any output <code>dlq_30_rate</code> value is missing or outside <code>[0.0, 1.0]</code>.</li>
+            </ul>
+          </li>
+          <li><strong>Pytest Suite Summary</strong>: <code>6 passed in 0.26s</code> from the recorded pytest run log.</li>
+        </ul>
+
+        <h3>4. Governance and Policy Sign-Off</h3>
+        <ul>
+          <li><strong>Production Alert Threshold</strong>: TODO (Human Policy Owner)</li>
+          <li><strong>Model Risk Reviewer</strong>: TODO (Human Reviewer)</li>
+          <li><strong>Approval Status</strong>: TODO: Pending Human Sign-Off</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="guards" class="panel" hidden>
+      <h2>Defensive Assertions Inventory</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Guard / Function</th>
+            <th>Condition</th>
+            <th>ValueError message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>validators.py</td>
+            <td>validate_monitoring_inputs</td>
+            <td>Missing required columns</td>
+            <td><code>Missing required columns: {missing_cols}</code></td>
+          </tr>
+          <tr>
+            <td>validators.py</td>
+            <td>validate_monitoring_inputs</td>
+            <td>DataFrame is empty</td>
+            <td><code>Input DataFrame is empty</code></td>
+          </tr>
+          <tr>
+            <td>validators.py</td>
+            <td>validate_monitoring_inputs</td>
+            <td>Duplicate <code>(account_id, perf_month)</code> keys</td>
+            <td><code>Duplicate (account_id, perf_month) keys found</code></td>
+          </tr>
+          <tr>
+            <td>validators.py</td>
+            <td>validate_monitoring_inputs</td>
+            <td>No rows remain after filtering <code>status != 'charged_off'</code> and <code>dpd <= 365</code></td>
+            <td><code>Zero active valid rows after filtering status == 'charged_off' and dpd > 365</code></td>
+          </tr>
+          <tr>
+            <td>validators.py</td>
+            <td>validate_rollup_outputs</td>
+            <td>Any <code>dlq_30_rate</code> value is missing or outside <code>[0.0, 1.0]</code></td>
+            <td><code>Invalid dlq_30_rate detected; values must be within [0.0, 1.0]</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="pytest" class="panel" hidden>
+      <h2>Pytest Verification</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Test Case</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>test_rollup.py::test_compute_monthly_rollup_expected_values</code></td><td>PASSED</td></tr>
+          <tr><td><code>test_rollup.py::test_compute_monthly_rollup_invalid_inputs[&lt;lambda&gt;-Missing required columns: {'dpd'}]</code></td><td>PASSED</td></tr>
+          <tr><td><code>test_rollup.py::test_compute_monthly_rollup_invalid_inputs[&lt;lambda&gt;-Input DataFrame is empty]</code></td><td>PASSED</td></tr>
+          <tr><td><code>test_rollup.py::test_compute_monthly_rollup_invalid_inputs[&lt;lambda&gt;-Duplicate \(account_id, perf_month\) keys found]</code></td><td>PASSED</td></tr>
+          <tr><td><code>test_rollup.py::test_compute_monthly_rollup_invalid_inputs[&lt;lambda&gt;-Zero active valid rows after filtering status == 'charged_off' and dpd > 365]</code></td><td>PASSED</td></tr>
+          <tr><td><code>test_rollup.py::test_validate_rollup_outputs_invalid_rate_raises</code></td><td>PASSED</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top: 18px; font-size: 1.1rem; font-weight: 700; color: var(--accent-2);">Pytest Summary: 6 passed in 0.26s</div>
+    </div>
+
+    <div id="signoff" class="panel" hidden>
+      <h2>Human-in-the-Loop Sign-Off</h2>
+      <form id="signoffForm">
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="checkbox" name="checklist" value="required-columns" /> Required columns validated</label>
+          <label class="checkbox-item"><input type="checkbox" name="checklist" value="empty-data" /> Empty data guard checked</label>
+          <label class="checkbox-item"><input type="checkbox" name="checklist" value="duplicate-keys" /> Duplicate key guard checked</label>
+          <label class="checkbox-item"><input type="checkbox" name="checklist" value="charged-off-filter" /> Charged-off / dpd filter checked</label>
+          <label class="checkbox-item"><input type="checkbox" name="checklist" value="bounded-rate" /> Rate bounds checked</label>
+          <label class="checkbox-item"><input type="checkbox" name="checklist" value="pytest-passed" /> Pytest suite passed</label>
+        </div>
+
+        <div class="signoff" style="margin-top: 18px;">
+          <div class="field">
+            <label for="reviewerName">Reviewer Name</label>
+            <input id="reviewerName" type="text" placeholder="Enter reviewer name" />
+          </div>
+          <div class="field">
+            <label for="threshold">Policy Alert Threshold</label>
+            <input id="threshold" type="number" step="0.01" min="0" value="0.0" />
+          </div>
+        </div>
+
+        <button type="button" class="primary" id="exportBtn">Export Signed MRM Evidence JSON</button>
+        <div class="footer-note">The exported JSON includes a UTC timestamp and the sign-off checklist state.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.toggle('active', t === tab));
+        panels.forEach((panel) => {
+          panel.hidden = panel.id !== tab.dataset.tab;
+        });
+      });
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const checklist = [...document.querySelectorAll('input[name="checklist"]:checked')].map((el) => el.value);
+      const reviewerName = document.getElementById('reviewerName').value.trim() || 'TODO';
+      const policyAlertThreshold = document.getElementById('threshold').value;
+      const timestamp = new Date().toISOString();
+
+      const payload = {
+        documentType: 'MRM Evidence Sign-Off',
+        timestamp,
+        reviewerName,
+        policyAlertThreshold: Number(policyAlertThreshold),
+        checklist,
+        pytestSuiteStatus: '6 passed in 0.26s',
+        activeRuntimeGuardsCount: 5,
+        mrmStatus: 'TODO: Pending Human Sign-Off'
+      };
+
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `signed_mrm_evidence_${timestamp.replace(/[:.]/g, '-')}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
